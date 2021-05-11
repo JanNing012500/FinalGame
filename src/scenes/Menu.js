@@ -1,3 +1,5 @@
+var flip;
+
 class Menu extends Phaser.Scene {
     constructor() {
         super('Menu');
@@ -11,14 +13,18 @@ class Menu extends Phaser.Scene {
     create() {
         
         // Variable to store the arrow key pressed
-        this.cursor = this.input.keyboard.createCursorKeys();
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+        // Number of consecutive jumps made
+        this.playerJumps = 0;
 
         // Create the player in the middle of the Menu Screen.
         this.player = this.physics.add.sprite(baseUI*3, baseUI*18, 'player').setOrigin(0,0);
 
         // Add gravity to make it fall
-        this.player.body.gravity.y = 600;
+        this.player.setGravityY(gameOption.playerGravity);
 
         //-----------------
         // Create the level
@@ -33,18 +39,18 @@ class Menu extends Phaser.Scene {
             'x               xxxx', // 4
             'x           xx     x', // 5
             'x       x          x', // 6
-            'x                  x', // 7
+            'xx                 x', // 7
             'x                  x', // 8
-            'x                  x', // 9
+            'x   xxxx    xx     x', // 9
             'x                  x', // 10
-            'x                  x', // 11
+            'x                xxx', // 11
             'x                  x', // 12
-            'x                  x', // 13
+            'x        xxxx      x', // 13
             'x                  x', // 14
-            'x                  x', // 15
-            'x                  x', // 16
+            'xxxxx              x', // 15
+            'x           x      x', // 16
             'x                  x', // 17
-            'x                  x', // 18
+            'x     xx           x', // 18
             'xxxxxxxxxxxxxxxxxxxx'  // 19
         ];
 
@@ -58,28 +64,41 @@ class Menu extends Phaser.Scene {
                 }
             }
         }
+        // set collision between the player and platform
+        this.physics.add.collider(this.player, this.walls)
     }
 
     update() {
-
-        if (this.cursor.left.isDown){
-            this.player.body.velocity.x = -200;
+        // Left and Right Movement
+        if (keyLEFT.isDown){
+            this.player.setVelocityX(-200);
         }
-        else if (this.cursor.right.isDown){
-            this.player.body.velocity.x = 200;
+        else if (keyRIGHT.isDown){
+            this.player.setVelocityX(200);
         }
         else   
             this.player.body.velocity.x = 0;
 
-        // Make the player jump if only they are touching the ground
-        if (keySPACE.isDown && this.player.body.touching.isDown){
-            console.log("Jump Key detected");
-            this.player.body.velocity.y = -250;
-        } else {
-            this.player.body.velocity.y = 0;
-        }
 
-        // Make the player and the walls collide
-        this.physics.collide(this.player, this.walls);
+        if (keySPACE.isDown) {
+            if (!flip) {
+                this.jump();
+                flip = true;
+            }
+        }
+        if (keySPACE.isUp)
+            flip = false;
+    }
+
+    jump() {
+        // Make the player jump if only they are touching the ground
+        if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOption.jumps)){
+            if(this.player.body.touching.down){
+                this.playerJumps = 0;
+            }
+            this.player.setVelocityY(gameOption.jumpForce * -1);
+            this.playerJumps += 1;
+        }
+        console.log(gameOption.jumps + " : " + this.playerJumps);
     }
 }

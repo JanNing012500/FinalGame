@@ -5,6 +5,11 @@ Completion Data:
 Creative Tilt:
 
 */
+let gameOption = {
+    playerGravity: 900,
+    jumpForce: 400,
+    jumps: 2
+}
 
 var config = {
     type: Phaser.AUTO, 
@@ -24,4 +29,4 @@ let baseUI = 32;
 
 
 // Keybindings
-let keySPACE; 
+let keySPACE, keyLEFT, keyRIGHT; 
