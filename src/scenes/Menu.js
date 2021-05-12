@@ -113,6 +113,35 @@ class Menu extends Phaser.Scene {
         }
         // set collision between the player and platform
         this.physics.add.collider(this.player, this.walls)
+
+
+
+
+        //test
+                
+                this.p1Score = 0;
+                let scoreConfig = {
+                    fontFamily: 'Courier',
+                    fontSize: '28px',
+                    backgroundColor: '#F3B141',
+                    color: '#843605',
+                    align: 'right',
+                    padding: {
+                    top: 5,
+                    bottom: 5,
+                    },
+                    fixedWidth: 100
+                }
+                this.scoreLeft = this.add.text(game.config.width-10, game.config.height -25, this.p1Score, scoreConfig).setOrigin(1,0.5);
+         
+        
+                
+                this.timer = this.time.addEvent({
+                    delay: 75,
+                    callback: this.addScore,
+                    callbackScope: this,
+                    loop: true
+                })
     }
 
     update() {
@@ -157,5 +186,12 @@ class Menu extends Phaser.Scene {
             this.playerJumps += 1;
         }
         console.log(gameOption.jumps + " : " + this.playerJumps);
+    }
+
+
+    
+    addScore() {
+        this.p1Score += 10;
+        this.scoreLeft.text = this.p1Score;
     }
 }
