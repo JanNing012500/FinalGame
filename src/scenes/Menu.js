@@ -1,4 +1,5 @@
 var flip;
+var dir;
 
 class Menu extends Phaser.Scene {
     constructor() {
@@ -6,8 +7,9 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('player', './assets/Player01.png');
         this.load.image('ground', './assets/Ground.png');
+        this.load.spritesheet('idle', './assets/Player_Idle.png', 
+            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 7 });
     }
 
     create() {
@@ -17,11 +19,33 @@ class Menu extends Phaser.Scene {
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
+        // Animation config
+        // Left Idle
+        this.anims.create({
+            key: 'leftIdle',
+            frames: this.anims.generateFrameNumbers('idle', {
+                start: 0,
+                end: 3,
+                first: 0
+            }),
+            frameRate: 10
+        })
+        // Right Idle
+        this.anims.create({
+            key: 'rightIdle',
+            frames: this.anims.generateFrameNumbers('idle', {
+                start: 4,
+                end: 7,
+                first: 4
+            }),
+            frameRate: 10
+        })
+
         // Number of consecutive jumps made
         this.playerJumps = 0;
 
         // Create the player in the middle of the Menu Screen.
-        this.player = this.physics.add.sprite(baseUI*3, baseUI*18, 'player').setOrigin(0,0);
+        this.player = this.physics.add.sprite(baseUI*3, baseUI*18, 'idle', 0).setOrigin(0,0);
 
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
@@ -71,13 +95,20 @@ class Menu extends Phaser.Scene {
     update() {
         // Left and Right Movement
         if (keyLEFT.isDown){
+            dir = 1;
             this.player.setVelocityX(-200);
         }
         else if (keyRIGHT.isDown){
+            dir = -1;
             this.player.setVelocityX(200);
         }
-        else   
+        else {
+            if (dir == 1)
+                this.player.anims.play('leftIdle', true);
+            if (dir == -1)
+                this.player.anims.play('rightIdle', true);
             this.player.body.velocity.x = 0;
+        }  
 
 
         if (keySPACE.isDown) {
