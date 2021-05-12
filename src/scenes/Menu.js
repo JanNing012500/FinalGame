@@ -8,8 +8,8 @@ class Menu extends Phaser.Scene {
 
     preload() {
         this.load.image('ground', './assets/Ground.png');
-        this.load.spritesheet('idle', './assets/Player_Idle.png', 
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 7 });
+        this.load.spritesheet('p1', './assets/Player01.png', 
+            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
     }
 
     create() {
@@ -23,7 +23,7 @@ class Menu extends Phaser.Scene {
         // Left Idle
         this.anims.create({
             key: 'leftIdle',
-            frames: this.anims.generateFrameNumbers('idle', {
+            frames: this.anims.generateFrameNumbers('p1', {
                 start: 0,
                 end: 3,
                 first: 0
@@ -33,10 +33,30 @@ class Menu extends Phaser.Scene {
         // Right Idle
         this.anims.create({
             key: 'rightIdle',
-            frames: this.anims.generateFrameNumbers('idle', {
+            frames: this.anims.generateFrameNumbers('p1', {
                 start: 4,
                 end: 7,
                 first: 4
+            }),
+            frameRate: 10
+        })
+        // Left Walk
+        this.anims.create({
+            key: 'leftWalk',
+            frames: this.anims.generateFrameNumbers('p1', {
+                start: 8,
+                end: 11,
+                first: 8
+            }),
+            frameRate: 10
+        })
+        // Right Idle
+        this.anims.create({
+            key: 'rightWalk',
+            frames: this.anims.generateFrameNumbers('p1', {
+                start: 12,
+                end: 15,
+                first: 12
             }),
             frameRate: 10
         })
@@ -45,7 +65,7 @@ class Menu extends Phaser.Scene {
         this.playerJumps = 0;
 
         // Create the player in the middle of the Menu Screen.
-        this.player = this.physics.add.sprite(baseUI*3, baseUI*18, 'idle', 0).setOrigin(0,0);
+        this.player = this.physics.add.sprite(baseUI*3, baseUI*18, 'p1', 0).setOrigin(0,0);
 
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
@@ -69,12 +89,12 @@ class Menu extends Phaser.Scene {
             'x                  x', // 10
             'x                xxx', // 11
             'x                  x', // 12
-            'x        xxxx      x', // 13
+            'x   xx   xxxx      x', // 13
             'x                  x', // 14
-            'xxxxx              x', // 15
-            'x           x      x', // 16
-            'x                  x', // 17
-            'x     xx           x', // 18
+            'xxxxxxxxxxxxx      x', // 15
+            'x                  x', // 16
+            'x               xxxx', // 17
+            'x                  x', // 18
             'xxxxxxxxxxxxxxxxxxxx'  // 19
         ];
 
@@ -95,10 +115,12 @@ class Menu extends Phaser.Scene {
     update() {
         // Left and Right Movement
         if (keyLEFT.isDown){
+            this.player.anims.play('leftWalk', true);
             dir = 1;
             this.player.setVelocityX(-200);
         }
         else if (keyRIGHT.isDown){
+            this.player.anims.play('rightWalk', true);
             dir = -1;
             this.player.setVelocityX(200);
         }
