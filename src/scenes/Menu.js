@@ -10,10 +10,13 @@ class Menu extends Phaser.Scene {
         this.load.image('ground', './assets/Ground.png');
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
+        this.load.audio('jump', './assets/jump.wav'); 
     }
 
     create() {
         
+        // Load Audio 
+        this.jumpsfx = this.sound.add('jump', {volume: .5}); 
         // Variable to store the arrow key pressed
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
@@ -150,6 +153,7 @@ class Menu extends Phaser.Scene {
                 this.playerJumps = 0;
             }
             this.player.setVelocityY(gameOption.jumpForce * -1);
+            this.jumpsfx.play(); 
             this.playerJumps += 1;
         }
         console.log(gameOption.jumps + " : " + this.playerJumps);
