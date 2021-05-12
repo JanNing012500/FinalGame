@@ -11,12 +11,15 @@ class Menu extends Phaser.Scene {
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
+        this.load.audio('music','./assets/Music3.mp3');
     }
 
     create() {
         
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .5}); 
+        this.backgroundMusic = this.sound.add("music", {volume: .5, loop: true}); 
+        this.backgroundMusic.play(); 
         // Variable to store the arrow key pressed
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
@@ -189,7 +192,7 @@ class Menu extends Phaser.Scene {
     }
 
 
-    
+
     addScore() {
         this.p1Score += 10;
         this.scoreLeft.text = this.p1Score;
