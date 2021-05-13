@@ -16,7 +16,7 @@ var config = {
     width: 640,
     height: 640,
     parent: 'phaser-game',
-    scene: [Menu],
+    scene: [Menu, Play],
     physics: {
         default: 'arcade',
         arcade: {debug:true} // change false to make the pink lines go away

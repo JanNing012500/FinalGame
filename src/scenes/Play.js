@@ -1,7 +1,7 @@
 class Play extends Phaser.Scene {
 
     constructor() {
-        super('playScene'); 
+        super('playScene')
     }
 
     preload() {
@@ -19,52 +19,10 @@ class Play extends Phaser.Scene {
         this.backgroundMusic = this.sound.add("music", {volume: .5, loop: true}); 
         this.backgroundMusic.play(); 
 
-        // Movement Commands 
+        // Variable to store the arrow key pressed
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-        // Animation config
-        // Left Idle
-        this.anims.create({
-            key: 'leftIdle',
-            frames: this.anims.generateFrameNumbers('p1', {
-                start: 0,
-                end: 3,
-                first: 0
-            }),
-            frameRate: 10
-        })
-        // Right Idle
-        this.anims.create({
-            key: 'rightIdle',
-            frames: this.anims.generateFrameNumbers('p1', {
-                start: 4,
-                end: 7,
-                first: 4
-            }),
-            frameRate: 10
-        })
-        // Left Walk
-        this.anims.create({
-            key: 'leftWalk',
-            frames: this.anims.generateFrameNumbers('p1', {
-                start: 8,
-                end: 11,
-                first: 8
-            }),
-            frameRate: 10
-        })
-        // Right Idle
-        this.anims.create({
-            key: 'rightWalk',
-            frames: this.anims.generateFrameNumbers('p1', {
-                start: 12,
-                end: 15,
-                first: 12
-            }),
-            frameRate: 10
-        })
 
         // Number of consecutive jumps made
         this.playerJumps = 0;
@@ -113,6 +71,7 @@ class Play extends Phaser.Scene {
                 }
             }
         }
+
         // set collision between the player and platform
         this.physics.add.collider(this.player, this.walls)
 
@@ -194,4 +153,7 @@ class Play extends Phaser.Scene {
         this.p1Score += 10;
         this.scoreLeft.text = this.p1Score;
     }
+
+
+    
 } 

@@ -18,7 +18,6 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-        
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .5}); 
         this.backgroundMusic = this.sound.add("music", {volume: .5, loop: true}); 
@@ -67,6 +66,7 @@ class Menu extends Phaser.Scene {
             }
         }
         this.sign = this.physics.add.sprite(baseUI*6, baseUI*18, 'sign');
+        this.door = this.physics.add.sprite(baseUI*18, baseUI*18.5, 'door');
 
         // Animation config
         // Left Idle
@@ -103,53 +103,6 @@ class Menu extends Phaser.Scene {
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
 
-<<<<<<< HEAD
-        //-----------------
-        // Create the level
-        //-----------------
-        this.walls = this.add.group();
-
-
-        this.level = [
-            'xxxxxxxxxxxxxxxxxxxx', // 0
-            'x                  x', // 1
-            'x                  x', // 2
-            'x                 yx', // 3
-            'x               xxxx', // 4
-            'x           xx     x', // 5
-            'x       x          x', // 6
-            'xx                 x', // 7
-            'x                  x', // 8
-            'x   xxxx    xx     x', // 9
-            'x                  x', // 10
-            'x                xxx', // 11
-            'x                  x', // 12
-            'x   xx   xxxx      x', // 13
-            'x                  x', // 14
-            'xxxxxxxxxxxxx      x', // 15
-            'x                  x', // 16
-            'x               xxxx', // 17
-            'x                  x', // 18
-            'xxxxxxxxxxxxxxxxxxxx'  // 19
-        ];
-
-        // Create the level by going though the array
-        for (var i = 0; i < this.level.length; i++) {
-            for (var j = 0; j < this.level[i].length; j++) {
-                if (this.level[i][j] == 'x') {
-                    this.wall = this.physics.add.sprite(32*j, 32*i, 'ground').setOrigin(0,0);
-                    this.walls.add(this.wall);
-                    this.wall.body.immovable = true;
-                }
-                else if (this.level[i][j] == 'y') {
-                    this.wall = this.physics.add.sprite(32*j, 32*i, 'door').setOrigin(0,0);
-                    this.walls.add(this.wall);
-                    this.wall.body.immovable = true;
-                }
-            }
-        }
-=======
->>>>>>> a7bf64fc3db8332a8b9d257168ddc73d35f1a5a4
         // set collision between the player and platform
         this.physics.add.collider(this.player, this.ground)
     }
@@ -182,7 +135,15 @@ class Menu extends Phaser.Scene {
         if (keySPACE.isUp)
             flip = false;
 
+        // Overlap on Sign
         this.physics.overlap(this.player, this.sign, function() {this.trigger()}, null, this);
+
+        // When Player Collides with Door, Change Scenes
+        if (this.physics.collide(this.player, this.door)) {
+             this.game.sound.stopAll(); 
+             this.scene.start('playScene');
+         }
+        
 
     }
 
@@ -190,6 +151,7 @@ class Menu extends Phaser.Scene {
     trigger() {
         console.log("OverSign");
     }
+
     jump() {
         // Make the player jump if only they are touching the ground
         if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOption.jumps)){
