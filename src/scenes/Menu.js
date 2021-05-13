@@ -12,6 +12,8 @@ class Menu extends Phaser.Scene {
         this.load.image('sign', './assets/WoodenSign.png');
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
+        this.load.spritesheet('pressF', './assets/PressF.png', 
+            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 1 });
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music','./assets/Music3.mp3');
     }
@@ -26,6 +28,7 @@ class Menu extends Phaser.Scene {
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         //-----------------
         // Create the level
@@ -104,6 +107,8 @@ class Menu extends Phaser.Scene {
 
         // set collision between the player and platform
         this.physics.add.collider(this.player, this.ground)
+
+        this.press1 = this.add.sprite(baseUI*2, baseUI)
     }
 
     update() {
@@ -134,12 +139,12 @@ class Menu extends Phaser.Scene {
         if (keySPACE.isUp)
             flip = false;
 
-        this.physics.overlap(this.player, this.sign, function() {this.trigger()}, null, this);
+        this.physics.overlap(this.player, this.sign, function() {this.trigger(this.sign)}, null, this);
 
     }
 
 
-    trigger() {
+    trigger(Obj) {
         console.log("OverSign");
     }
     jump() {

@@ -29,4 +29,4 @@ let baseUI = 32;
 
 
 // Keybindings
-let keySPACE, keyLEFT, keyRIGHT; 
+let keySPACE, keyLEFT, keyRIGHT, keyF; 
