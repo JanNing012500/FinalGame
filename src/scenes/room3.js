@@ -39,46 +39,32 @@ class room3 extends Phaser.Scene {
         this.walls = this.add.group();
 
         this.level = [
-            'xxxxxxxxxxxxxxxxxxxx', // 0
-            'x                  x', // 1
-            'x                  x', // 2
-            'x                  x', // 3
-            'x                  x', // 4
-            'x                  x', // 5
-            'x                  x', // 6
-            'x                  x', // 7
-            'x                  x', // 8
-            'x                  x', // 9
-            'x                  x', // 10
-            'x                  x', // 11
-            'x xx  xxxxxxx  xxxxx', // 12
-            'x xx  xxxxxxx  xxxxx', // 13
-            'x xx           xxxxx', // 14
-            'x xxxx  xxxxxxxxxxxx', // 15
-            'x                  x', // 16
-            'xxxxxxxxxxxxxxxxx  x', // 17
-            'x                  x', // 18
-            'xxxxxxxxxxxxxxxxxxxx'  // 19
+            'xxxxxxxxxxxxxxxxxxxx',
+            'x        x        xx',
+            'x  xxxx  x  xxxxx xx',
+            'x     x     x  xx xx',
+            'xxxx  x  xxxx  xx xx',
+            'xss   x  x     xx xx',
+            'xxxx  x  x  x  xx xx',
+            'x     x     x  xx xx',
+            'x   xxxxx  xxxxx  xx',
+            'x        x  x     xx',
+            'x  xxxx  x  x  xxxxx',
+            'x  x    xx xx      x',
+            'x  xx xxxx  xxxxx  x',
+            'xx  x           x xx',
+            'x   x    xxxxxxxx xx',
+            'x  xx     xxx     xx',
+            'x   xxx   sxx  xxxxx',
+            'xx  xxx    xx  xxxxx',
+            'x         xxx       ',
+            'xxxxxxxxxxxxxxxxxxxx',
+
+
+            
+            
         ];
-/*
-        {
-        .--.--.--.--.  .
-        |     |        |
-        :  :--:  :  :--:
-        |        |  |  |
-        :--:--:--:  :  :
-        |           |  |
-        :  :  :--:  :  :
-        |  |     |     |
-        :  :--:--:--:  :
-        |  |        |  |
-        :  :  :--:  :  :
-        |     |     |  |
-        :  :--:  :--:  :
-        |     |  |     |
-        :--:--:  :--:--:
-        }
-*/
+
         // Create the level by going though the array
         for (var i = 0; i < this.level.length; i++) {
             for (var j = 0; j < this.level[i].length; j++) {
