@@ -119,6 +119,61 @@ class Menu extends Phaser.Scene {
         this.physics.add.collider(this.player, this.ground)
 
         this.press1 = this.add.sprite(baseUI*2, baseUI)
+
+          // Overlap on Sign
+          this.physics.overlap(this.player, this.sign, function() {this.trigger()}, null, this);
+
+          // When Player Collides with Door AND presses up arrow, Change Scenes
+          this.cursors = this.input.keyboard.createCursorKeys();
+  
+  
+          //door1
+          this.physics.add.collider(this.door, this.ground);
+  
+          this.physics.add.overlap(this.player, this.door, opendoor1,null,this);
+  
+          function opendoor1()
+          {
+              if(this.cursors.up.isDown)
+              {
+                  this.game.sound.stopAll(); 
+                  this.scene.stop();
+                  this.scene.start('room1');
+              }
+  
+          }  
+  
+          //door2
+          this.physics.add.collider(this.door2, this.ground);
+  
+          this.physics.add.overlap(this.player, this.door2, opendoor2,null,this);
+  
+          function opendoor2()
+          {
+              if(this.cursors.up.isDown)
+              {
+                  this.game.sound.stopAll(); 
+                  this.scene.stop();
+                  this.scene.start('room2');
+              }
+  
+          }  
+  
+          //door 3
+          this.physics.add.collider(this.door3, this.ground);
+  
+          this.physics.add.overlap(this.player, this.door3, opendoor3,null,this);
+  
+          function opendoor3()
+          {
+              if(this.cursors.up.isDown)
+              {
+                  this.game.sound.stopAll(); 
+                  this.scene.stop();
+                  this.scene.start('room3');
+              }
+  
+          }  
     }
         
     update() {
