@@ -1,27 +1,25 @@
-var flip;
-var dir;
+class Play extends Phaser.Scene {
 
-class Menu extends Phaser.Scene {
     constructor() {
-        super('Menu');
+        super('playScene'); 
     }
 
     preload() {
+        // Loads all our Images/tiles
         this.load.image('ground', './assets/Ground.png');
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music','./assets/Music3.mp3');
-        this.load.image('door', './assets/Door.png');
+        this.load.audio('music','./assets/menubgm.mp3');
     }
 
-    create() {
-        
+    create() { 
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .5}); 
         this.backgroundMusic = this.sound.add("music", {volume: .5, loop: true}); 
         this.backgroundMusic.play(); 
-        // Variable to store the arrow key pressed
+
+        // Movement Commands 
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -71,7 +69,7 @@ class Menu extends Phaser.Scene {
         // Number of consecutive jumps made
         this.playerJumps = 0;
 
-        // Create the player in the middle of the Menu Screen.
+        // Create the player in the scene
         this.player = this.physics.add.sprite(baseUI*3, baseUI*18, 'p1', 0).setOrigin(0,0);
 
         // Add gravity to make it fall
@@ -82,12 +80,11 @@ class Menu extends Phaser.Scene {
         //-----------------
         this.walls = this.add.group();
 
-
         this.level = [
             'xxxxxxxxxxxxxxxxxxxx', // 0
             'x                  x', // 1
             'x                  x', // 2
-            'x                 yx', // 3
+            'x                  x', // 3
             'x               xxxx', // 4
             'x           xx     x', // 5
             'x       x          x', // 6
@@ -114,44 +111,37 @@ class Menu extends Phaser.Scene {
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
-                else if (this.level[i][j] == 'y') {
-                    this.wall = this.physics.add.sprite(32*j, 32*i, 'door').setOrigin(0,0);
-                    this.walls.add(this.wall);
-                    this.wall.body.immovable = true;
-                }
             }
         }
         // set collision between the player and platform
         this.physics.add.collider(this.player, this.walls)
 
-
-
-
-        //test
+         //test
                 
-                this.p1Score = 0;
-                let scoreConfig = {
-                    fontFamily: 'Courier',
-                    fontSize: '28px',
-                    backgroundColor: '#F3B141',
-                    color: '#843605',
-                    align: 'right',
-                    padding: {
-                    top: 5,
-                    bottom: 5,
-                    },
-                    fixedWidth: 100
-                }
-                this.scoreLeft = this.add.text(game.config.width-10, game.config.height -25, this.p1Score, scoreConfig).setOrigin(1,0.5);
+         this.p1Score = 0;
+         let scoreConfig = {
+             fontFamily: 'Courier',
+             fontSize: '28px',
+             backgroundColor: '#F3B141',
+             color: '#843605',
+             align: 'right',
+             padding: {
+             top: 5,
+             bottom: 5,
+             },
+             fixedWidth: 100
+         }
+         this.scoreLeft = this.add.text(game.config.width-10, game.config.height -25, this.p1Score, scoreConfig).setOrigin(1,0.5);
+  
+ 
          
-        
-                
-                this.timer = this.time.addEvent({
-                    delay: 75,
-                    callback: this.addScore,
-                    callbackScope: this,
-                    loop: true
-                })
+         this.timer = this.time.addEvent({
+             delay: 75,
+             callback: this.addScore,
+             callbackScope: this,
+             loop: true
+         })
+
     }
 
     update() {
@@ -204,4 +194,4 @@ class Menu extends Phaser.Scene {
         this.p1Score += 10;
         this.scoreLeft.text = this.p1Score;
     }
-}
+} 
