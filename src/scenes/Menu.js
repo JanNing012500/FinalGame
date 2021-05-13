@@ -105,10 +105,10 @@ class Menu extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('p1', { start: 12, end: 15, first: 12 }),
             frameRate: 10
         })
-        this.anims.creat({
+        this.anims.create({
             key: 'interact',
-            frames: this.anims.generateFrameNumbers('pressF', { start: 0, end: 1, first 0 }),
-            framRate: 1
+            frames: this.anims.generateFrameNumbers('pressF', { start: 0, end: 1, first: 0 }),
+            frameRate: 1
         })
 
         // Number of consecutive jumps made
@@ -124,11 +124,13 @@ class Menu extends Phaser.Scene {
         this.physics.add.collider(this.player, this.ground)
 
         // The two button
-        this.press1 = this.add.sprite(baseUI*16, baseUI*6.5, 'pressF', 0).setOrigin(0,0);
+        this.press1 = this.add.sprite(baseUI*5.5, baseUI*16, 'pressF', 0).setOrigin(0,0);
+        this.press1.alpha = 0;
     }
         
     update() {
-        
+        this.press1.alpha = 0;
+
         // Left and Right Movement
         if (keyLEFT.isDown && this.player.x > 0){
             this.player.anims.play('leftWalk', true);
@@ -156,11 +158,12 @@ class Menu extends Phaser.Scene {
         if (keySPACE.isUp)
             flip = false;
 
-        this.physics.overlap(this.player, this.sign, function() {this.trigger(this.sign)}, null, this);
+        this.physics.overlap(this.player, this.sign, function() { this.signtrigger() }, null, this);
     }
 
-    trigger() {
-        console.log("OverSign");
+    signtrigger() {
+        this.press1.anims.play('interact', true);
+        this.press1.alpha = 1;
     }
 
     jump() {
@@ -174,5 +177,4 @@ class Menu extends Phaser.Scene {
             this.playerJumps += 1;
         }
     }
-
 }
