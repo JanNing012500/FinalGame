@@ -10,7 +10,7 @@ class Play extends Phaser.Scene {
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music','./assets/menubgm.mp3');
+        this.load.audio('music','./assets/Music3.mp3');
     }
 
     create() { 
