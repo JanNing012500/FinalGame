@@ -16,10 +16,11 @@ class Menu extends Phaser.Scene {
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 1 });
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music','./assets/Music3.mp3');
+        this.load.image('door', './assets/Door.png');
     }
 
     create() {
-        
+  
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .5}); 
         this.backgroundMusic = this.sound.add("music", {volume: .5, loop: true}); 
@@ -69,6 +70,15 @@ class Menu extends Phaser.Scene {
             }
         }
         this.sign = this.physics.add.sprite(baseUI*6, baseUI*18, 'sign');
+        
+        //door1
+        this.door = this.physics.add.sprite(baseUI*18, baseUI*18.5, 'door');
+        
+        //door2
+        this.door2 = this.physics.add.sprite(baseUI*14, baseUI*18.5, 'door');
+
+        //door3
+        this.door3 = this.physics.add.sprite(baseUI*10, baseUI*18.5, 'door');
 
         // Animation config
         // Left Idle
@@ -110,8 +120,9 @@ class Menu extends Phaser.Scene {
 
         this.press1 = this.add.sprite(baseUI*2, baseUI)
     }
-
+        
     update() {
+        
         // Left and Right Movement
         if (keyLEFT.isDown && this.player.x > 0){
             this.player.anims.play('leftWalk', true);
@@ -144,9 +155,11 @@ class Menu extends Phaser.Scene {
     }
 
 
-    trigger(Obj) {
+
+    trigger() {
         console.log("OverSign");
     }
+
     jump() {
         // Make the player jump if only they are touching the ground
         if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOption.jumps)){
@@ -159,8 +172,6 @@ class Menu extends Phaser.Scene {
         }
     }
 
-    addScore() {
-        this.p1Score += 10;
-        this.scoreLeft.text = this.p1Score;
-    }
+
+
 }
