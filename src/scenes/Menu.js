@@ -1,5 +1,5 @@
-var flip;
-var dir;
+var flip = false, flop = false, pause = true, clickF = 0;
+var dir = 1;
 
 class Menu extends Phaser.Scene {
     constructor() {
@@ -7,19 +7,30 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
+        pause = true;
         this.load.image('ground', './assets/Ground.png');
         this.load.image('grass', './assets/GrassGround.png');
         this.load.image('sign', './assets/WoodenSign.png');
+        this.load.image('control', './assets/ControlWindow.png');
+        this.load.image('background', './assets/Background.png');
+        this.load.image('tower', './assets/Tower.png');
+        this.load.image('gate', './assets/Gate.png');
+        
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.spritesheet('pressF', './assets/PressF.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 1 });
+        this.load.spritesheet('pressSpace', './assets/PressSpace.png', 
+            {frameWidth: 160, frameHeight: 32, startFrame: 0, endFrame: 1 });
+        
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music','./assets/Music3.mp3');
         this.load.image('door', './assets/Door.png');
     }
 
     create() {
+        this.sky = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'background').setOrigin(0,0);
+        this.tower = this.add.sprite(0, 0, 'tower').setOrigin(0,0);
   
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .5}); 
@@ -35,7 +46,6 @@ class Menu extends Phaser.Scene {
         // Create the level
         //-----------------
         this.ground = this.add.group();
-
         this.level = [
             '                    ', // 0
             '                    ', // 1
@@ -58,7 +68,6 @@ class Menu extends Phaser.Scene {
             '                    ', // 18
             'gggggggggggggggggggg'  // 19
         ];
-
         // Create the level by going though the array
         for (var i = 0; i < this.level.length; i++) {
             for (var j = 0; j < this.level[i].length; j++) {
@@ -69,16 +78,11 @@ class Menu extends Phaser.Scene {
                 }
             }
         }
-        this.sign = this.physics.add.sprite(baseUI*6, baseUI*18, 'sign');
-        
-        // //door1
-        // this.door = this.physics.add.sprite(baseUI*18, baseUI*18, 'door');
-        
-        // //door2
-        // this.door2 = this.physics.add.sprite(baseUI*14, baseUI*18, 'door');
 
-        // //door3
-        // this.door3 = this.physics.add.sprite(baseUI*10, baseUI*18, 'door');
+        this.sign = this.physics.add.sprite(baseUI*5, baseUI*18, 'sign');
+        this.door = this.physics.add.sprite(baseUI*10, baseUI*16, 'gate');
+        this.control = this.add.sprite(baseUI*10, baseUI*10, 'control').setOrigin(0.5, 0.5);
+        this.control.alpha = 0;
 
         // Animation config
         // Left Idle
@@ -110,6 +114,11 @@ class Menu extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('pressF', { start: 0, end: 1, first: 0 }),
             frameRate: 1
         })
+        this.anims.create({
+            key: 'space',
+            frames: this.anims.generateFrameNumbers('pressSpace', { start: 0, end: 1, first: 0 }),
+            frameRate: 1
+        })
 
         // Number of consecutive jumps made
         this.playerJumps = 0;
@@ -124,46 +133,77 @@ class Menu extends Phaser.Scene {
         this.physics.add.collider(this.player, this.ground)
 
         // The two button
-        this.press1 = this.add.sprite(baseUI*5.5, baseUI*16, 'pressF', 0).setOrigin(0,0);
-        this.press1.alpha = 0;
+        this.press1 = this.add.sprite(baseUI*4.5, baseUI*16.5, 'pressF', 0).setOrigin(0,0);
+        this.press2 = this.add.sprite(baseUI*7.5, baseUI*15.5, 'pressSpace', 0).setOrigin(0,0);
     }
         
     update() {
         this.press1.alpha = 0;
-
-        // Left and Right Movement
-        if (keyLEFT.isDown && this.player.x > 0){
-            this.player.anims.play('leftWalk', true);
-            dir = 1;
-            this.player.setVelocityX(-200);
-        }
-        else if (keyRIGHT.isDown && this.player.x < game.config.width - this.player.width){
-            this.player.anims.play('rightWalk', true);
-            dir = -1;
-            this.player.setVelocityX(200);
-        }
-        else {
-            if (dir == 1)
-                this.player.anims.play('leftIdle', true);
-            if (dir == -1)
-                this.player.anims.play('rightIdle', true);
-            this.player.body.velocity.x = 0;
-        }  
-        if (keySPACE.isDown) {
-            if (!flip) {
-                this.jump();
-                flip = true;
-            }
-        }
-        if (keySPACE.isUp)
-            flip = false;
-
+        this.press2.alpha = 0;
+        this.sky.tilePositionX += 2;
         this.physics.overlap(this.player, this.sign, function() { this.signtrigger() }, null, this);
+        this.physics.overlap(this.player, this.door, function() { this.doortrigger() }, null, this);
+        if (pause) {
+            // Left and Right Movement
+            if (keyLEFT.isDown && this.player.x > 0){
+                this.player.anims.play('leftWalk', true);
+                dir = 1;
+                this.player.setVelocityX(-200);
+            }
+            else if (keyRIGHT.isDown && this.player.x < game.config.width - this.player.width){
+                this.player.anims.play('rightWalk', true);
+                dir = -1;
+                this.player.setVelocityX(200);
+            }
+            else {
+                if (dir == 1)
+                    this.player.anims.play('leftIdle', true);
+                if (dir == -1)
+                    this.player.anims.play('rightIdle', true);
+                this.player.setVelocityX(0);
+            }  
+            if (keySPACE.isDown) {
+                if (!flip) {
+                    this.jump();
+                    flip = true;
+                }
+            }
+            if (keySPACE.isUp)
+                flip = false;
+        }
     }
 
     signtrigger() {
         this.press1.anims.play('interact', true);
         this.press1.alpha = 1;
+        if (keyF.isDown) {
+            if (!flop) {
+                if (clickF == 0) {
+                    this.player.setVelocityX(0);
+                    pause = false;
+                    this.control.alpha = true;
+                    clickF = 1;
+                }
+                else if (clickF == 1) {
+                    pause = true;
+                    this.control.alpha = false;
+                    clickF = 0;
+                }
+                flop = true;
+            }
+        }
+        if (keyF.isUp) {
+            flop = false;
+        }
+    }
+    doortrigger() {
+        this.press2.anims.play('space', true);
+        this.press2.alpha = 1;
+        if (keySPACE.isDown) {
+            console.log("Entering Door");
+            pause = false;
+            this.scene.start('Menu');
+        }
     }
 
     jump() {
