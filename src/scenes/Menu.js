@@ -105,6 +105,11 @@ class Menu extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('p1', { start: 12, end: 15, first: 12 }),
             frameRate: 10
         })
+        this.anims.creat({
+            key: 'interact',
+            frames: this.anims.generateFrameNumbers('pressF', { start: 0, end: 1, first 0 }),
+            framRate: 1
+        })
 
         // Number of consecutive jumps made
         this.playerJumps = 0;
@@ -118,7 +123,8 @@ class Menu extends Phaser.Scene {
         // set collision between the player and platform
         this.physics.add.collider(this.player, this.ground)
 
-        this.press1 = this.add.sprite(baseUI*2, baseUI)
+        // The two button
+        this.press1 = this.add.sprite(baseUI*16, baseUI*6.5, 'pressF', 0).setOrigin(0,0);
     }
         
     update() {
@@ -151,10 +157,7 @@ class Menu extends Phaser.Scene {
             flip = false;
 
         this.physics.overlap(this.player, this.sign, function() {this.trigger(this.sign)}, null, this);
-
     }
-
-
 
     trigger() {
         console.log("OverSign");
@@ -171,7 +174,5 @@ class Menu extends Phaser.Scene {
             this.playerJumps += 1;
         }
     }
-
-
 
 }
