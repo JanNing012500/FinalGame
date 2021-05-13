@@ -6,6 +6,9 @@ class room3 extends Phaser.Scene {
 
     preload() {
         // Loads all our Images/tiles
+
+        this.load.image('win', './assets/Door.png');
+
         this.load.image('ground', './assets/Ground.png');
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
@@ -33,6 +36,9 @@ class room3 extends Phaser.Scene {
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
 
+        //door
+        this.door = this.physics.add.sprite(baseUI*18, baseUI*18.5, 'win');
+
         //-----------------
         // Create the level
         //-----------------
@@ -43,13 +49,13 @@ class room3 extends Phaser.Scene {
             'x        x        xx',
             'x  xxxx  x  xxxxx xx',
             'x     x     x  xx xx',
-            'xxxx  x  xxxx  xx xx',
-            'xss   x  x     xx xx',
+            'x xx  x  xxxx  xx xx',
+            'x     x  x     xx xx',
             'xxxx  x  x  x  xx xx',
             'x     x     x  xx xx',
             'x   xxxxx  xxxxx  xx',
             'x        x  x     xx',
-            'x  xxxx  x  x  xxxxx',
+            'x   xxx  x  x  xxxxx',
             'x  x    xx xx      x',
             'x  xx xxxx  xxxxx  x',
             'xx  x           x xx',
@@ -57,7 +63,7 @@ class room3 extends Phaser.Scene {
             'x  xx     xxx     xx',
             'x   xxx   sxx  xxxxx',
             'xx  xxx    xx  xxxxx',
-            'x         xxx       ',
+            'x           x       ',  //remove the middle x from this row to cheat
             'xxxxxxxxxxxxxxxxxxxx',
 
 
@@ -104,6 +110,24 @@ class room3 extends Phaser.Scene {
              callbackScope: this,
              loop: true
          })
+
+
+
+         //win door
+         this.cursors = this.input.keyboard.createCursorKeys();
+         this.physics.add.collider(this.door, this.ground);
+       
+         this.physics.add.overlap(this.player, this.door, windoor3,null,this);
+ 
+         function windoor3()
+         {
+             
+            this.game.sound.stopAll(); 
+            this.scene.stop();
+            this.scene.start('Menu');
+             
+                  
+         }
 
     }
 
