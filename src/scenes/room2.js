@@ -1,7 +1,7 @@
-class Play extends Phaser.Scene {
+class room2 extends Phaser.Scene {
 
     constructor() {
-        super('playScene')
+        super('room2')
     }
 
     preload() {
@@ -10,13 +10,13 @@ class Play extends Phaser.Scene {
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music','./assets/Music3.mp3');
+        this.load.audio('music1','./assets/Music3.mp3');
     }
 
     create() { 
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .5}); 
-        this.backgroundMusic = this.sound.add("music", {volume: .5, loop: true}); 
+        this.backgroundMusic = this.sound.add("music1", {volume: .5, loop: true}); 
         this.backgroundMusic.play(); 
 
         // Variable to store the arrow key pressed
@@ -43,20 +43,20 @@ class Play extends Phaser.Scene {
             'x                  x', // 1
             'x                  x', // 2
             'x                  x', // 3
-            'x               xxxx', // 4
-            'x           xx     x', // 5
-            'x       x          x', // 6
-            'xx                 x', // 7
+            'x                  x', // 4
+            'x                  x', // 5
+            'x                  x', // 6
+            'x                  x', // 7
             'x                  x', // 8
-            'x   xxxx    xx     x', // 9
+            'x                  x', // 9
             'x                  x', // 10
-            'x                xxx', // 11
+            'x                  x', // 11
             'x                  x', // 12
-            'x   xx   xxxx      x', // 13
+            'x                  x', // 13
             'x                  x', // 14
-            'xxxxxxxxxxxxx      x', // 15
+            'x                  x', // 15
             'x                  x', // 16
-            'x               xxxx', // 17
+            'x                  x', // 17
             'x                  x', // 18
             'xxxxxxxxxxxxxxxxxxxx'  // 19
         ];
@@ -77,12 +77,12 @@ class Play extends Phaser.Scene {
 
          //test
                 
-         this.p1Score = 0;
+         this.p2Score = 0;
          let scoreConfig = {
              fontFamily: 'Courier',
              fontSize: '28px',
-             backgroundColor: '#F3B141',
-             color: '#843605',
+             backgroundColor: '#41dbf3',
+             color: '#08032b',
              align: 'right',
              padding: {
              top: 5,
@@ -90,7 +90,7 @@ class Play extends Phaser.Scene {
              },
              fixedWidth: 100
          }
-         this.scoreLeft = this.add.text(game.config.width-10, game.config.height -25, this.p1Score, scoreConfig).setOrigin(1,0.5);
+         this.scoreLeft = this.add.text(game.config.width-10, game.config.height -25, this.p2Score, scoreConfig).setOrigin(1,0.5);
   
  
          
@@ -150,8 +150,8 @@ class Play extends Phaser.Scene {
 
 
     addScore() {
-        this.p1Score += 10;
-        this.scoreLeft.text = this.p1Score;
+        this.p2Score += 10;
+        this.scoreLeft.text = this.p2Score;
     }
 
 

@@ -13,11 +13,12 @@ class Menu extends Phaser.Scene {
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music','./assets/menubgm.mp3');
+        this.load.audio('music','./assets/Music3.mp3');
         this.load.image('door', './assets/Door.png');
     }
 
     create() {
+  
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .5}); 
         this.backgroundMusic = this.sound.add("music", {volume: .5, loop: true}); 
@@ -66,7 +67,15 @@ class Menu extends Phaser.Scene {
             }
         }
         this.sign = this.physics.add.sprite(baseUI*6, baseUI*18, 'sign');
+        
+        //door1
         this.door = this.physics.add.sprite(baseUI*18, baseUI*18.5, 'door');
+        
+        //door2
+        this.door2 = this.physics.add.sprite(baseUI*14, baseUI*18.5, 'door');
+
+        //door3
+        this.door3 = this.physics.add.sprite(baseUI*10, baseUI*18.5, 'door');
 
         // Animation config
         // Left Idle
@@ -105,9 +114,71 @@ class Menu extends Phaser.Scene {
 
         // set collision between the player and platform
         this.physics.add.collider(this.player, this.ground)
+ 
+        // Overlap on Sign
+        this.physics.overlap(this.player, this.sign, function() {this.trigger()}, null, this);
+
+        // When Player Collides with Door AND presses up arrow, Change Scenes
+        this.cursors = this.input.keyboard.createCursorKeys();
+        
+
+        //door1
+        this.physics.add.collider(this.door, this.ground);
+       
+        this.physics.add.overlap(this.player, this.door, opendoor1,null,this);
+
+        function opendoor1()
+        {
+            if(this.cursors.up.isDown)
+            {
+                this.game.sound.stopAll(); 
+                this.scene.stop();
+                this.scene.start('room1');
+            }
+                 
+        }  
+
+        //door2
+        this.physics.add.collider(this.door2, this.ground);
+       
+        this.physics.add.overlap(this.player, this.door2, opendoor2,null,this);
+
+        function opendoor2()
+        {
+            if(this.cursors.up.isDown)
+            {
+                this.game.sound.stopAll(); 
+                this.scene.stop();
+                this.scene.start('room2');
+            }
+                 
+        }  
+
+        //door 3
+        this.physics.add.collider(this.door3, this.ground);
+       
+        this.physics.add.overlap(this.player, this.door3, opendoor3,null,this);
+
+        function opendoor3()
+        {
+            if(this.cursors.up.isDown)
+            {
+                this.game.sound.stopAll(); 
+                this.scene.stop();
+                this.scene.start('room3');
+            }
+                 
+        }  
+        
+   
     }
 
+
+
+        
+        
     update() {
+        
         // Left and Right Movement
         if (keyLEFT.isDown && this.player.x > 0){
             this.player.anims.play('leftWalk', true);
@@ -135,17 +206,9 @@ class Menu extends Phaser.Scene {
         if (keySPACE.isUp)
             flip = false;
 
-        // Overlap on Sign
-        this.physics.overlap(this.player, this.sign, function() {this.trigger()}, null, this);
-
-        // When Player Collides with Door, Change Scenes
-        if (this.physics.collide(this.player, this.door)) {
-             this.game.sound.stopAll(); 
-             this.scene.start('playScene');
-         }
-        
 
     }
+
 
 
     trigger() {
@@ -164,8 +227,6 @@ class Menu extends Phaser.Scene {
         }
     }
 
-    addScore() {
-        this.p1Score += 10;
-        this.scoreLeft.text = this.p1Score;
-    }
+
+
 }
