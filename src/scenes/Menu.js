@@ -71,14 +71,14 @@ class Menu extends Phaser.Scene {
         }
         this.sign = this.physics.add.sprite(baseUI*6, baseUI*18, 'sign');
         
-        //door1
-        this.door = this.physics.add.sprite(baseUI*18, baseUI*18.5, 'door');
+        // //door1
+        // this.door = this.physics.add.sprite(baseUI*18, baseUI*18, 'door');
         
-        //door2
-        this.door2 = this.physics.add.sprite(baseUI*14, baseUI*18.5, 'door');
+        // //door2
+        // this.door2 = this.physics.add.sprite(baseUI*14, baseUI*18, 'door');
 
-        //door3
-        this.door3 = this.physics.add.sprite(baseUI*10, baseUI*18.5, 'door');
+        // //door3
+        // this.door3 = this.physics.add.sprite(baseUI*10, baseUI*18, 'door');
 
         // Animation config
         // Left Idle
