@@ -129,7 +129,7 @@ class room3 extends Phaser.Scene {
             this.game.sound.stopAll(); 
             this.scene.stop();
             this.doorsfx.play();
-            this.scene.start('Menu');
+            this.scene.start('Menu'); //Change to room 4 once level is made
              
                   
          }
