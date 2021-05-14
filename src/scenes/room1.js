@@ -6,7 +6,8 @@ class room1 extends Phaser.Scene {
 
     preload() {
         // Loads all our Images/tiles
-        this.load.image('ground', './assets/Ground.png');
+        this.load.spritesheet('tiles', './assets/Ground-Sheet.png', 
+            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6 });
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
@@ -40,24 +41,24 @@ class room1 extends Phaser.Scene {
 
         this.level = [
             'xxxxxxxxxxxxxxxxxxxx', // 0
-            'x                  x', // 1
-            'x                  x', // 2
-            'x                  x', // 3
-            'x               xxxx', // 4
-            'x           xx     x', // 5
-            'x       x          x', // 6
-            'xx                 x', // 7
-            'x                  x', // 8
-            'x   xxxx    xx     x', // 9
-            'x                  x', // 10
-            'x                xxx', // 11
-            'x                  x', // 12
-            'x   xx   xxxx      x', // 13
-            'x                  x', // 14
-            'xxxxxxxxxxxxx      x', // 15
-            'x                  x', // 16
-            'x               xxxx', // 17
-            'x                  x', // 18
+            'a                  b', // 1
+            'a                  b', // 2
+            'a                  b', // 3
+            'a               xxxb', // 4
+            'a           xx     b', // 5
+            'a       x          b', // 6
+            'ax                 b', // 7
+            'a                  b', // 8
+            'a   xxxx    xx     b', // 9
+            'a                  b', // 10
+            'a                xxb', // 11
+            'a                  b', // 12
+            'a   xx   xxxx      b', // 13
+            'a                  b', // 14
+            'axxxxxxxxxxxx      b', // 15
+            'a                  b', // 16
+            'a               xxxb', // 17
+            'a                  b', // 18
             'xxxxxxxxxxxxxxxxxxxx'  // 19
         ];
 
@@ -65,7 +66,22 @@ class room1 extends Phaser.Scene {
         for (var i = 0; i < this.level.length; i++) {
             for (var j = 0; j < this.level[i].length; j++) {
                 if (this.level[i][j] == 'x') {
-                    this.wall = this.physics.add.sprite(32*j, 32*i, 'ground').setOrigin(0,0);
+                    if(this.level[i][j+1] != 'x' && this.level[i][j+1] != 'b')
+                        this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 3).setOrigin(0,0);
+                    else if (this.level[i][j-1] != 'x' && this.level[i][j-1] != 'a') 
+                        this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 4).setOrigin(0,0);
+                    else 
+                        this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 2).setOrigin(0,0);
+                    this.walls.add(this.wall);
+                    this.wall.body.immovable = true;
+                }
+                if (this.level[i][j] == 'a') {
+                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 5).setOrigin(0,0);
+                    this.walls.add(this.wall);
+                    this.wall.body.immovable = true;
+                }
+                if (this.level[i][j] == 'b') {
+                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 6).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }

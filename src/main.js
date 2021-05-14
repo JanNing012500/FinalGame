@@ -19,7 +19,7 @@ var config = {
     scene: [Menu, room1, room2, room3],
     physics: {
         default: 'arcade',
-        arcade: {debug:true} // change false to make the pink lines go away
+        arcade: {debug:false} // change false to make the pink lines go away
     }
 };
 let game = new Phaser.Game(config);
