@@ -11,6 +11,11 @@ class room2 extends Phaser.Scene {
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music1','./assets/Music3.mp3');
+
+
+        //door
+        this.load.image('win2', './assets/Door.png'); 
+
     }
 
     create() { 
@@ -100,6 +105,29 @@ class room2 extends Phaser.Scene {
              callbackScope: this,
              loop: true
          })
+        
+
+
+         //spawning door
+         this.door = this.physics.add.sprite(baseUI*16, baseUI*18.5, 'win2');
+         //win door
+         this.cursors = this.input.keyboard.createCursorKeys();
+         this.physics.add.collider(this.door, this.ground);
+
+         this.physics.add.overlap(this.player, this.door, windoor2,null,this);
+
+         function windoor2()
+         {
+
+
+
+            this.game.sound.stopAll(); 
+            this.scene.stop();
+            this.scene.start('room3');
+
+
+
+         }
 
     }
 
