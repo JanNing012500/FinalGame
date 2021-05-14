@@ -12,6 +12,8 @@ class room1 extends Phaser.Scene {
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music1','./assets/Music3.mp3');
+        this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
+        
 
 
         ///door
@@ -21,6 +23,7 @@ class room1 extends Phaser.Scene {
     create() { 
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .5}); 
+        this.doorsfx = this.sound.add('nextlvlsfx', {volume : .5});
         this.backgroundMusic = this.sound.add("music1", {volume: .5, loop: true}); 
         this.backgroundMusic.play(); 
 
@@ -137,7 +140,9 @@ class room1 extends Phaser.Scene {
              
             
             
+                
                 this.game.sound.stopAll(); 
+                this.doorsfx.play();
                 this.scene.stop();
                 this.scene.start('room2');
             

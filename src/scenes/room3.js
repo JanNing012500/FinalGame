@@ -14,6 +14,9 @@ class room3 extends Phaser.Scene {
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music1','./assets/Music3.mp3');
+
+        
+        this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
     }
 
     create() { 
@@ -22,6 +25,7 @@ class room3 extends Phaser.Scene {
         this.backgroundMusic = this.sound.add("music1", {volume: .5, loop: true}); 
         this.backgroundMusic.play(); 
 
+        this.doorsfx = this.sound.add('nextlvlsfx', {volume : .5});
         // Variable to store the arrow key pressed
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
@@ -124,6 +128,7 @@ class room3 extends Phaser.Scene {
              
             this.game.sound.stopAll(); 
             this.scene.stop();
+            this.doorsfx.play();
             this.scene.start('Menu');
              
                   
