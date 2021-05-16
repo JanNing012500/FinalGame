@@ -29,42 +29,48 @@ class room1 extends Phaser.Scene {
         this.playerJumps = 0;
 
         // Create the player in the scene
-        this.player = this.physics.add.sprite(baseUI*3, baseUI*18, 'p1', 0).setOrigin(0,0);
+        this.player = this.physics.add.sprite(baseUI*2, baseUI*18, 'p1', 0).setOrigin(0,0);
 
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
+
+        //camera
+        this.cameras.main.setBounds(0, 0, game.config.width, game.config.height);
+        this.cameras.main.follow(this.player);
 
         //-----------------
         // Create the level
         //-----------------
         this.walls = this.add.group();
+        this.spikes = this.add.group();
 
         this.level = [
             'xxxxxxxxxxxxxxxxxxxx', // 0
             'a                  b', // 1
             'a                  b', // 2
-            'a                  b', // 3
-            'a               xxxb', // 4
-            'a           xx     b', // 5
-            'a       x          b', // 6
+            'a               xxxb', // 3
+            'a     x!x   x    xxb', // 4
+            'a  x  xxx         xb', // 5
+            'a                  b', // 6
             'ax                 b', // 7
             'a                  b', // 8
-            'a   xxxx    xx     b', // 9
-            'a                  b', // 10
-            'a                xxb', // 11
-            'a                  b', // 12
-            'a   xx   xxxx      b', // 13
-            'a                  b', // 14
-            'axxxxxxxxxxxx      b', // 15
-            'a                  b', // 16
-            'a               xxxb', // 17
-            'a                  b', // 18
+            'a  xx              b', // 9
+            'a      xx  x       b', // 10
+            'a      xx  xx      b', // 11
+            'a      xx  xxxxx   b', // 12
+            'a!!!!!!xx          b', // 13
+            'axxxxxxxx          b', // 14
+            'a                xxb', // 15
+            'a                xxb', // 16
+            'a           xx   xxb', // 17
+            'a  xxx!!xx       xxb', // 18
             'xxxxxxxxxxxxxxxxxxxx'  // 19
         ];
 
         // Create the level by going though the array
         for (var i = 0; i < this.level.length; i++) {
             for (var j = 0; j < this.level[i].length; j++) {
+                // Ground tile
                 if (this.level[i][j] == 'x') {
                     if(this.level[i][j+1] != 'x' && this.level[i][j+1] != 'b')
                         this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 3).setOrigin(0,0);
@@ -75,15 +81,23 @@ class room1 extends Phaser.Scene {
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
+                // Left Wall
                 if (this.level[i][j] == 'a') {
                     this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 5).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
+                // Right Wall
                 if (this.level[i][j] == 'b') {
                     this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 6).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
+                }
+                // Spikes
+                if (this.level[i][j] == '!') {
+                    this.spike = this.physics.add.sprite(32*j, 32*i, 'tiles', 1).setOrigin(0,0);
+                    this.spikes.add(this.spike);
+                    this.spike.body.immovable = true;
                 }
             }
         }
@@ -110,12 +124,12 @@ class room1 extends Phaser.Scene {
   
  
          
-         this.timer = this.time.addEvent({
-             delay: 75,
-             callback: this.addScore,
-             callbackScope: this,
-             loop: true
-         })
+        //  this.timer = this.time.addEvent({
+        //      delay: 75,
+        //      callback: this.addScore,
+        //      callbackScope: this,
+        //      loop: true
+        //  })
 
     }
 
@@ -148,6 +162,8 @@ class room1 extends Phaser.Scene {
         }
         if (keySPACE.isUp)
             flip = false;
+        
+        this.physics.overlap(this.player, this.spikes, function(){this.restart()}, null, this);
     }
 
     jump() {
@@ -161,6 +177,10 @@ class room1 extends Phaser.Scene {
             this.playerJumps += 1;
         }
         console.log(gameOption.jumps + " : " + this.playerJumps);
+    }
+
+    restart() {
+        this.scene.restart();
     }
 
 

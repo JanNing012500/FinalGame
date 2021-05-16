@@ -132,7 +132,8 @@ class Menu extends Phaser.Scene {
         this.player.setGravityY(gameOption.playerGravity);
 
         // set collision between the player and platform
-        this.physics.add.collider(this.player, this.ground)
+        this.physics.add.collider(this.player, this.ground);
+        
 
         // The two button
         this.press1 = this.add.sprite(baseUI*4.5, baseUI*16.5, 'pressF', 0).setOrigin(0,0);
