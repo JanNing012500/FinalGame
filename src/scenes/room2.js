@@ -10,14 +10,22 @@ class room2 extends Phaser.Scene {
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music1','./assets/Music3.mp3');
+        this.load.audio('music2','./assets/Music2.mp3');
+
+        this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
+
+
+        //door
+        this.load.image('win2', './assets/Door.png'); 
+
     }
 
     create() { 
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .5}); 
-        this.backgroundMusic = this.sound.add("music1", {volume: .5, loop: true}); 
+        this.backgroundMusic = this.sound.add("music2", {volume: .5, loop: true}); 
         this.backgroundMusic.play(); 
+        this.doorsfx = this.sound.add('nextlvlsfx', {volume : .5});
 
         // Variable to store the arrow key pressed
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -100,6 +108,30 @@ class room2 extends Phaser.Scene {
              callbackScope: this,
              loop: true
          })
+        
+
+
+         //spawning door
+         this.door = this.physics.add.sprite(baseUI*16, baseUI*18.5, 'win2');
+         //win door
+         this.cursors = this.input.keyboard.createCursorKeys();
+         this.physics.add.collider(this.door, this.ground);
+
+         this.physics.add.overlap(this.player, this.door, windoor2,null,this);
+
+         function windoor2()
+         {
+
+
+
+            this.game.sound.stopAll(); 
+            this.scene.stop();
+            this.doorsfx.play();
+            this.scene.start('room3');
+
+
+
+         }
 
     }
 

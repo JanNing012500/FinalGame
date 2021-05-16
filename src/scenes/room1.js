@@ -12,11 +12,18 @@ class room1 extends Phaser.Scene {
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music1','./assets/Music3.mp3');
+        this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
+        
+
+
+        ///door
+        this.load.image('win1', './assets/Door.png');
     }
 
     create() { 
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .5}); 
+        this.doorsfx = this.sound.add('nextlvlsfx', {volume : .5});
         this.backgroundMusic = this.sound.add("music1", {volume: .5, loop: true}); 
         this.backgroundMusic.play(); 
 
@@ -105,7 +112,7 @@ class room1 extends Phaser.Scene {
         // set collision between the player and platform
         this.physics.add.collider(this.player, this.walls)
 
-         //test
+        
                 
          this.p1Score = 0;
          let scoreConfig = {
@@ -130,6 +137,29 @@ class room1 extends Phaser.Scene {
         //      callbackScope: this,
         //      loop: true
         //  })
+
+
+
+         //win door
+         this.cursors = this.input.keyboard.createCursorKeys();
+         this.physics.add.collider(this.door, this.ground);
+       
+         this.physics.add.overlap(this.player, this.door, windoor1,null,this);
+ 
+         function windoor1()
+         {
+             
+            
+            
+                
+                this.game.sound.stopAll(); 
+                this.doorsfx.play();
+                this.scene.stop();
+                this.scene.start('room2');
+            
+             
+                  
+         }
 
     }
 

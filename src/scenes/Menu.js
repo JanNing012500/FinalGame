@@ -204,6 +204,8 @@ class Menu extends Phaser.Scene {
         this.press2.anims.play('space', true);
         this.press2.alpha = 1;
         if (keySPACE.isDown) {
+            this.game.sound.stopAll(); 
+            this.scene.stop();
             console.log("Entering Door");
             pause = false;
             this.scene.start('room1');
