@@ -1,7 +1,7 @@
-class room3 extends Phaser.Scene {
+class room4 extends Phaser.Scene {
 
     constructor() {
-        super('room3')
+        super('room4')
     }
 
     preload() {
@@ -49,26 +49,26 @@ class room3 extends Phaser.Scene {
         this.walls = this.add.group();
 
         this.level = [
-            'xxxxxxxxxxxxxxxxxxxx',
-            'x        x        xx',
-            'x  xxxx  x  xxxxx xx',
-            'x     x     x  xx xx',
-            'x xx  x  xxxx  xx xx',
-            'x     x  x     xx xx',
-            'xxxx  x  x  x  xx xx',
-            'x     x     x  xx xx',
-            'x   xxxxx  xxxxx  xx',
-            'x        x  x     xx',
-            'x   xxx  x  x  xxxxx',
-            'x  x    xx xx      x',
-            'x  xx xxxx  xxxxx  x',
-            'xx  x           x xx',
-            'x   x    xxxxxxxx xx',
-            'x  xx     xxx     xx',
-            'x   xxx   sxx  xxxxx',
-            'xx  xxx    xx  xxxxx',
-            'x           x       ',  //remove the middle x from this row to cheat
-            'xxxxxxxxxxxxxxxxxxxx',
+            'xxxxxxxxxxxxxxxxxxxx', // 0
+            'x                  x', // 1
+            'x                xxx', // 2
+            'x     xxxxxx       x', // 3
+            'x        x         x', // 4
+            'x        x   xxxxxxx', // 5
+            'xxx      x         x', // 6
+            'x       xxxxxxxxx  x', // 7
+            'x        x         x', // 8
+            'x        x         x', // 9
+            'x      xxx xxx   xxx', // 10
+            'x        x         x', // 11
+            'xxx      x xxxxxx  x', // 12
+            'x        x         x', // 13
+            'x        x         x', // 14
+            'xxx      x  xxxxxxxx', // 15
+            'x        x         x', // 16
+            'x      xxx     x   x', // 17
+            'x        x     x   x', // 18
+            'xxxxxxxxxxxxxxxxxxxx'  // 19
 
 
             
@@ -91,7 +91,7 @@ class room3 extends Phaser.Scene {
 
          //test
                 
-         this.p3Score = 0;
+         this.p4Score = 0;
          let scoreConfig = {
              fontFamily: 'Courier',
              fontSize: '28px',
@@ -104,7 +104,7 @@ class room3 extends Phaser.Scene {
              },
              fixedWidth: 100
          }
-         this.scoreLeft = this.add.text(game.config.width-10, game.config.height -25, this.p3Score, scoreConfig).setOrigin(1,0.5);
+         this.scoreLeft = this.add.text(game.config.width-10, game.config.height -25, this.p4Score, scoreConfig).setOrigin(1,0.5);
   
  
          
@@ -121,15 +121,15 @@ class room3 extends Phaser.Scene {
          this.cursors = this.input.keyboard.createCursorKeys();
          this.physics.add.collider(this.door, this.ground);
        
-         this.physics.add.overlap(this.player, this.door, windoor3,null,this);
+         this.physics.add.overlap(this.player, this.door, windoor4,null,this);
  
-         function windoor3()
+         function windoor4()
          {
              
             this.game.sound.stopAll(); 
             this.scene.stop();
             this.doorsfx.play();
-            this.scene.start('room4'); //Change to room 4 once level is made
+            this.scene.start('Menu'); //Change to room 4 once level is made
              
                   
          }
@@ -183,8 +183,8 @@ class room3 extends Phaser.Scene {
 
 
     addScore() {
-        this.p3Score += 10;
-        this.scoreLeft.text = this.p3Score;
+        this.p4Score += 10;
+        this.scoreLeft.text = this.p4Score;
     }
 
 
