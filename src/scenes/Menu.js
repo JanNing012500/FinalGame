@@ -26,7 +26,7 @@ class Menu extends Phaser.Scene {
             {frameWidth: 160, frameHeight: 32, startFrame: 0, endFrame: 1 });
         
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music','./assets/Music3.mp3');
+        this.load.audio('music','./assets/titlemusic3.mp3');
         this.load.image('door', './assets/Door.png');
     }
 
