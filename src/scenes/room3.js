@@ -13,7 +13,7 @@ class room3 extends Phaser.Scene {
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music1','./assets/Music3.mp3');
+        this.load.audio('music123','./assets/Music4.mp3');
 
         
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
@@ -22,7 +22,7 @@ class room3 extends Phaser.Scene {
     create() { 
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .5}); 
-        this.backgroundMusic = this.sound.add("music1", {volume: .5, loop: true}); 
+        this.backgroundMusic = this.sound.add("music123", {volume: .5, loop: true}); 
         this.backgroundMusic.play(); 
 
         this.doorsfx = this.sound.add('nextlvlsfx', {volume : .5});
