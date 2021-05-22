@@ -1,6 +1,7 @@
 var flip = false, flop = false, pause = true, clickF = 0;
 var dir = 1;
 
+
 class Menu extends Phaser.Scene {
     constructor() {
         super('Menu');
@@ -31,6 +32,8 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
+
+        //
         this.sky = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'background').setOrigin(0,0);
         this.tower = this.add.sprite(0, 0, 'tower').setOrigin(0,0);
   
@@ -42,6 +45,7 @@ class Menu extends Phaser.Scene {
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         //-----------------
@@ -164,14 +168,25 @@ class Menu extends Phaser.Scene {
                     this.player.anims.play('rightIdle', true);
                 this.player.setVelocityX(0);
             }  
-            if (keySPACE.isDown) {
+            if (keyUP.isDown) {
                 if (!flip) {
                     this.jump();
                     flip = true;
                 }
             }
-            if (keySPACE.isUp)
+            if (keyUP.isUp){
                 flip = false;
+            }
+            
+            if (keySPACE.isDown) {
+               if (!flip) {
+                  //nothing
+                 flip = true;
+               }
+            }
+
+
+    
         }
     }
 
@@ -199,7 +214,23 @@ class Menu extends Phaser.Scene {
         }
     }
 
+   
+
+    jump() {
+        // Make the player jump if only they are touching the ground
+
+        if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOption.jumps) || (this.doortrigger1=false)){
+            if(this.player.body.touching.down){
+                this.playerJumps = 0;
+            }
+            this.player.setVelocityY(gameOption.jumpForce * -1);
+            this.jumpsfx.play(); 
+            this.playerJumps += 1;
+        }
+    }
+
     doortrigger() {
+        
         this.press2.anims.play('space', true);
         this.press2.alpha = 1;
         if (keySPACE.isDown) {
@@ -208,18 +239,6 @@ class Menu extends Phaser.Scene {
             console.log("Entering Door");
             pause = false;
             this.scene.start('room1');
-        }
-    }
-
-    jump() {
-        // Make the player jump if only they are touching the ground
-        if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOption.jumps)){
-            if(this.player.body.touching.down){
-                this.playerJumps = 0;
-            }
-            this.player.setVelocityY(gameOption.jumpForce * -1);
-            this.jumpsfx.play(); 
-            this.playerJumps += 1;
         }
     }
 }

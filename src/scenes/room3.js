@@ -29,7 +29,7 @@ class room3 extends Phaser.Scene {
         // Variable to store the arrow key pressed
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
 
         // Number of consecutive jumps made
         this.playerJumps = 0;
@@ -54,20 +54,20 @@ class room3 extends Phaser.Scene {
             'x  xxxx  x  xxxxx xx',
             'x     x     x  xx xx',
             'x xx  x  xxxx  xx xx',
-            'x     x  x     xx xx',
+            'x     x xx        xx',
             'xxxx  x  x  x  xx xx',
             'x     x     x  xx xx',
             'x   xxxxx  xxxxx  xx',
-            'x        x  x     xx',
-            'x   xxx  x  x  xxxxx',
-            'x  x    xx xx      x',
-            'x  xx xxxx  xxxxx  x',
+            'x       x   x     xx',
+            'x   xxx x   x  xxxxx',
+            'x  xxx  x  xx      x',
+            'x  xxxxxx   xxxxx  x',
             'xx  x           x xx',
             'x   x    xxxxxxxx xx',
             'x  xx     xxx     xx',
             'x   xxx   sxx  xxxxx',
             'xx  xxx    xx  xxxxx',
-            'x           x       ',  //remove the middle x from this row to cheat
+            'x          xx       ',  //remove the middle x from this row to cheat
             'xxxxxxxxxxxxxxxxxxxx',
 
 
