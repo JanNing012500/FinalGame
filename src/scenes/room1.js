@@ -22,9 +22,9 @@ class room1 extends Phaser.Scene {
 
     create() { 
         // Load Audio 
-        this.jumpsfx = this.sound.add('jump', {volume: .5}); 
-        this.doorsfx = this.sound.add('nextlvlsfx', {volume : .5});
-        this.backgroundMusic = this.sound.add("music1", {volume: .5, loop: true}); 
+        this.jumpsfx = this.sound.add('jump', {volume: .15}); 
+        this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
+        this.backgroundMusic = this.sound.add("music1", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
 
         // Variable to store the arrow key pressed
