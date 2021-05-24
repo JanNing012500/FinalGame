@@ -14,8 +14,6 @@ class room1 extends Phaser.Scene {
         this.load.audio('music1','./assets/Music3.mp3');
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
         
-
-
         ///door
         this.load.image('win1', './assets/Door.png');
     }
@@ -42,8 +40,8 @@ class room1 extends Phaser.Scene {
         this.player.setGravityY(gameOption.playerGravity);
 
         //camera
-        this.cameras.main.setBounds(0, 0, game.config.width, game.config.height);
-        this.cameras.main.follow(this.player);
+        // this.cameras.main.setBounds(0, 0, game.config.width, game.config.height);
+        // this.cameras.main.follow(this.player);
 
         //-----------------
         // Create the level
@@ -70,7 +68,7 @@ class room1 extends Phaser.Scene {
             'a                xxb', // 15
             'a                xxb', // 16
             'a           xx   xxb', // 17
-            'a  xxx!!xx       xxb', // 18
+            'a   xx!!xx       xxb', // 18
             'xxxxxxxxxxxxxxxxxxxx'  // 19
         ];
 
@@ -89,78 +87,35 @@ class room1 extends Phaser.Scene {
                     this.wall.body.immovable = true;
                 }
                 // Left Wall
-                if (this.level[i][j] == 'a') {
+                else if (this.level[i][j] == 'a') {2, 
                     this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 5).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
                 // Right Wall
-                if (this.level[i][j] == 'b') {
+                else if (this.level[i][j] == 'b') {
                     this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 6).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
                 // Spikes
-                if (this.level[i][j] == '!') {
+                else if (this.level[i][j] == '!') {
                     this.spike = this.physics.add.sprite(32*j, 32*i, 'tiles', 1).setOrigin(0,0);
                     this.spikes.add(this.spike);
                     this.spike.body.immovable = true;
                 }
             }
         }
+        this.door = this.physics.add.sprite(baseUI*18, baseUI*2, 'win1', 0).setOrigin(0,0);
 
         // set collision between the player and platform
         this.physics.add.collider(this.player, this.walls)
 
-        
-                
-         this.p1Score = 0;
-         let scoreConfig = {
-             fontFamily: 'Courier',
-             fontSize: '28px',
-             backgroundColor: '#F3B141',
-             color: '#843605',
-             align: 'right',
-             padding: {
-             top: 5,
-             bottom: 5,
-             },
-             fixedWidth: 100
-         }
-         this.scoreLeft = this.add.text(game.config.width-10, game.config.height -25, this.p1Score, scoreConfig).setOrigin(1,0.5);
-  
- 
-         
-        //  this.timer = this.time.addEvent({
-        //      delay: 75,
-        //      callback: this.addScore,
-        //      callbackScope: this,
-        //      loop: true
-        //  })
-
-
-
-         //win door
-         this.cursors = this.input.keyboard.createCursorKeys();
-         this.physics.add.collider(this.door, this.ground);
-       
-         this.physics.add.overlap(this.player, this.door, windoor1,null,this);
- 
-         function windoor1()
-         {
-             
-            
-            
-                
-                this.game.sound.stopAll(); 
-                this.doorsfx.play();
-                this.scene.stop();
-                this.scene.start('room2');
-            
-             
-                  
-         }
-
+        //win door
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.physics.add.collider(this.door, this.ground);
+    
+        this.physics.add.overlap(this.player, this.door, function(){this.windoor1()},null,this);
     }
 
     update() {
@@ -184,6 +139,8 @@ class room1 extends Phaser.Scene {
         }  
 
 
+        this.physics.overlap(this.player, this.spikes, function(){ this.restart() }, null, this);
+
         if (keySPACE.isDown) {
             if (!flip) {
                 this.jump();
@@ -192,8 +149,6 @@ class room1 extends Phaser.Scene {
         }
         if (keySPACE.isUp)
             flip = false;
-        
-        this.physics.overlap(this.player, this.spikes, function(){this.restart()}, null, this);
     }
 
     jump() {
@@ -206,20 +161,18 @@ class room1 extends Phaser.Scene {
             this.jumpsfx.play(); 
             this.playerJumps += 1;
         }
-        console.log(gameOption.jumps + " : " + this.playerJumps);
     }
 
     restart() {
-        this.scene.restart();
+        this.player.x = baseUI*2;
+        this.player.y = baseUI*18;
     }
 
-
-
-    addScore() {
-        this.p1Score += 10;
-        this.scoreLeft.text = this.p1Score;
-    }
-
-
-    
+    windoor1()
+    {      
+        this.game.sound.stopAll(); 
+        this.doorsfx.play();
+        this.scene.stop();
+        this.scene.start('room2');
+    }   
 } 

@@ -150,6 +150,7 @@ class Menu extends Phaser.Scene {
         this.press1.alpha = 0;
         this.press2.alpha = 0;
         this.sky.tilePositionX += 2;
+        
         this.physics.overlap(this.player, this.sign, function() { this.signtrigger() }, null, this);
         this.physics.overlap(this.player, this.door, function() { this.doortrigger() }, null, this);
         if (pause) {
@@ -180,16 +181,6 @@ class Menu extends Phaser.Scene {
             if (keyUP.isUp){
                 flip = false;
             }
-            
-            if (keySPACE.isDown) {
-               if (!flip) {
-                  //nothing
-                 flip = true;
-               }
-            }
-
-
-    
         }
     }
 
@@ -234,7 +225,6 @@ class Menu extends Phaser.Scene {
     }
 
     doortrigger() {
-        
         this.press2.anims.play('space', true);
         this.press2.alpha = 1;
         if (keySPACE.isDown) {
