@@ -13,7 +13,7 @@ class room3 extends Phaser.Scene {
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music1','./assets/Music3.mp3');
+        this.load.audio('music123','./assets/Music4.mp3');
 
         
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
@@ -21,15 +21,15 @@ class room3 extends Phaser.Scene {
 
     create() { 
         // Load Audio 
-        this.jumpsfx = this.sound.add('jump', {volume: .5}); 
-        this.backgroundMusic = this.sound.add("music1", {volume: .5, loop: true}); 
+        this.jumpsfx = this.sound.add('jump', {volume: .15}); 
+        this.backgroundMusic = this.sound.add("music123", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
 
-        this.doorsfx = this.sound.add('nextlvlsfx', {volume : .5});
+        this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
         // Variable to store the arrow key pressed
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
 
         // Number of consecutive jumps made
         this.playerJumps = 0;
@@ -54,20 +54,20 @@ class room3 extends Phaser.Scene {
             'x  xxxx  x  xxxxx xx',
             'x     x     x  xx xx',
             'x xx  x  xxxx  xx xx',
-            'x     x  x     xx xx',
+            'x     x xx        xx',
             'xxxx  x  x  x  xx xx',
             'x     x     x  xx xx',
             'x   xxxxx  xxxxx  xx',
-            'x        x  x     xx',
-            'x   xxx  x  x  xxxxx',
-            'x  x    xx xx      x',
-            'x  xx xxxx  xxxxx  x',
+            'x           x     xx',
+            'x   xx      x  xxxxx',
+            'x  xxx     xx      x',
+            'x  xxxxxx   xxxxx  x',
             'xx  x           x xx',
             'x   x    xxxxxxxx xx',
             'x  xx     xxx     xx',
             'x   xxx   sxx  xxxxx',
             'xx  xxx    xx  xxxxx',
-            'x           x       ',  //remove the middle x from this row to cheat
+            'x          xx       ',  //remove the middle x from this row to cheat
             'xxxxxxxxxxxxxxxxxxxx',
 
 
@@ -129,7 +129,7 @@ class room3 extends Phaser.Scene {
             this.game.sound.stopAll(); 
             this.scene.stop();
             this.doorsfx.play();
-            this.scene.start('Menu'); //Change to room 4 once level is made
+            this.scene.start('room4'); //Change to room 4 once level is made
              
                   
          }

@@ -1,32 +1,31 @@
-class room2 extends Phaser.Scene {
+class room4 extends Phaser.Scene {
 
     constructor() {
-        super('room2')
+        super('room4')
     }
 
     preload() {
         // Loads all our Images/tiles
+
+        this.load.image('win', './assets/Door.png');
+
         this.load.image('ground', './assets/Ground.png');
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music2','./assets/Music2.mp3');
+        this.load.audio('music1','./assets/Music3.mp3');
 
+        
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
-
-
-        //door
-        this.load.image('win2', './assets/Door.png'); 
-
     }
 
     create() { 
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .15}); 
-        this.backgroundMusic = this.sound.add("music2", {volume: .4, loop: true}); 
+        this.backgroundMusic = this.sound.add("music1", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
-        this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
 
+        this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
         // Variable to store the arrow key pressed
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
@@ -41,6 +40,9 @@ class room2 extends Phaser.Scene {
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
 
+        //door
+        this.door = this.physics.add.sprite(baseUI*18, baseUI*18.5, 'win');
+
         //-----------------
         // Create the level
         //-----------------
@@ -49,24 +51,28 @@ class room2 extends Phaser.Scene {
         this.level = [
             'xxxxxxxxxxxxxxxxxxxx', // 0
             'x                  x', // 1
-            'x                  x', // 2
-            'x                  x', // 3
-            'x                  x', // 4
-            'x                  x', // 5
-            'x                  x', // 6
-            'x                  x', // 7
-            'x                  x', // 8
-            'x                  x', // 9
-            'x                  x', // 10
-            'x                  x', // 11
-            'x                  x', // 12
-            'x                  x', // 13
-            'x                  x', // 14
-            'x                  x', // 15
-            'x                  x', // 16
-            'x                  x', // 17
-            'x                  x', // 18
+            'x                xxx', // 2
+            'x     xxxxxx       x', // 3
+            'x        x         x', // 4
+            'x        x   xxxxxxx', // 5
+            'xxx      x         x', // 6
+            'x       xxxxxxxxx  x', // 7
+            'x        x         x', // 8
+            'x        x         x', // 9
+            'x      xxx xxx   xxx', // 10
+            'x        x         x', // 11
+            'xxx      x xxxxxx  x', // 12
+            'x        x         x', // 13
+            'x        x         x', // 14
+            'xxx      x  xxxxxxxx', // 15
+            'x        x         x', // 16
+            'x      xxx     x   x', // 17
+            'x        x     x   x', // 18
             'xxxxxxxxxxxxxxxxxxxx'  // 19
+
+
+            
+            
         ];
 
         // Create the level by going though the array
@@ -85,12 +91,12 @@ class room2 extends Phaser.Scene {
 
          //test
                 
-         this.p2Score = 0;
+         this.p4Score = 0;
          let scoreConfig = {
              fontFamily: 'Courier',
              fontSize: '28px',
-             backgroundColor: '#41dbf3',
-             color: '#08032b',
+             backgroundColor: '#ed4c4c',
+             color: '#660404',
              align: 'right',
              padding: {
              top: 5,
@@ -98,7 +104,7 @@ class room2 extends Phaser.Scene {
              },
              fixedWidth: 100
          }
-         this.scoreLeft = this.add.text(game.config.width-10, game.config.height -25, this.p2Score, scoreConfig).setOrigin(1,0.5);
+         this.scoreLeft = this.add.text(game.config.width-10, game.config.height -25, this.p4Score, scoreConfig).setOrigin(1,0.5);
   
  
          
@@ -108,29 +114,24 @@ class room2 extends Phaser.Scene {
              callbackScope: this,
              loop: true
          })
-        
 
 
-         //spawning door
-         this.door = this.physics.add.sprite(baseUI*16, baseUI*18.5, 'win2');
+
          //win door
          this.cursors = this.input.keyboard.createCursorKeys();
          this.physics.add.collider(this.door, this.ground);
-
-         this.physics.add.overlap(this.player, this.door, windoor2,null,this);
-
-         function windoor2()
+       
+         this.physics.add.overlap(this.player, this.door, windoor4,null,this);
+ 
+         function windoor4()
          {
-
-
-
+             
             this.game.sound.stopAll(); 
             this.scene.stop();
             this.doorsfx.play();
-            this.scene.start('room3');
-
-
-
+            this.scene.start('Menu'); //Change to room 4 once level is made
+             
+                  
          }
 
     }
@@ -182,8 +183,8 @@ class room2 extends Phaser.Scene {
 
 
     addScore() {
-        this.p2Score += 10;
-        this.scoreLeft.text = this.p2Score;
+        this.p4Score += 10;
+        this.scoreLeft.text = this.p4Score;
     }
 
 
