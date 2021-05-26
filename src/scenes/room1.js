@@ -6,8 +6,8 @@ class room1 extends Phaser.Scene {
 
     preload() {
         // Loads all our Images/tiles
-        this.load.spritesheet('tiles', './assets/Ground-Sheet.png', 
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6 });
+        this.load.spritesheet('tiles', './assets/GrassGround-Sheet.png', 
+            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 10});
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
@@ -50,7 +50,7 @@ class room1 extends Phaser.Scene {
         this.spikes = this.add.group();
 
         this.level = [
-            'xxxxxxxxxxxxxxxxxxxx', // 0
+            'axxxxxxxxxxxxxxxxxxb', // 0
             'a                  b', // 1
             'a                  b', // 2
             'a               xxxb', // 3
@@ -69,7 +69,7 @@ class room1 extends Phaser.Scene {
             'a                xxb', // 16
             'a           xx   xxb', // 17
             'a   xx!!xx       xxb', // 18
-            'xxxxxxxxxxxxxxxxxxxx'  // 19
+            'axxxxxxxxxxxxxxxxxxb'  // 19
         ];
 
         // Create the level by going though the array
@@ -77,24 +77,47 @@ class room1 extends Phaser.Scene {
             for (var j = 0; j < this.level[i].length; j++) {
                 // Ground tile
                 if (this.level[i][j] == 'x') {
-                    if(this.level[i][j+1] != 'x' && this.level[i][j+1] != 'b')
-                        this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 3).setOrigin(0,0);
-                    else if (this.level[i][j-1] != 'x' && this.level[i][j-1] != 'a') 
-                        this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 4).setOrigin(0,0);
-                    else 
-                        this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 2).setOrigin(0,0);
+                    // If there is no platform on the right or left
+                    if (this.level[i][j+1] != 'x' && this.level[i][j+1] != 'b' && this.level[i][j-1] != 'x' && this.level[i][j-1] != 'a')
+                        if (this.level[i+1][j] != 'x' && this.level[i-1][j] != 'x')
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 8).setOrigin(0,0);
+                        else if (this.level[i][j-1] == ' ' && this.level[i][j+1] != ' ')
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 7).setOrigin(0,0);
+                        else if (this.level[i][j+1] == ' ' && this.level[i][j-1] != ' ')
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 6).setOrigin(0,0);
+                        else
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 2).setOrigin(0,0);
+                    // If there is no platform on the right
+                    else if (this.level[i][j+1] != 'x' && this.level[i][j+1] != 'b')
+                        if (this.level[i-1][j] == 'x')
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 5).setOrigin(0,0);
+                        else
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 6).setOrigin(0,0);
+                    else if (this.level[i][j-1] != 'x' && this.level[i][j-1] != 'a')
+                        if (this.level[i-1][j] == 'x')
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 4).setOrigin(0,0);
+                        else
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 7).setOrigin(0,0);
+                    else if (i < 19 && i > 1 && this.level[i-1][j] != ' ' && (this.level[i][j+1] == 'x' || this.level[i][j-1] == 'x' || this.level[i+1][j] == 'x'))
+                        this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 3).setOrigin(0,0);
+                    // Regular floor tile
+                    else
+                        if (i > 1 && this.level[i-1][j] != ' ')
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 3).setOrigin(0,0);
+                        else
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 2).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
                 // Left Wall
-                else if (this.level[i][j] == 'a') {2, 
-                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 5).setOrigin(0,0);
+                else if (this.level[i][j] == 'a') { 
+                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 9).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
                 // Right Wall
                 else if (this.level[i][j] == 'b') {
-                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 6).setOrigin(0,0);
+                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 10).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
@@ -165,7 +188,8 @@ class room1 extends Phaser.Scene {
 
     restart() {
         this.player.x = baseUI*2;
-        this.player.y = baseUI*18;
+        this.player.y = baseUI*17.5;
+        this.player.body.velocity.y = 0;
     }
 
     windoor1()

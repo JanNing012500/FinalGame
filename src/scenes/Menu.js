@@ -9,7 +9,7 @@ class Menu extends Phaser.Scene {
 
     preload() {
         pause = true;
-        this.load.image('ground', './assets/Ground.png');
+        this.load.image('ground', './assets/GrassGround.png');
         this.load.image('grass', './assets/GrassGround.png');
         this.load.image('sign', './assets/WoodenSign.png');
         this.load.image('control', './assets/ControlWindow.png');
@@ -19,8 +19,6 @@ class Menu extends Phaser.Scene {
         
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
-        this.load.spritesheet('tiles', './assets/Ground-Sheet.png', 
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 6 });
         this.load.spritesheet('pressF', './assets/PressF.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 1 });
         this.load.spritesheet('pressSpace', './assets/PressSpace.png', 
@@ -80,7 +78,7 @@ class Menu extends Phaser.Scene {
         for (var i = 0; i < this.level.length; i++) {
             for (var j = 0; j < this.level[i].length; j++) {
                 if (this.level[i][j] == 'g') {
-                    this.floor = this.physics.add.sprite(32*j, 32*i, 'tiles', 0).setOrigin(0,0);
+                    this.floor = this.physics.add.sprite(32*j, 32*i, 'grass', 0).setOrigin(0,0);
                     this.ground.add(this.floor);
                     this.floor.body.immovable = true;
                 }
