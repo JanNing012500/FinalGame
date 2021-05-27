@@ -7,15 +7,12 @@ class room1 extends Phaser.Scene {
     preload() {
         // Loads all our Images/tiles
         this.load.spritesheet('tiles', './assets/GrassGround-Sheet.png', 
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 10});
+            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 11});
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music1','./assets/Music3.mp3');
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
-        
-        ///door
-        this.load.image('win1', './assets/Door.png');
     }
 
     create() { 
@@ -129,7 +126,7 @@ class room1 extends Phaser.Scene {
                 }
             }
         }
-        this.door = this.physics.add.sprite(baseUI*18, baseUI*2, 'win1', 0).setOrigin(0,0);
+        this.door = this.physics.add.sprite(baseUI*18, baseUI*2, 'tiles', 11).setOrigin(0,0);
 
         // set collision between the player and platform
         this.physics.add.collider(this.player, this.walls)
@@ -188,7 +185,7 @@ class room1 extends Phaser.Scene {
 
     restart() {
         this.player.x = baseUI*2;
-        this.player.y = baseUI*17.5;
+        this.player.y = baseUI*17;
         this.player.body.velocity.y = 0;
     }
 
