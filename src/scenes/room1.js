@@ -8,6 +8,8 @@ class room1 extends Phaser.Scene {
         // Loads all our Images/tiles
         this.load.spritesheet('tiles', './assets/GrassGround-Sheet.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 11});
+        this.load.spritesheet('towerwall', './assets/InsideWall.png', 
+            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 17});
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
@@ -16,6 +18,11 @@ class room1 extends Phaser.Scene {
     }
 
     create() { 
+        for (var i = 0; i < 20; i++) {
+            for (var j = 0; j < 20; j++) {
+                this.add.sprite(baseUI*j, baseUI*i, 'towerwall', 0)
+            }
+        }
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .15}); 
         this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
