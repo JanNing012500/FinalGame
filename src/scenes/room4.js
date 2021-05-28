@@ -72,7 +72,7 @@ class room4 extends Phaser.Scene {
             'axx      x  xxxxxxxb', // 15
             'a        x         b', // 16
             'a      xxx     x   b', // 17
-            'a        x    !x  db', // 18
+            'a        x!   !x  db', // 18
             'axxxxxxxxxxxxxxxxxxb'  // 19
         ];
  
