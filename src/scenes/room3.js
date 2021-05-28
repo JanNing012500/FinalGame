@@ -1,141 +1,155 @@
 class room3 extends Phaser.Scene {
-
+ 
     constructor() {
         super('room3')
     }
-
+ 
     preload() {
-        // Loads all our Images/tiles
-
-        this.load.image('win', './assets/Door.png');
-
-        this.load.image('ground', './assets/Ground.png');
+        // Loads all our Images/tiles2
+        this.load.spritesheet('tiles2', './assets/GrassGround-Sheet.png',      //change to tiles[level] for each lvl for every var
+            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 11});
+        this.load.spritesheet('towerwall2', './assets/InsideWall.png',         //change to towerwall[level] for each lvl for every var
+            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 17});
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music123','./assets/Music4.mp3');
-
-        
+        this.load.audio('music3','./assets/music3.mp3');                       //change to  music[level] for each lvl for every var
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
+        this.load.audio('Lose','./assets/LoseSfx1.wav');
     }
-
+ 
     create() { 
+        for (var i = 0; i < 20; i++) {
+            for (var j = 0; j < 20; j++) {
+                this.add.sprite(baseUI*j, baseUI*i, 'towerwall2', 0)
+            }
+        }
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .15}); 
-        this.backgroundMusic = this.sound.add("music123", {volume: .4, loop: true}); 
-        this.backgroundMusic.play(); 
-
         this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
+        this.LoseFx = this.sound.add('Lose', {volume : .3});
+        this.backgroundMusic = this.sound.add("music3", {volume: .4, loop: true}); 
+        this.backgroundMusic.play(); 
+ 
         // Variable to store the arrow key pressed
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-
+ 
         // Number of consecutive jumps made
         this.playerJumps = 0;
-
+ 
         // Create the player in the scene
-        this.player = this.physics.add.sprite(baseUI*3, baseUI*18, 'p1', 0).setOrigin(0,0);
-
+        this.player = this.physics.add.sprite(baseUI*2, baseUI*18, 'p1', 0).setOrigin(0,0);
+ 
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
-
-        //door
-        this.door = this.physics.add.sprite(baseUI*18, baseUI*18.5, 'win');
-
+ 
         //-----------------
         // Create the level
         //-----------------
         this.walls = this.add.group();
-
+        this.spikes = this.add.group();
+        
+        this.doors = this.add.group();
+ 
         this.level = [
-            'xxxxxxxxxxxxxxxxxxxx',
-            'x        x        xx',
-            'x  xxxx  x  xxxxx xx',
-            'x     x     x  xx xx',
-            'x xx  x  xxxx  xx xx',
-            'x     x xx        xx',
-            'xxxx  x  x  x  xx xx',
-            'x     x     x  xx xx',
-            'x   xxxxx  xxxxx  xx',
-            'x           x     xx',
-            'x   xx      x  xxxxx',
-            'x  xxx     xx      x',
-            'x  xxxxxx   xxxxx  x',
-            'xx  x           x xx',
-            'x   x    xxxxxxxx xx',
-            'x  xx     xxx     xx',
-            'x   xxx   sxx  xxxxx',
-            'xx  xxx    xx  xxxxx',
-            'x          xx       ',  //remove the middle x from this row to cheat
-            'xxxxxxxxxxxxxxxxxxxx',
-
-
-            
-            
+            'axxxxxxxxxxxxxxxxxxb', // 0
+            'a        x        xb', // 1
+            'a  xxxx  x  xxxxx xb', // 2
+            'a     x     x  xx xb', // 3
+            'a xx  x  xxxx  xx xb', // 4
+            'a     x xx        xb', // 5
+            'axxx  x  x  x  xx xb', // 6
+            'a     x     x  xx xb', // 7
+            'a   xxxxx  xxxxx  xb', // 8
+            'a           x     xb', // 9
+            'a   xx      x  xxxxb', // 10
+            'a  xxx     xx      b', // 11
+            'a  xxxxxx   xxxxx  b', // 12
+            'a   x           x xb', // 13
+            'ax  x    xxxxxxxx xb', // 14
+            'a   x     xxx     xb', // 15
+            'a   xxx   xx  xxxxxb', // 16
+            'a  xxxxx  xxx  xxxxb', // 17
+            'a         xxx     db', // 18
+            'axxxxxxxxxxxxxxxxxxb'  // 19
         ];
-
+ 
         // Create the level by going though the array
         for (var i = 0; i < this.level.length; i++) {
             for (var j = 0; j < this.level[i].length; j++) {
+                // Ground tile
                 if (this.level[i][j] == 'x') {
-                    this.wall = this.physics.add.sprite(32*j, 32*i, 'ground').setOrigin(0,0);
+                    // If there is no platform on the right or left
+                    if (this.level[i][j+1] != 'x' && this.level[i][j+1] != 'b' && this.level[i][j-1] != 'x' && this.level[i][j-1] != 'a')
+                        if (this.level[i+1][j] != 'x' && this.level[i-1][j] != 'x')
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 8).setOrigin(0,0);
+                        else if (this.level[i][j-1] == ' ' && this.level[i][j+1] != ' ')
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 7).setOrigin(0,0);
+                        else if (this.level[i][j+1] == ' ' && this.level[i][j-1] != ' ')
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 6).setOrigin(0,0);
+                        else
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 2).setOrigin(0,0);
+                    // If there is no platform on the right
+                    else if (this.level[i][j+1] != 'x' && this.level[i][j+1] != 'b')
+                        if (this.level[i-1][j] == 'x')
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 5).setOrigin(0,0);
+                        else
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 6).setOrigin(0,0);
+                    else if (this.level[i][j-1] != 'x' && this.level[i][j-1] != 'a')
+                        if (this.level[i-1][j] == 'x')
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 4).setOrigin(0,0);
+                        else
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 7).setOrigin(0,0);
+                    else if (i < 19 && i > 1 && this.level[i-1][j] != ' ' && (this.level[i][j+1] == 'x' || this.level[i][j-1] == 'x' || this.level[i+1][j] == 'x'))
+                        this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 3).setOrigin(0,0);
+                    // Regular floor tile
+                    else
+                        if (i > 1 && this.level[i-1][j] != ' ')
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 3).setOrigin(0,0);
+                        else
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 2).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
+                // Left Wall
+                else if (this.level[i][j] == 'a') { 
+                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles2', 9).setOrigin(0,0);
+                    this.walls.add(this.wall);
+                    this.wall.body.immovable = true;
+                }
+                // Right Wall
+                else if (this.level[i][j] == 'b') {
+                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles2', 10).setOrigin(0,0);
+                    this.walls.add(this.wall);
+                    this.wall.body.immovable = true;
+                }
+                // Spikes
+                else if (this.level[i][j] == '!') {
+                    this.spike = this.physics.add.sprite(32*j, 32*i, 'tiles2', 1).setOrigin(0,0);
+                    this.spikes.add(this.spike);
+                    this.spike.body.immovable = true;
+                }
+                 // door
+                 else if (this.level[i][j] == 'd') {
+                    this.door = this.physics.add.sprite(32*j, 32*i, 'tiles2', 11).setOrigin(0,0);
+                    this.doors.add(this.door); //change to door
+                    this.door.body.immovable = true;
+                }
             }
         }
-
+        
         // set collision between the player and platform
         this.physics.add.collider(this.player, this.walls)
-
-         //test
-                
-         this.p3Score = 0;
-         let scoreConfig = {
-             fontFamily: 'Courier',
-             fontSize: '28px',
-             backgroundColor: '#ed4c4c',
-             color: '#660404',
-             align: 'right',
-             padding: {
-             top: 5,
-             bottom: 5,
-             },
-             fixedWidth: 100
-         }
-         this.scoreLeft = this.add.text(game.config.width-10, game.config.height -25, this.p3Score, scoreConfig).setOrigin(1,0.5);
-  
  
-         
-         this.timer = this.time.addEvent({
-             delay: 75,
-             callback: this.addScore,
-             callbackScope: this,
-             loop: true
-         })
-
-
-
-         //win door
-         this.cursors = this.input.keyboard.createCursorKeys();
-         this.physics.add.collider(this.door, this.ground);
-       
-         this.physics.add.overlap(this.player, this.door, windoor3,null,this);
- 
-         function windoor3()
-         {
-             
-            this.game.sound.stopAll(); 
-            this.scene.stop();
-            this.doorsfx.play();
-            this.scene.start('room4'); //Change to room 4 once level is made
-             
-                  
-         }
-
+        //win door
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.physics.add.collider(this.door, this.ground);
+    
+        this.physics.add.overlap(this.player, this.door, function(){this.windoor2()},null,this);
     }
-
+ 
     update() {
         // Left and Right Movement
         if (keyLEFT.isDown){
@@ -155,8 +169,10 @@ class room3 extends Phaser.Scene {
                 this.player.anims.play('rightIdle', true);
             this.player.body.velocity.x = 0;
         }  
-
-
+ 
+ 
+        this.physics.overlap(this.player, this.spikes, function(){ this.restart() }, null, this);
+ 
         if (keySPACE.isDown) {
             if (!flip) {
                 this.jump();
@@ -166,7 +182,7 @@ class room3 extends Phaser.Scene {
         if (keySPACE.isUp)
             flip = false;
     }
-
+ 
     jump() {
         // Make the player jump if only they are touching the ground
         if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOption.jumps)){
@@ -177,16 +193,27 @@ class room3 extends Phaser.Scene {
             this.jumpsfx.play(); 
             this.playerJumps += 1;
         }
-        console.log(gameOption.jumps + " : " + this.playerJumps);
     }
-
-
-
-    addScore() {
-        this.p3Score += 10;
-        this.scoreLeft.text = this.p3Score;
+ 
+    restart() {
+        this.LoseFx.play(); 
+        this.player.x = baseUI*2;
+        this.player.y = baseUI*17;
+        this.player.body.velocity.y = 0;
     }
-
-
-    
+ 
+    windoor2()
+    {      
+        this.game.sound.stopAll(); 
+        this.doorsfx.play();
+        this.scene.stop();
+        this.scene.start('room4'); //change to next room #
+    }   
 } 
+ 
+ 
+ 
+ 
+ 
+ 
+

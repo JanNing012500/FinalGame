@@ -1,5 +1,5 @@
 class room4 extends Phaser.Scene {
-
+//no template 
     constructor() {
         super('room4')
     }
@@ -13,7 +13,7 @@ class room4 extends Phaser.Scene {
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music1','./assets/Music3.mp3');
+        this.load.audio('music1','./assets/Music4.mp3');
 
         
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
