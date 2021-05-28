@@ -48,10 +48,10 @@ class room1 extends Phaser.Scene {
         //-----------------
         // Create the level
         //-----------------
-        this.walls = this.add.group();
-        this.spikes = this.add.group();
+        this.walls = this.add.group();  //x for walls
+        this.spikes = this.add.group();  // s for spikes
         
-        this.doors = this.add.group();
+        this.doors = this.add.group();  // d for doors
  
         this.level = [
             'axxxxxxxxxxxxxxxxxxb', // 0
@@ -207,7 +207,7 @@ class room1 extends Phaser.Scene {
         this.game.sound.stopAll(); 
         this.doorsfx.play();
         this.scene.stop();
-        this.scene.start('room2');
+        this.scene.start('room2'); //goes to room2
     }   
 } 
  
