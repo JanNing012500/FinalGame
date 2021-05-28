@@ -15,6 +15,7 @@ class room1 extends Phaser.Scene {
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music1','./assets/Music3.mp3');
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
+        this.load.audio('Lose','./assets/LoseSfx1.wav');
     }
 
     create() { 
@@ -26,6 +27,7 @@ class room1 extends Phaser.Scene {
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .15}); 
         this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
+        this.LoseFx = this.sound.add('Lose', {volume : .3});
         this.backgroundMusic = this.sound.add("music1", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
 
@@ -52,14 +54,16 @@ class room1 extends Phaser.Scene {
         //-----------------
         this.walls = this.add.group();
         this.spikes = this.add.group();
+        
+        this.doors = this.add.group();
 
         this.level = [
             'axxxxxxxxxxxxxxxxxxb', // 0
             'a                  b', // 1
-            'a                  b', // 2
+            'a                 db', // 2
             'a               xxxb', // 3
-            'a     x!x   x    xxb', // 4
-            'a  x  xxx         xb', // 5
+            'a     x!!x  x    xxb', // 4
+            'a  x  xxxx        xb', // 5
             'a                  b', // 6
             'ax                 b', // 7
             'a                  b', // 8
@@ -131,9 +135,16 @@ class room1 extends Phaser.Scene {
                     this.spikes.add(this.spike);
                     this.spike.body.immovable = true;
                 }
+                 // door
+                 else if (this.level[i][j] == 'd') {
+                    this.door = this.physics.add.sprite(32*j, 32*i, 'tiles', 11).setOrigin(0,0);
+                    this.doors.add(this.door); //change to door
+                    this.door.body.immovable = true;
+                }
             }
         }
-        this.door = this.physics.add.sprite(baseUI*18, baseUI*2, 'tiles', 11).setOrigin(0,0);
+        //makes the door
+        //this.door = this.physics.add.sprite(baseUI*18, baseUI*2, 'tiles', 11).setOrigin(0,0);
 
         // set collision between the player and platform
         this.physics.add.collider(this.player, this.walls)
@@ -191,6 +202,7 @@ class room1 extends Phaser.Scene {
     }
 
     restart() {
+        this.LoseFx.play(); 
         this.player.x = baseUI*2;
         this.player.y = baseUI*17;
         this.player.body.velocity.y = 0;
