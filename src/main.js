@@ -8,7 +8,9 @@ Creative Tilt:
 let gameOption = {
     playerGravity: 900,
     jumpForce: 325,
-    jumps: 2
+    jumps: 2,
+    speed: 140
+
 }
 
 var config = {

@@ -146,12 +146,12 @@ class room5 extends Phaser.Scene {
         if (keyLEFT.isDown){
             this.player.anims.play('leftWalk', true);
             dir = 1;
-            this.player.setVelocityX(-140);
+            this.player.setVelocityX(-1 * gameOption.speed);
         }
         else if (keyRIGHT.isDown){
             this.player.anims.play('rightWalk', true);
             dir = -1;
-            this.player.setVelocityX(140);
+            this.player.setVelocityX(gameOption.speed);
         }
         else {
             if (dir == 1)
@@ -172,7 +172,6 @@ class room5 extends Phaser.Scene {
         if (keySPACE.isUp)
             flip = false;
     }
-
     jump() {
         // Make the player jump if only they are touching the ground
         if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOption.jumps)){
@@ -196,6 +195,6 @@ class room5 extends Phaser.Scene {
         this.game.sound.stopAll(); 
         this.doorsfx.play();
         this.scene.stop();
-        this.scene.start('room2');
+        this.scene.start('room6');
     }   
 } 
