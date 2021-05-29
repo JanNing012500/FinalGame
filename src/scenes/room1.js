@@ -6,14 +6,14 @@ class room1 extends Phaser.Scene {
  
     preload() {
         // Loads all our Images/tiles1
-        this.load.spritesheet('tiles1', './assets/GrassGround-Sheet.png',      //change to tiles[level] for each lvl
+        this.load.spritesheet('tiles1', './assets/GrassGround-Sheet.png',      //change ALL tiles[] to tiles[level] for each lvl (using google docs)
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 11});
-        this.load.spritesheet('towerwall1', './assets/InsideWall.png',         //change to towerwall[level] for each lvl
+        this.load.spritesheet('towerwall1', './assets/InsideWall.png',         //change ALL  towerwall[] to towerwall[level] for each lvl
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 17});
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music2','./assets/Music2.mp3');                       //change to  music[level] for each lvl
+        this.load.audio('music2','./assets/Music2.mp3');                       
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
         this.load.audio('Lose','./assets/LoseSfx1.wav');
     }
