@@ -17,12 +17,16 @@ class Menu extends Phaser.Scene {
         this.load.image('tower', './assets/Tower.png');
         this.load.image('gate', './assets/Gate.png');
         
+        this.load.spritesheet('tiles', './assets/GrassGround-Sheet.png', 
+            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 11});
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.spritesheet('pressF', './assets/PressF.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 1 });
         this.load.spritesheet('pressSpace', './assets/PressSpace.png', 
             {frameWidth: 160, frameHeight: 32, startFrame: 0, endFrame: 1 });
+        this.load.spritesheet('extraJump', './assets/Springs-Sheet.png',
+            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 9 });
         
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music','./assets/titlemusic3.mp3');
@@ -124,6 +128,11 @@ class Menu extends Phaser.Scene {
             key: 'space',
             frames: this.anims.generateFrameNumbers('pressSpace', { start: 0, end: 1, first: 0 }),
             frameRate: 1
+        })
+        this.anims.create({
+            key: 'jumpPU',
+            frames: this.anims.generateFrameNumbers('extraJump', { start: 0, end: 9, first: 0 }),
+            frameRate: 20
         })
 
         // Number of consecutive jumps made
@@ -230,7 +239,7 @@ class Menu extends Phaser.Scene {
             this.scene.stop();
             console.log("Entering Door");
             pause = false;
-            this.scene.start('room1');
+            this.scene.start('room5');
         }
     }
 }

@@ -16,10 +16,10 @@ var config = {
     width: 640,
     height: 640,
     parent: 'phaser-game',
-    scene: [Menu, room1, room2, room3, room4],
+    scene: [ Menu, room5, room1, room2, room3, room4],
     physics: {
         default: 'arcade',
-        arcade: {debug:false} // change false to make the pink lines go away
+        arcade: {debug:1} // change false to make the pink lines go away
     }
 };
 let game = new Phaser.Game(config);
