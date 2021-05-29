@@ -207,7 +207,7 @@ class room7 extends Phaser.Scene {
         this.game.sound.stopAll(); 
         this.doorsfx.play();
         this.scene.stop();
-        this.scene.start('Menu'); //goes to room2
+        this.scene.start('room8'); //goes to room2
     }   
 } 
  

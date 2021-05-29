@@ -239,7 +239,7 @@ class Menu extends Phaser.Scene {
             this.scene.stop();
             console.log("Entering Door");
             pause = false;
-            this.scene.start('room8');
+            this.scene.start('room1');
         }
     }
 }
