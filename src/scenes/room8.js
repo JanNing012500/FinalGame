@@ -55,24 +55,24 @@ class room8 extends Phaser.Scene { //template for adding springs to room
  
         this.level = [
             'axxxxxxxxxxxxxxxxxxb', // 0
-            'a                  b', // 1
-            'a                  b', // 2
-            'a                  b', // 3
-            'a                  b', // 4
-            'a                  b', // 5
-            'a                  b', // 6
-            'a                  b', // 7
-            'a                  b', // 8
-            'a                  b', // 9
-            'a                  b', // 10
+            'a                  b', // 1 
+            'a                 db', // 2
+            'a         e     xxxb', // 3
+            'a               xxxb', // 4
+            'a     e !!!!!!!!xxxb', // 5
+            'ae xxxxxxxxxxxxxxxxb', // 6
+            'a  !     !         b', // 7
+            'a  x  x  x  x  x   b', // 8
+            'ae !  !     !      b', // 9
+            'a  x  x  x  x  x   b', // 10
             'a                  b', // 11
-            'a                  b', // 12
-            'a                  b', // 13
-            'a                  b', // 14
+            'ae   e!ee!ee!ee!   b', // 12
+            'axxxxxxxxxxxxxxx   b', // 13
+            'a                 eb', // 14
             'a                  b', // 15
-            'a                  b', // 16
-            'a                  b', // 17
-            'a         e       db', // 18
+            'a        e         b', // 16
+            'a                xxb', // 17
+            'a   x!!!!!!!!!!!!!!b', // 18
             'axxxxxxxxxxxxxxxxxxb'  // 19
         ];
  
@@ -218,7 +218,7 @@ class room8 extends Phaser.Scene { //template for adding springs to room
         this.game.sound.stopAll(); 
         this.doorsfx.play();
         this.scene.stop();
-        this.scene.start('Menu'); //goes to room2
+        this.scene.start('Menu'); //goes to the Menu
     }   
 } 
  
