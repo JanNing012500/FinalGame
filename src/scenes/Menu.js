@@ -165,12 +165,12 @@ class Menu extends Phaser.Scene {
             if (keyLEFT.isDown && this.player.x > 0){
                 this.player.anims.play('leftWalk', true);
                 dir = 1;
-                this.player.setVelocityX(-200);
+                this.player.setVelocityX(-1*gameOption.speed);
             }
             else if (keyRIGHT.isDown && this.player.x < game.config.width - this.player.width){
                 this.player.anims.play('rightWalk', true);
                 dir = -1;
-                this.player.setVelocityX(200);
+                this.player.setVelocityX(gameOption.speed);
             }
             else {
                 if (dir == 1)

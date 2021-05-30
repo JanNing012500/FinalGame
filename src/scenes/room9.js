@@ -166,12 +166,12 @@ class room9 extends Phaser.Scene { //template for adding springs to room
         if (keyLEFT.isDown){
             this.player.anims.play('leftWalk', true);
             dir = 1;
-            this.player.setVelocityX(-200);
+            this.player.setVelocityX(-1 * gameOption.speed);
         }
         else if (keyRIGHT.isDown){
             this.player.anims.play('rightWalk', true);
             dir = -1;
-            this.player.setVelocityX(200);
+            this.player.setVelocityX(gameOption.speed);
         }
         else {
             if (dir == 1)
