@@ -13,7 +13,7 @@ class room9 extends Phaser.Scene { //template for adding springs to room
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music2','./assets/Music2.mp3');                       
+        this.load.audio('music2','./assets/Music3.mp3');                       
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
         this.load.audio('Lose','./assets/LoseSfx1.wav');
     }
