@@ -1,19 +1,19 @@
-class room4 extends Phaser.Scene {
+class room9 extends Phaser.Scene { //template for adding springs to room 
  
     constructor() {
-        super('room4') //Template Room
+        super('room9') //Template Room
     }
  
     preload() {
-        // Loads all our Images/tiles4
-        this.load.spritesheet('tiles4', './assets/GrassGround-Sheet.png',      //change to tiles[level] for each lvl
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 11});
-        this.load.spritesheet('towerwall4', './assets/InsideWall.png',         //change to towerwall[level] for each lvl
+        // Loads all our Images/tiles8
+        //this.load.spritesheet('tiles', './assets/GrassGround-Sheet.png',      //change ALL tiles[] to tiles[level] for each lvl (using google docs)
+    //  {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 11});
+        this.load.spritesheet('towerwall8', './assets/InsideWall.png',         //change ALL  towerwall[] to towerwall[level] for each lvl
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 17});
         this.load.spritesheet('p1', './assets/Player01.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music4','./assets/Music2.mp3');                       //change to  music[level] for each lvl
+        this.load.audio('music2','./assets/Music2.mp3');                       
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
         this.load.audio('Lose','./assets/LoseSfx1.wav');
     }
@@ -21,14 +21,14 @@ class room4 extends Phaser.Scene {
     create() { 
         for (var i = 0; i < 20; i++) {
             for (var j = 0; j < 20; j++) {
-                this.add.sprite(baseUI*j, baseUI*i, 'towerwall4', 0)
+                this.add.sprite(baseUI*j, baseUI*i, 'towerwall8', 0)
             }
         }
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .15}); 
         this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
         this.LoseFx = this.sound.add('Lose', {volume : .3});
-        this.backgroundMusic = this.sound.add("music4", {volume: .4, loop: true}); 
+        this.backgroundMusic = this.sound.add("music2", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
  
         // Variable to store the arrow key pressed
@@ -49,30 +49,30 @@ class room4 extends Phaser.Scene {
         // Create the level
         //-----------------
         this.walls = this.add.group();  //x for walls
-        this.spikes = this.add.group();  // s for spikes
-        
+        this.spikes = this.add.group(); // s for spikes
         this.doors = this.add.group();  // d for doors
+        this.jumps = this.add.group(); // e for spring
  
         this.level = [
             'axxxxxxxxxxxxxxxxxxb', // 0
-            'a                  b', // 1
-            'a                xxb', // 2
-            'a     xxxxxxx  xxxxb', // 3
-            'a        xxxx  xxxxb', // 4
-            'axxx     x      !!!!b', // 5
-            'a        x xx  xxxxb', // 6
-            'a     xxxx xx!!    b', // 7
-            'a        x xxxx  x b', // 8
-            'a        x       x b', // 9
-            'a     xxxx xxxxxxx b', // 10
-            'a        x!        b', // 11
-            'a        xx  xxxxx b', // 12
-            'axxx     x       x b', // 13
-            'a        x!!     !!b', // 14
-            'a     !!!xxxxxx  xxb', // 15
-            'axxx  xxxxd   x  xxb', // 16
-            'a        xx   x  xxb', // 17
-            'a        xx!    !xxb', // 18
+            'a                  b', // 1 
+            'a                 db', // 2
+            'a         e     xxxb', // 3
+            'a               xxxb', // 4
+            'a     e !!!!!!!!xxxb', // 5
+            'ae xxxxxxxxxxxxxxxxb', // 6
+            'a  !     !         b', // 7
+            'a  x  x  x  x  x   b', // 8
+            'ae !  !     !      b', // 9
+            'a  x  x  x  x  x   b', // 10
+            'a                  b', // 11
+            'ae   e!ee!ee!ee!   b', // 12
+            'axxxxxxxxxxxxxxx   b', // 13
+            'a                 eb', // 14
+            'a                  b', // 15
+            'a        e         b', // 16
+            'a                xxb', // 17
+            'a   x!!!!!!!!!!!!!!b', // 18
             'axxxxxxxxxxxxxxxxxxb'  // 19
         ];
  
@@ -84,59 +84,70 @@ class room4 extends Phaser.Scene {
                     // If there is no platform on the right or left
                     if (this.level[i][j+1] != 'x' && this.level[i][j+1] != 'b' && this.level[i][j-1] != 'x' && this.level[i][j-1] != 'a')
                         if (this.level[i+1][j] != 'x' && this.level[i-1][j] != 'x')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles4', 8).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 8).setOrigin(0,0);
                         else if (this.level[i][j-1] == ' ' && this.level[i][j+1] != ' ')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles4', 7).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 7).setOrigin(0,0);
                         else if (this.level[i][j+1] == ' ' && this.level[i][j-1] != ' ')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles4', 6).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 6).setOrigin(0,0);
                         else
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles4', 2).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 2).setOrigin(0,0);
                     // If there is no platform on the right
                     else if (this.level[i][j+1] != 'x' && this.level[i][j+1] != 'b')
                         if (this.level[i-1][j] == 'x')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles4', 5).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 5).setOrigin(0,0);
                         else
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles4', 6).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 6).setOrigin(0,0);
                     else if (this.level[i][j-1] != 'x' && this.level[i][j-1] != 'a')
                         if (this.level[i-1][j] == 'x')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles4', 4).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 4).setOrigin(0,0);
                         else
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles4', 7).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 7).setOrigin(0,0);
                     else if (i < 19 && i > 1 && this.level[i-1][j] != ' ' && (this.level[i][j+1] == 'x' || this.level[i][j-1] == 'x' || this.level[i+1][j] == 'x'))
-                        this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles4', 3).setOrigin(0,0);
+                        this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 3).setOrigin(0,0);
                     // Regular floor tile
                     else
                         if (i > 1 && this.level[i-1][j] != ' ')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles4', 3).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 3).setOrigin(0,0);
                         else
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles4', 2).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 2).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
                 // Left Wall
                 else if (this.level[i][j] == 'a') { 
-                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles4', 9).setOrigin(0,0);
+                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 9).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
                 // Right Wall
                 else if (this.level[i][j] == 'b') {
-                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles4', 10).setOrigin(0,0);
+                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 10).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
                 // Spikes
                 else if (this.level[i][j] == '!') {
-                    this.spike = this.physics.add.sprite(32*j, 32*i, 'tiles4', 1).setOrigin(0,0);
+                    this.spike = this.physics.add.sprite(32*j, 32*i, 'tiles', 1).setOrigin(0,0);
                     this.spikes.add(this.spike);
                     this.spike.body.immovable = true;
                 }
+                else if (this.level[i][j] == 'e') {
+                    let JumpUP = this.physics.add.sprite(32*j, 32*i, 'extraJump', 0).setOrigin(0,0);
+                    this.physics.add.overlap(this.player, JumpUP, function(){ 
+                        JumpUP.anims.play('jumpPU', true);
+                        gameOption.jumpForce = 400;
+                        this.jump();
+                        gameOption.jumpForce = 325;}, 
+                    null, this);
+                    this.jumps.add(JumpUP);
+                }
                  // door
                  else if (this.level[i][j] == 'd') {
-                    this.door = this.physics.add.sprite(32*j, 32*i, 'tiles4', 11).setOrigin(0,0);
+                    this.door = this.physics.add.sprite(32*j, 32*i, 'tiles', 11).setOrigin(0,0);
                     this.doors.add(this.door); //change to door
                     this.door.body.immovable = true;
                 }
+               
             }
         }
         
@@ -147,7 +158,7 @@ class room4 extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
         this.physics.add.collider(this.door, this.ground);
     
-        this.physics.add.overlap(this.player, this.door, function(){this.windoor4()},null,this);
+        this.physics.add.overlap(this.player, this.door, function(){this.windoor2()},null,this);
     }
  
     update() {
@@ -202,19 +213,15 @@ class room4 extends Phaser.Scene {
         this.player.body.velocity.y = 0;
     }
  
-    windoor4()
+    windoor2()
     {      
         this.game.sound.stopAll(); 
         this.doorsfx.play();
         this.scene.stop();
-        this.scene.start('room5'); 
+        this.scene.start('Menu'); //goes to the Menu
     }   
 } 
  
  
  
  
- 
- 
- 
-
