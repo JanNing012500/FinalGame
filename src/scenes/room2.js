@@ -6,12 +6,6 @@ class room2 extends Phaser.Scene {
  
     preload() {
         // Loads all our Images/tiles1
-        this.load.spritesheet('tiles1', './assets/GrassGround-Sheet.png',      //change ALL tiles[] to tiles[level] for each lvl (using google docs)
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 11});
-        this.load.spritesheet('towerwall1', './assets/InsideWall.png',         //change ALL  towerwall[] to towerwall[level] for each lvl
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 17});
-        this.load.spritesheet('p1', './assets/Player01.png', 
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music2','./assets/Music2.mp3');                       
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
@@ -21,7 +15,7 @@ class room2 extends Phaser.Scene {
     create() { 
         for (var i = 0; i < 20; i++) {
             for (var j = 0; j < 20; j++) {
-                this.add.sprite(baseUI*j, baseUI*i, 'towerwall1', 0)
+                this.add.sprite(baseUI*j, baseUI*i, 'towerwall', 0)
             }
         }
         // Load Audio 
@@ -84,56 +78,56 @@ class room2 extends Phaser.Scene {
                     // If there is no platform on the right or left
                     if (this.level[i][j+1] != 'x' && this.level[i][j+1] != 'b' && this.level[i][j-1] != 'x' && this.level[i][j-1] != 'a')
                         if (this.level[i+1][j] != 'x' && this.level[i-1][j] != 'x')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles1', 8).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 8).setOrigin(0,0);
                         else if (this.level[i][j-1] == ' ' && this.level[i][j+1] != ' ')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles1', 7).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 7).setOrigin(0,0);
                         else if (this.level[i][j+1] == ' ' && this.level[i][j-1] != ' ')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles1', 6).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 6).setOrigin(0,0);
                         else
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles1', 2).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 2).setOrigin(0,0);
                     // If there is no platform on the right
                     else if (this.level[i][j+1] != 'x' && this.level[i][j+1] != 'b')
                         if (this.level[i-1][j] == 'x')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles1', 5).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 5).setOrigin(0,0);
                         else
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles1', 6).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 6).setOrigin(0,0);
                     else if (this.level[i][j-1] != 'x' && this.level[i][j-1] != 'a')
                         if (this.level[i-1][j] == 'x')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles1', 4).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 4).setOrigin(0,0);
                         else
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles1', 7).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 7).setOrigin(0,0);
                     else if (i < 19 && i > 1 && this.level[i-1][j] != ' ' && (this.level[i][j+1] == 'x' || this.level[i][j-1] == 'x' || this.level[i+1][j] == 'x'))
-                        this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles1', 3).setOrigin(0,0);
+                        this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 3).setOrigin(0,0);
                     // Regular floor tile
                     else
                         if (i > 1 && this.level[i-1][j] != ' ')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles1', 3).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 3).setOrigin(0,0);
                         else
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles1', 2).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 2).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
                 // Left Wall
                 else if (this.level[i][j] == 'a') { 
-                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles1', 9).setOrigin(0,0);
+                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 9).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
                 // Right Wall
                 else if (this.level[i][j] == 'b') {
-                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles1', 10).setOrigin(0,0);
+                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 10).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
                 // Spikes
                 else if (this.level[i][j] == '!') {
-                    this.spike = this.physics.add.sprite(32*j, 32*i, 'tiles1', 1).setOrigin(0,0);
+                    this.spike = this.physics.add.sprite(32*j, 32*i, 'tiles', 1).setOrigin(0,0);
                     this.spikes.add(this.spike);
                     this.spike.body.immovable = true;
                 }
                  // door
                  else if (this.level[i][j] == 'd') {
-                    this.door = this.physics.add.sprite(32*j, 32*i, 'tiles1', 11).setOrigin(0,0);
+                    this.door = this.physics.add.sprite(32*j, 32*i, 'tiles', 11).setOrigin(0,0);
                     this.doors.add(this.door); //change to door
                     this.door.body.immovable = true;
                 }

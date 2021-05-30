@@ -5,13 +5,6 @@ class room8 extends Phaser.Scene { //template for adding springs to room
     }
  
     preload() {
-        // Loads all our Images/tiles8
-        //this.load.spritesheet('tiles', './assets/GrassGround-Sheet.png',      //change ALL tiles[] to tiles[level] for each lvl (using google docs)
-    //  {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 11});
-        this.load.spritesheet('towerwall8', './assets/InsideWall.png',         //change ALL  towerwall[] to towerwall[level] for each lvl
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 17});
-        this.load.spritesheet('p1', './assets/Player01.png', 
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music2','./assets/Music2.mp3');                       
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
@@ -131,23 +124,12 @@ class room8 extends Phaser.Scene { //template for adding springs to room
                     this.spikes.add(this.spike);
                     this.spike.body.immovable = true;
                 }
-                else if (this.level[i][j] == 'e') {
-                    let JumpUP = this.physics.add.sprite(32*j, 32*i, 'extraJump', 0).setOrigin(0,0);
-                    this.physics.add.overlap(this.player, JumpUP, function(){ 
-                        JumpUP.anims.play('jumpPU', true);
-                        gameOption.jumpForce = 400;
-                        this.jump();
-                        gameOption.jumpForce = 325;}, 
-                    null, this);
-                    this.jumps.add(JumpUP);
-                }
                  // door
                  else if (this.level[i][j] == 'd') {
                     this.door = this.physics.add.sprite(32*j, 32*i, 'tiles', 11).setOrigin(0,0);
                     this.doors.add(this.door); //change to door
                     this.door.body.immovable = true;
                 }
-               
             }
         }
         

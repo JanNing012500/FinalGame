@@ -6,12 +6,8 @@ class room1 extends Phaser.Scene {
 
     preload() {
         // Loads all our Images/tiles
-        this.load.spritesheet('tiles', './assets/GrassGround-Sheet.png', 
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 11});
         this.load.spritesheet('towerwall', './assets/InsideWall.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 17});
-        this.load.spritesheet('p1', './assets/Player01.png', 
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music1','./assets/Music4.mp3');
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');

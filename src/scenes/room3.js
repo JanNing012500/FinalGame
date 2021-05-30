@@ -5,13 +5,7 @@ class room3 extends Phaser.Scene {
     }
  
     preload() {
-        // Loads all our Images/tiles2
-        this.load.spritesheet('tiles2', './assets/GrassGround-Sheet.png',      //change to tiles[level] for each lvl for every var
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 11});
-        this.load.spritesheet('towerwall2', './assets/InsideWall.png',         //change to towerwall[level] for each lvl for every var
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 17});
-        this.load.spritesheet('p1', './assets/Player01.png', 
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
+
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music3','./assets/music3.mp3');                       //change to  music[level] for each lvl for every var
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
@@ -21,7 +15,7 @@ class room3 extends Phaser.Scene {
     create() { 
         for (var i = 0; i < 20; i++) {
             for (var j = 0; j < 20; j++) {
-                this.add.sprite(baseUI*j, baseUI*i, 'towerwall2', 0)
+                this.add.sprite(baseUI*j, baseUI*i, 'towerwall', 0)
             }
         }
         // Load Audio 
@@ -75,7 +69,6 @@ class room3 extends Phaser.Scene {
             'a         xxx     db', // 18
             'axxxxxxxxxxxxxxxxxxb'  // 19
         ];
- 
         // Create the level by going though the array
         for (var i = 0; i < this.level.length; i++) {
             for (var j = 0; j < this.level[i].length; j++) {
@@ -84,56 +77,56 @@ class room3 extends Phaser.Scene {
                     // If there is no platform on the right or left
                     if (this.level[i][j+1] != 'x' && this.level[i][j+1] != 'b' && this.level[i][j-1] != 'x' && this.level[i][j-1] != 'a')
                         if (this.level[i+1][j] != 'x' && this.level[i-1][j] != 'x')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 8).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 8).setOrigin(0,0);
                         else if (this.level[i][j-1] == ' ' && this.level[i][j+1] != ' ')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 7).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 7).setOrigin(0,0);
                         else if (this.level[i][j+1] == ' ' && this.level[i][j-1] != ' ')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 6).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 6).setOrigin(0,0);
                         else
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 2).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 2).setOrigin(0,0);
                     // If there is no platform on the right
                     else if (this.level[i][j+1] != 'x' && this.level[i][j+1] != 'b')
                         if (this.level[i-1][j] == 'x')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 5).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 5).setOrigin(0,0);
                         else
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 6).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 6).setOrigin(0,0);
                     else if (this.level[i][j-1] != 'x' && this.level[i][j-1] != 'a')
                         if (this.level[i-1][j] == 'x')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 4).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 4).setOrigin(0,0);
                         else
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 7).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 7).setOrigin(0,0);
                     else if (i < 19 && i > 1 && this.level[i-1][j] != ' ' && (this.level[i][j+1] == 'x' || this.level[i][j-1] == 'x' || this.level[i+1][j] == 'x'))
-                        this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 3).setOrigin(0,0);
+                        this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 3).setOrigin(0,0);
                     // Regular floor tile
                     else
                         if (i > 1 && this.level[i-1][j] != ' ')
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 3).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 3).setOrigin(0,0);
                         else
-                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles2', 2).setOrigin(0,0);
+                            this.wall = this.physics.add.sprite(baseUI*j, baseUI*i, 'tiles', 2).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
                 // Left Wall
                 else if (this.level[i][j] == 'a') { 
-                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles2', 9).setOrigin(0,0);
+                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 9).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
                 // Right Wall
                 else if (this.level[i][j] == 'b') {
-                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles2', 10).setOrigin(0,0);
+                    this.wall = this.physics.add.sprite(32*j, 32*i, 'tiles', 10).setOrigin(0,0);
                     this.walls.add(this.wall);
                     this.wall.body.immovable = true;
                 }
                 // Spikes
                 else if (this.level[i][j] == '!') {
-                    this.spike = this.physics.add.sprite(32*j, 32*i, 'tiles2', 1).setOrigin(0,0);
+                    this.spike = this.physics.add.sprite(32*j, 32*i, 'tiles', 1).setOrigin(0,0);
                     this.spikes.add(this.spike);
                     this.spike.body.immovable = true;
                 }
-                 // door
-                 else if (this.level[i][j] == 'd') {
-                    this.door = this.physics.add.sprite(32*j, 32*i, 'tiles2', 11).setOrigin(0,0);
+                // door
+                else if (this.level[i][j] == 'd') {
+                    this.door = this.physics.add.sprite(32*j, 32*i, 'tiles', 11).setOrigin(0,0);
                     this.doors.add(this.door); //change to door
                     this.door.body.immovable = true;
                 }
