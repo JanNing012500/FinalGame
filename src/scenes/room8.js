@@ -14,7 +14,7 @@ class room8 extends Phaser.Scene { //template for adding springs to room
     create() { 
         for (var i = 0; i < 20; i++) {
             for (var j = 0; j < 20; j++) {
-                this.add.sprite(baseUI*j, baseUI*i, 'towerwall8', 0)
+                this.add.sprite(baseUI*j, baseUI*i, 'towerwall', 0)
             }
         }
         // Load Audio 

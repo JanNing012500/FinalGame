@@ -44,7 +44,6 @@ class room4 extends Phaser.Scene {
         //-----------------
         this.walls = this.add.group();  //x for walls
         this.spikes = this.add.group();  // s for spikes
-        
         this.doors = this.add.group();  // d for doors
  
         this.level = [

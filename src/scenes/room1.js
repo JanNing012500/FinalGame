@@ -44,7 +44,6 @@ class room1 extends Phaser.Scene {
         //-----------------
         this.walls = this.add.group();
         this.spikes = this.add.group();
-        this.doors = this.add.group();
 
         this.level = [
             'axxxxxxxxxxxxxxxxxxb', // 0
@@ -127,20 +126,16 @@ class room1 extends Phaser.Scene {
                  // door
                  else if (this.level[i][j] == 'd') {
                     this.door = this.physics.add.sprite(32*j, 32*i, 'tiles', 11).setOrigin(0,0);
-                    this.doors.add(this.door); //change to door
-                    this.door.body.immovable = true;
+                    this.physics.add.overlap(this.player, this.door, function(){this.windoor1()},null,this);
                 }
             }
         }
         
         // set collision between the player and platform
-        this.physics.add.collider(this.player, this.walls)
+        this.physics.add.collider(this.player, this.walls);
 
         //win door
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.physics.add.collider(this.door, this.ground);
-    
-        this.physics.add.overlap(this.player, this.door, function(){this.windoor1()},null,this);
     }
 
     update() {

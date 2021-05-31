@@ -34,7 +34,7 @@ class room3 extends Phaser.Scene {
         this.playerJumps = 0;
  
         // Create the player in the scene
-        this.player = this.physics.add.sprite(baseUI*2, baseUI*18, 'p1', 0).setOrigin(0,0);
+        this.player = this.physics.add.sprite(baseUI*1, baseUI*18, 'p1', 0).setOrigin(0,0);
  
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
@@ -138,7 +138,6 @@ class room3 extends Phaser.Scene {
  
         //win door
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.physics.add.collider(this.door, this.ground);
     
         this.physics.add.overlap(this.player, this.door, function(){this.windoor2()},null,this);
     }

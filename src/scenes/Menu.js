@@ -9,7 +9,6 @@ class Menu extends Phaser.Scene {
 
     preload() {
         pause = true;
-        this.load.image('grass', './assets/GrassGround.png');
         this.load.image('sign', './assets/WoodenSign.png');
         this.load.image('control', './assets/ControlWindow.png');
         this.load.image('background', './assets/Background.png');
@@ -240,7 +239,7 @@ class Menu extends Phaser.Scene {
             this.scene.stop();
             console.log("Entering Door");
             pause = false;
-            this.scene.start('room1');
+            this.scene.start('room5');
         }
     }
 }
