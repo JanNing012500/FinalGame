@@ -59,9 +59,9 @@ class room9 extends Phaser.Scene { //template for adding springs to room
             'a      x    x      b', // 9
             'a      x    x      b', // 10
             'axxx   x    xe     b', // 11
-            'a      x !! xx     b', // 12
-            'a  xxxxx dd x      b', // 13
-            'a      xxxxxx      b', // 14
+            'a      x    xx     b', // 12
+            'a  xxxxx !! x      b', // 13
+            'a      x dd x      b', // 14
             'axxxx  xxxxxx     eb', // 15
             'a                 xb', // 16
             'a                  b', // 17
