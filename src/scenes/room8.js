@@ -50,9 +50,9 @@ class room8 extends Phaser.Scene { //template for adding springs to room
             'axxxxxxxxxxxxxxxxxxb', // 0
             'a                  b', // 1 
             'a                 db', // 2
-            'a         e     xxxb', // 3
-            'a               xxxb', // 4
-            'a     e !!!!!!!!xxxb', // 5
+            'a         e    xxxxb', // 3
+            'a              xxxxb', // 4
+            'a     e !!!!!!!xxxxb', // 5
             'ae xxxxxxxxxxxxxxxxb', // 6
             'a  !     !         b', // 7
             'a  x  x  x  x  x   b', // 8
@@ -64,7 +64,7 @@ class room8 extends Phaser.Scene { //template for adding springs to room
             'a                 eb', // 14
             'a                  b', // 15
             'a        e         b', // 16
-            'a               xxxb', // 17
+            'a              xxxxb', // 17
             'a   x!!!!!!!!!!!!!!b', // 18
             'axxxxxxxxxxxxxxxxxxb'  // 19
         ];
