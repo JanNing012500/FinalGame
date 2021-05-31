@@ -125,7 +125,7 @@ class room8 extends Phaser.Scene { //template for adding springs to room
                     this.spike.body.immovable = true;
                 }
                  // door
-                 else if (this.level[i][j] == 'd') {
+                 else if (this.level[i][j] == 'e') {
                     this.door = this.physics.add.sprite(32*j, 32*i, 'tiles', 11).setOrigin(0,0);
                     this.doors.add(this.door); //change to door
                     this.door.body.immovable = true;
