@@ -124,8 +124,19 @@ class room8 extends Phaser.Scene { //template for adding springs to room
                     this.spikes.add(this.spike);
                     this.spike.body.immovable = true;
                 }
+                // Spring
+                else if (this.level[i][j] == 'e') {
+                    let JumpUP = this.physics.add.sprite(32*j, 32*i, 'extraJump', 0).setOrigin(0,0);
+                    this.physics.add.overlap(this.player, JumpUP, function(){ 
+                        JumpUP.anims.play('jumpPU', true);
+                        gameOption.jumpForce = 400;
+                        this.jump();
+                        gameOption.jumpForce = 325;}, 
+                    null, this);
+                    this.jumps.add(JumpUP);
+                }
                  // door
-                 else if (this.level[i][j] == 'e') {
+                 else if (this.level[i][j] == 'd') {
                     this.door = this.physics.add.sprite(32*j, 32*i, 'tiles', 11).setOrigin(0,0);
                     this.doors.add(this.door); //change to door
                     this.door.body.immovable = true;
