@@ -5,11 +5,7 @@ class room4 extends Phaser.Scene {
     }
  
     preload() {
-
-        this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music4','./assets/Music2.mp3');                       //change to  music[level] for each lvl
-        this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
-        this.load.audio('Lose','./assets/LoseSfx1.wav');
+        this.load.audio('music4','./assets/Music2.mp3');
     }
  
     create() { 
@@ -207,7 +203,7 @@ class room4 extends Phaser.Scene {
     {      
         this.game.sound.stopAll(); 
         this.doorsfx.play();
-        this.scene.stop();
+        this.scene.remove('room4');
         this.scene.start('room5'); 
     }   
 } 

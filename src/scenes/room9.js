@@ -5,23 +5,13 @@ class room9 extends Phaser.Scene { //template for adding springs to room
     }
  
     preload() {
-        // Loads all our Images/tiles8
-        //this.load.spritesheet('tiles', './assets/GrassGround-Sheet.png',      //change ALL tiles[] to tiles[level] for each lvl (using google docs)
-    //  {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 11});
-        this.load.spritesheet('towerwall8', './assets/InsideWall.png',         //change ALL  towerwall[] to towerwall[level] for each lvl
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 17});
-        this.load.spritesheet('p1', './assets/Player01.png', 
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 19 });
-        this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music2','./assets/Music3.mp3');                       
-        this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
-        this.load.audio('Lose','./assets/LoseSfx1.wav');
+        this.load.audio('music2','./assets/Music3.mp3');
     }
  
     create() { 
         for (var i = 0; i < 20; i++) {
             for (var j = 0; j < 20; j++) {
-                this.add.sprite(baseUI*j, baseUI*i, 'towerwall8', 0)
+                this.add.sprite(baseUI*j, baseUI*i, 'towerwall', 0)
             }
         }
         // Load Audio 
@@ -211,7 +201,7 @@ class room9 extends Phaser.Scene { //template for adding springs to room
     {      
         this.game.sound.stopAll(); 
         this.doorsfx.play();
-        this.scene.stop();
+        this.scene.remove('room9');
         this.scene.start('Menu'); //goes to the Menu
     }   
 } 

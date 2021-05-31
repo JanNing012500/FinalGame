@@ -6,10 +6,7 @@ class room1 extends Phaser.Scene {
 
     preload() {
         // Loads all our Images/tiles
-        this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music1','./assets/Music4.mp3');
-        this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
-        this.load.audio('Lose','./assets/LoseSfx1.wav');
     }
 
     create() { 
@@ -59,7 +56,7 @@ class room1 extends Phaser.Scene {
             'a                xxb', // 15
             'a                xxb', // 16
             'a           xx   xxb', // 17
-            'a   xx!!xx      exxb', // 18
+            'a   xx!!xx       xxb', // 18
             'axxxxxxxxxxxxxxxxxxb'  // 19
         ];
 
@@ -204,11 +201,10 @@ class room1 extends Phaser.Scene {
         this.player.body.velocity.y = 0;
     }
 
-    windoor()
-    {      
+    windoor() {      
         this.game.sound.stopAll(); 
         this.doorsfx.play();
-        this.scene.stop();
+        this.scene.remove('room1');
         this.scene.start('room2');
     }   
 } 

@@ -5,10 +5,7 @@ class room6 extends Phaser.Scene {
     }
  
     preload() {
-        this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music2','./assets/Music2.mp3');                       //change ALL music[level] for each lvl
-        this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
-        this.load.audio('Lose','./assets/LoseSfx1.wav');
+        this.load.audio('music2','./assets/Music2.mp3');
     }
  
     create() { 
@@ -23,10 +20,7 @@ class room6 extends Phaser.Scene {
         this.LoseFx = this.sound.add('Lose', {volume : .3});
         this.backgroundMusic = this.sound.add("music2", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
- 
-        // Variable to store the arrow key pressed
-        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+;
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
  
         // Number of consecutive jumps made
@@ -206,7 +200,7 @@ class room6 extends Phaser.Scene {
     {      
         this.game.sound.stopAll(); 
         this.doorsfx.play();
-        this.scene.stop();
+        this.scene.remove('room6');
         this.scene.start('room7'); 
     }   
 } 

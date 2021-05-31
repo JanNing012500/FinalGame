@@ -8,6 +8,10 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
+        /*
+        All the loaded asset are shared to all scene
+        as long this the first scene loaded in the game
+        */
         pause = true;
         this.load.image('sign', './assets/WoodenSign.png');
         this.load.image('control', './assets/ControlWindow.png');
@@ -32,6 +36,14 @@ class Menu extends Phaser.Scene {
         this.load.audio('music','./assets/titlemusic3.mp3');
         this.load.image('door', './assets/Door.png');
         this.load.audio('select','./assets/openF.wav');
+        this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
+        this.load.audio('Lose','./assets/LoseSfx1.wav');
+
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
     }
 
     create() {
@@ -46,11 +58,6 @@ class Menu extends Phaser.Scene {
         this.backgroundMusic = this.sound.add("music", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
         // Variable to store the arrow key pressed
-        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         //-----------------
         // Create the level
@@ -239,7 +246,7 @@ class Menu extends Phaser.Scene {
             this.scene.stop();
             console.log("Entering Door");
             pause = false;
-            this.scene.start('room5');
+            this.scene.start('room1');
         }
     }
 }
