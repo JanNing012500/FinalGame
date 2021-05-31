@@ -6,8 +6,6 @@ class room1 extends Phaser.Scene {
 
     preload() {
         // Loads all our Images/tiles
-        this.load.spritesheet('towerwall', './assets/InsideWall.png', 
-            {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 17});
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music1','./assets/Music4.mp3');
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
@@ -41,16 +39,11 @@ class room1 extends Phaser.Scene {
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
 
-        //camera
-        // this.cameras.main.setBounds(0, 0, game.config.width, game.config.height);
-        // this.cameras.main.follow(this.player);
-
         //-----------------
         // Create the level
         //-----------------
         this.walls = this.add.group();
         this.spikes = this.add.group();
-        
         this.doors = this.add.group();
 
         this.level = [

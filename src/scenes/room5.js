@@ -14,7 +14,11 @@ class room5 extends Phaser.Scene {
     }
 
     create() { 
-        
+        for (var i = 0; i < 20; i++) {
+            for (var j = 0; j < 20; j++) {
+                this.add.sprite(baseUI*j, baseUI*i, 'towerwall', 0)
+            }
+        }
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .15}); 
         this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
@@ -167,6 +171,7 @@ class room5 extends Phaser.Scene {
         if (keySPACE.isDown) {
             if (!flip) {
                 this.jump();
+                this.jumpsfx.play(); 
                 flip = true;
             }
         }
@@ -180,7 +185,6 @@ class room5 extends Phaser.Scene {
                 this.playerJumps = 0;
             }
             this.player.setVelocityY(gameOption.jumpForce * -1);
-            this.jumpsfx.play(); 
             this.playerJumps += 1;
         }
     }
