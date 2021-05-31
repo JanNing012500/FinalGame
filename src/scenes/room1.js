@@ -39,12 +39,7 @@ class room1 extends Phaser.Scene {
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
 
-        //-----------------
-        // Create the level
-        //-----------------
-        this.walls = this.add.group();
-        this.spikes = this.add.group();
-
+        // Level Layout
         this.level = [
             'axxxxxxxxxxxxxxxxxxb', // 0
             'a                  b', // 1
@@ -64,9 +59,16 @@ class room1 extends Phaser.Scene {
             'a                xxb', // 15
             'a                xxb', // 16
             'a           xx   xxb', // 17
-            'a   xx!!xx       xxb', // 18
+            'a   xx!!xx      exxb', // 18
             'axxxxxxxxxxxxxxxxxxb'  // 19
         ];
+
+        //-----------------
+        // Create the level
+        //-----------------
+        this.walls = this.add.group();
+        this.spikes = this.add.group();
+        this.jumps = this.add.group();
 
         // Create the level by going though the array
         for (var i = 0; i < this.level.length; i++) {
@@ -123,10 +125,21 @@ class room1 extends Phaser.Scene {
                     this.spikes.add(this.spike);
                     this.spike.body.immovable = true;
                 }
+                // Springs
+                else if (this.level[i][j] == 'e') {
+                    let JumpUP = this.physics.add.sprite(32*j, 32*i, 'extraJump', 0).setOrigin(0,0);
+                    this.physics.add.overlap(this.player, JumpUP, function(){ 
+                        JumpUP.anims.play('jumpPU', true);
+                        gameOption.jumpForce = 400;
+                        this.jump();
+                        gameOption.jumpForce = 325;}, 
+                    null, this);
+                    this.jumps.add(JumpUP);
+                }
                  // door
                  else if (this.level[i][j] == 'd') {
                     this.door = this.physics.add.sprite(32*j, 32*i, 'tiles', 11).setOrigin(0,0);
-                    this.physics.add.overlap(this.player, this.door, function(){this.windoor1()},null,this);
+                    this.physics.add.overlap(this.player, this.door, function(){this.windoor()},null,this);
                 }
             }
         }
@@ -143,12 +156,12 @@ class room1 extends Phaser.Scene {
         if (keyLEFT.isDown){
             this.player.anims.play('leftWalk', true);
             dir = 1;
-            this.player.setVelocityX(-200);
+            this.player.setVelocityX(-1 * gameOption.speed);
         }
         else if (keyRIGHT.isDown){
             this.player.anims.play('rightWalk', true);
             dir = -1;
-            this.player.setVelocityX(200);
+            this.player.setVelocityX(gameOption.speed);
         }
         else {
             if (dir == 1)
@@ -158,19 +171,19 @@ class room1 extends Phaser.Scene {
             this.player.body.velocity.x = 0;
         }  
 
-
         this.physics.overlap(this.player, this.spikes, function(){ this.restart() }, null, this);
 
         if (keySPACE.isDown) {
             if (!flip) {
-                this.jump();
+                if (this.jump() == 1)
+                    this.jumpsfx.play(); 
                 flip = true;
             }
         }
         if (keySPACE.isUp)
             flip = false;
     }
-
+    
     jump() {
         // Make the player jump if only they are touching the ground
         if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOption.jumps)){
@@ -178,9 +191,10 @@ class room1 extends Phaser.Scene {
                 this.playerJumps = 0;
             }
             this.player.setVelocityY(gameOption.jumpForce * -1);
-            this.jumpsfx.play(); 
             this.playerJumps += 1;
+            return 1;
         }
+        return 0;
     }
 
     restart() {
@@ -190,7 +204,7 @@ class room1 extends Phaser.Scene {
         this.player.body.velocity.y = 0;
     }
 
-    windoor1()
+    windoor()
     {      
         this.game.sound.stopAll(); 
         this.doorsfx.play();

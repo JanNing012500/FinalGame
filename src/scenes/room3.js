@@ -39,14 +39,6 @@ class room3 extends Phaser.Scene {
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
  
-        //-----------------
-        // Create the level
-        //-----------------
-        this.walls = this.add.group();
-        this.spikes = this.add.group();
-        
-        this.doors = this.add.group();
- 
         this.level = [
             'axxxxxxxxxxxxxxxxxxb', // 0
             'a        x        xb', // 1
@@ -69,6 +61,13 @@ class room3 extends Phaser.Scene {
             'a         xxx     db', // 18
             'axxxxxxxxxxxxxxxxxxb'  // 19
         ];
+        //-----------------
+        // Create the level
+        //-----------------
+        this.walls = this.add.group();
+        this.spikes = this.add.group();
+        this.jumps = this.add.group();
+        
         // Create the level by going though the array
         for (var i = 0; i < this.level.length; i++) {
             for (var j = 0; j < this.level[i].length; j++) {
@@ -124,22 +123,30 @@ class room3 extends Phaser.Scene {
                     this.spikes.add(this.spike);
                     this.spike.body.immovable = true;
                 }
-                // door
-                else if (this.level[i][j] == 'd') {
+                // Springs
+                else if (this.level[i][j] == 'e') {
+                    let JumpUP = this.physics.add.sprite(32*j, 32*i, 'extraJump', 0).setOrigin(0,0);
+                    this.physics.add.overlap(this.player, JumpUP, function(){ 
+                        JumpUP.anims.play('jumpPU', true);
+                        gameOption.jumpForce = 400;
+                        this.jump();
+                        gameOption.jumpForce = 325;}, 
+                    null, this);
+                    this.jumps.add(JumpUP);
+                }
+                 // door
+                 else if (this.level[i][j] == 'd') {
                     this.door = this.physics.add.sprite(32*j, 32*i, 'tiles', 11).setOrigin(0,0);
-                    this.doors.add(this.door); //change to door
-                    this.door.body.immovable = true;
+                    this.physics.add.overlap(this.player, this.door, function(){this.windoor()},null,this);
                 }
             }
         }
         
         // set collision between the player and platform
-        this.physics.add.collider(this.player, this.walls)
- 
+        this.physics.add.collider(this.player, this.walls);
+
         //win door
         this.cursors = this.input.keyboard.createCursorKeys();
-    
-        this.physics.add.overlap(this.player, this.door, function(){this.windoor2()},null,this);
     }
  
     update() {
@@ -161,20 +168,20 @@ class room3 extends Phaser.Scene {
                 this.player.anims.play('rightIdle', true);
             this.player.body.velocity.x = 0;
         }  
- 
- 
+
         this.physics.overlap(this.player, this.spikes, function(){ this.restart() }, null, this);
- 
+
         if (keySPACE.isDown) {
             if (!flip) {
-                this.jump();
+                if (this.jump() == 1)
+                    this.jumpsfx.play(); 
                 flip = true;
             }
         }
         if (keySPACE.isUp)
             flip = false;
     }
- 
+    
     jump() {
         // Make the player jump if only they are touching the ground
         if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOption.jumps)){
@@ -182,9 +189,10 @@ class room3 extends Phaser.Scene {
                 this.playerJumps = 0;
             }
             this.player.setVelocityY(gameOption.jumpForce * -1);
-            this.jumpsfx.play(); 
             this.playerJumps += 1;
+            return 1;
         }
+        return 0;
     }
  
     restart() {
@@ -194,7 +202,7 @@ class room3 extends Phaser.Scene {
         this.player.body.velocity.y = 0;
     }
  
-    windoor2()
+    windoor()
     {      
         this.game.sound.stopAll(); 
         this.doorsfx.play();

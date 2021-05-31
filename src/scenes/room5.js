@@ -37,17 +37,10 @@ class room5 extends Phaser.Scene {
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
 
-        //-----------------
-        // Create the level
-        //-----------------
-        this.walls = this.add.group();
-        this.spikes = this.add.group();
-        this.jumps = this.add.group();
-
         this.level = [
             'axxxxxxxxxxxxxxxxxxb', // 0
             'a                  b', // 1
-            'a                  b', // 2
+            'a    d             b', // 2
             'a xxxx             b', // 3
             'a                x b', // 4
             'a                x b', // 5
@@ -67,6 +60,13 @@ class room5 extends Phaser.Scene {
             'axxxxxxxxxxxxxxxxxxb'  // 19
         ];
 
+        //-----------------
+        // Create the level
+        //-----------------
+        this.walls = this.add.group();
+        this.spikes = this.add.group();
+        this.jumps = this.add.group();
+        
         // Create the level by going though the array
         for (var i = 0; i < this.level.length; i++) {
             for (var j = 0; j < this.level[i].length; j++) {
@@ -122,6 +122,7 @@ class room5 extends Phaser.Scene {
                     this.spikes.add(this.spike);
                     this.spike.body.immovable = true;
                 }
+                // Springs
                 else if (this.level[i][j] == 'e') {
                     let JumpUP = this.physics.add.sprite(32*j, 32*i, 'extraJump', 0).setOrigin(0,0);
                     this.physics.add.overlap(this.player, JumpUP, function(){ 
@@ -132,18 +133,19 @@ class room5 extends Phaser.Scene {
                     null, this);
                     this.jumps.add(JumpUP);
                 }
+                 // door
+                 else if (this.level[i][j] == 'd') {
+                    this.door = this.physics.add.sprite(32*j, 32*i, 'tiles', 11).setOrigin(0,0);
+                    this.physics.add.overlap(this.player, this.door, function(){this.windoor()},null,this);
+                }
             }
         }
-        this.door = this.physics.add.sprite(baseUI*5, baseUI*2, 'tiles', 11).setOrigin(0,0);
-
+        
         // set collision between the player and platform
-        this.physics.add.collider(this.player, this.walls)
+        this.physics.add.collider(this.player, this.walls);
 
         //win door
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.physics.add.collider(this.door, this.ground);
-    
-        this.physics.add.overlap(this.player, this.door, function(){this.windoor1()},null,this);
     }
 
     update() {
@@ -170,14 +172,15 @@ class room5 extends Phaser.Scene {
 
         if (keySPACE.isDown) {
             if (!flip) {
-                this.jump();
-                this.jumpsfx.play(); 
+                if (this.jump() == 1)
+                    this.jumpsfx.play(); 
                 flip = true;
             }
         }
         if (keySPACE.isUp)
             flip = false;
     }
+    
     jump() {
         // Make the player jump if only they are touching the ground
         if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOption.jumps)){
@@ -186,7 +189,9 @@ class room5 extends Phaser.Scene {
             }
             this.player.setVelocityY(gameOption.jumpForce * -1);
             this.playerJumps += 1;
+            return 1;
         }
+        return 0;
     }
 
     restart() {
@@ -196,7 +201,7 @@ class room5 extends Phaser.Scene {
         this.player.body.velocity.y = 0;
     }
 
-    windoor1()
+    windoor()
     {      
         this.game.sound.stopAll(); 
         this.doorsfx.play();
