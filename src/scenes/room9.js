@@ -225,7 +225,7 @@ class room9 extends Phaser.Scene { //template for adding springs to room
         this.game.sound.stopAll(); 
         this.doorsfx.play();
         this.scene.remove('room9');
-        this.scene.start('Menu'); //goes to the Menu
+        this.scene.start('Final'); //goes to the Menu
     }
     
     addTime() {
