@@ -17,6 +17,7 @@ var config = {
     type: Phaser.AUTO, 
     width: 640,
     height: 640,
+    finalScore: 0, 
     parent: 'phaser-game',
     scene: [ Menu, room1, room2, room3, room4, room5, room6, room7,room8, room9],
     physics: {
