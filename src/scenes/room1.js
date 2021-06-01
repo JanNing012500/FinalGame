@@ -49,7 +49,7 @@ class room1 extends Phaser.Scene {
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(game.config.width - 100, game.config.height - 580, this.playerScore, scoreConfig).setOrigin(5,0.5);
+        this.scoreLeft = this.add.text(game.config.width - 50, game.config.height - 600, this.playerScore, scoreConfig).setOrigin(5.5,0.5);
 
         // Timer for Game
           // Timer for the game -Neo
