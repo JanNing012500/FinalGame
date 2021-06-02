@@ -61,25 +61,25 @@ class room2 extends Phaser.Scene {
  
         this.level = [
             'axxxxxxxxxxxxxxxxxxb', // 0
-            'a                  b', // 1
+            'a                  b', // 1 
             'a                  b', // 2
-            'a                  b', // 3
-            'a                  b', // 4
-            'a                  b', // 5
-            'a                  b', // 6
-            'a                  b', // 7
-            'a                  b', // 8
-            'a                  b', // 9
-            'a                  b', // 10
-            'a                  b', // 11
-            'a                  b', // 12
-            'a                  b', // 13
-            'a                  b', // 14
-            'a                  b', // 15
-            'a                  b', // 16
+            'a  x  xxx!!xx      b', // 3
+            'a !x!!xx xx xe     b', // 4
+            'a xxxxx     xx     b', // 5
+            'a  xx       x      b', // 6
+            'a  x   x    x     eb', // 7
+            'a  x   x!!! x     xb', // 8
+            'a  x  xxxxx x      b', // 9
+            'a  x   x    x      b', // 10
+            'a  x   x    xe     b', // 11
+            'a  xx  x    xx     b', // 12
+            'a      x !!xx      b', // 13
+            'a!     x ddxx      b', // 14
+            'axx  xxxxxxxx     eb', // 15
+            'a                 xb', // 16
             'a                  b', // 17
-            'a                 db', // 18
-            'axxxxxxxxxxxxxxxxxxb'  // 19
+            'a            ee    b', // 18
+            'axxxx!!!!xxxxxx!!!!b'  // 19
         ];
  
         //-----------------
