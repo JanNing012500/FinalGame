@@ -5,7 +5,7 @@ class room9 extends Phaser.Scene { //template for adding springs to room
     }
  
     preload() {
-        this.load.audio('music9','./assets/Music0.mp3');
+        this.load.audio('music9','./assets/Music1.mp3');
         this.load.audio('bounce','./assets/SpringBounceSFX.wav');
     }
  

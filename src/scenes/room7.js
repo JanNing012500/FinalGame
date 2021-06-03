@@ -5,7 +5,7 @@ class room7 extends Phaser.Scene {
     }
  
     preload() {
-        this.load.audio('music7','./assets/Music1.mp3');
+        this.load.audio('music7','./assets/Music4.mp3');
         this.load.audio('bounce','./assets/SpringBounceSFX.wav');
     }
  
