@@ -230,7 +230,7 @@ class room9 extends Phaser.Scene { //template for adding springs to room
             gameOption.finalScore = gameOption.score;
             gameOption.score = 0;
         }
-        else if (gameOption.finalScore != 0 && gameOption.finalScore < gameOption.score) {
+        else if (gameOption.finalScore != 0 && gameOption.finalScore > gameOption.score) {
             gameOption.finalScore = gameOption.score;
             gameOption.score = 0;
         }
