@@ -99,6 +99,7 @@ class Menu extends Phaser.Scene {
 
         this.sign = this.physics.add.sprite(baseUI*5, baseUI*18, 'sign');
         this.tent = this.physics.add.sprite(baseUI*19, baseUI*19, 'tent').setOrigin(1,1);
+        this.tent.body.setSize(70, 80);
         this.door = this.physics.add.sprite(baseUI*10, baseUI*16, 'gate');
         this.control = this.add.sprite(baseUI*10, baseUI*10, 'control').setOrigin(0.5, 0.5);
         this.control.alpha = 0;

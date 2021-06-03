@@ -224,7 +224,7 @@ class room6 extends Phaser.Scene {
         this.game.sound.stopAll(); 
         this.doorsfx.play();
         this.scene.remove('room6');
-        this.scene.start('room7'); 
+        this.scene.start('room2'); 
     }   
 
     addTime() {

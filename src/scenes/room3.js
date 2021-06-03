@@ -1,13 +1,14 @@
 class room3 extends Phaser.Scene {
- 
+
     constructor() {
         super('room3')
     }
- 
-    preload() { 
-        this.load.audio('music3','./assets/music3.mp3');
+
+    preload() {
+        // Loads all our Images/tiles
+        this.load.audio('music1','./assets/Music4.mp3');
     }
- 
+
     create() { 
         for (var i = 0; i < 20; i++) {
             for (var j = 0; j < 20; j++) {
@@ -18,20 +19,23 @@ class room3 extends Phaser.Scene {
         this.jumpsfx = this.sound.add('jump', {volume: .15}); 
         this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
         this.LoseFx = this.sound.add('Lose', {volume : .3});
-        this.backgroundMusic = this.sound.add("music3", {volume: .4, loop: true}); 
+        this.backgroundMusic = this.sound.add("music1", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
- 
+
         // Variable to store the arrow key pressed
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
- 
+
         // Number of consecutive jumps made
         this.playerJumps = 0;
- 
+
         // Create the player in the scene
-        this.player = this.physics.add.sprite(baseUI*1, baseUI*18, 'p1', 0).setOrigin(0,0);
- 
+        this.player = this.physics.add.sprite(baseUI*2, baseUI*18, 'p1', 0).setOrigin(0,0);
+
+        // Add gravity to make it fall
+        this.player.setGravityY(gameOption.playerGravity);
+
         // Create a Timer Window on the top Corner
         this.playerScore = 0; 
         let scoreConfig = {
@@ -46,7 +50,7 @@ class room3 extends Phaser.Scene {
             fixedWidth: 100
         }
         this.scoreLeft = this.add.text(game.config.width - 100, game.config.height - 595, this.playerScore, scoreConfig).setOrigin(5.5,0.5);
-            
+
         // Timer for Game
         this.timer = this.time.addEvent({
             delay: 1000,
@@ -54,7 +58,9 @@ class room3 extends Phaser.Scene {
             callbackScope: this,
             loop: true
         })
- 
+
+
+        // Level Layout
         this.level = [
             'axxxxxxxxxxxxxxxxxxb', // 0
             'a        x        xb', // 1
@@ -77,13 +83,14 @@ class room3 extends Phaser.Scene {
             'a         xxx     db', // 18
             'axxxxxxxxxxxxxxxxxxb'  // 19
         ];
+
         //-----------------
         // Create the level
         //-----------------
         this.walls = this.add.group();
         this.spikes = this.add.group();
         this.jumps = this.add.group();
-        
+
         // Create the level by going though the array
         for (var i = 0; i < this.level.length; i++) {
             for (var j = 0; j < this.level[i].length; j++) {
@@ -164,7 +171,7 @@ class room3 extends Phaser.Scene {
         //win door
         this.cursors = this.input.keyboard.createCursorKeys();
     }
- 
+
     update() {
         // Left and Right Movement
         if (keyLEFT.isDown){
@@ -210,20 +217,19 @@ class room3 extends Phaser.Scene {
         }
         return 0;
     }
- 
+
     restart() {
         this.LoseFx.play(); 
         this.player.x = baseUI*2;
         this.player.y = baseUI*17;
         this.player.body.velocity.y = 0;
     }
- 
-    windoor()
-    {      
+
+    windoor() {      
         this.game.sound.stopAll(); 
         this.doorsfx.play();
         this.scene.remove('room3');
-        this.scene.start('room4'); //change to next room #
+        this.scene.start('room4');
     }   
 
     addTime() {
@@ -232,10 +238,3 @@ class room3 extends Phaser.Scene {
         game.config.finalScore += 1; 
     }
 } 
- 
- 
- 
- 
- 
- 
-
