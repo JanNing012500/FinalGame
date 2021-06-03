@@ -232,9 +232,7 @@ class room1 extends Phaser.Scene {
     }   
 
     addTime() {
-        this.playerScore += 1; 
-        this.scoreLeft.text = this.playerScore;
-        gameOption.finalScore += 1; 
-        console.log(gameOption.finalScore); 
+        gameOption.score += 1; 
+        this.scoreLeft.text = gameOption.score; 
     }
 } 
