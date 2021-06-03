@@ -75,7 +75,7 @@ class room6 extends Phaser.Scene {
             'a                  b', // 14
             'a         xx       b', // 15
             'a                  b', // 16
-            'a                  b', // 17
+            'a   d              b', // 17
             'a   x!!!!!!!!!!!!!!b', // 18
             'axxxxxxxxxxxxxxxxxxb'  // 19
         ];
