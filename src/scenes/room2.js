@@ -40,7 +40,6 @@ class room2 extends Phaser.Scene {
         this.player.setGravityY(gameOption.playerGravity);
 
         // Create a Timer Window on the top Corner
-        this.playerScore = 0; 
         let scoreConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
@@ -52,7 +51,7 @@ class room2 extends Phaser.Scene {
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(game.config.width - 100, game.config.height - 595, gameOption.finalScore, scoreConfig).setOrigin(5.5,0.5);
+        this.scoreLeft = this.add.text(game.config.width - 100, game.config.height - 595, gameOption.score, scoreConfig).setOrigin(5.5,0.5);
     
         // Timer for Game
         this.timer = this.time.addEvent({
@@ -230,14 +229,12 @@ class room2 extends Phaser.Scene {
     {      
         this.game.sound.stopAll(); 
         this.doorsfx.play();
-        this.scene.remove('room2');
         this.scene.start('room9'); //goes to room2
     }  
     
     addTime() {
-        this.playerScore += 1; 
-        this.scoreLeft.text = game.config.finalScore;
-        game.config.score += 1; 
+        gameOption.score += 1; 
+        this.scoreLeft.text = gameOption.score; 
     }
 } 
  

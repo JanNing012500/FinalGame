@@ -39,7 +39,6 @@ class room9 extends Phaser.Scene { //template for adding springs to room
         this.player.setGravityY(gameOption.playerGravity);
 
          // Create a Timer Window on the top Corner
-         this.playerScore = 0; 
          let scoreConfig = {
              fontFamily: 'Courier',
              fontSize: '28px',
@@ -51,7 +50,7 @@ class room9 extends Phaser.Scene { //template for adding springs to room
              },
              fixedWidth: 100
          }
-         this.scoreLeft = this.add.text(game.config.width - 100, game.config.height - 595, gameOption.finalScore, scoreConfig).setOrigin(5.5,0.5);
+         this.scoreLeft = this.add.text(game.config.width - 100, game.config.height - 595, gameOption.score, scoreConfig).setOrigin(5.5,0.5);
  
          // Timer for Game
          this.timer = this.time.addEvent({
@@ -227,14 +226,20 @@ class room9 extends Phaser.Scene { //template for adding springs to room
     {      
         this.game.sound.stopAll(); 
         this.doorsfx.play();
-        // this.scene.stop('room9');
+        if (gameOption.finalscore == 0 && gameOption.score != 0) {
+            gameOption.finalScore = gameOption.score;
+            gameOption.score = 0;
+        }
+        else if (gameOption.finalscore != 0 && gameOption.finalscore > gameOption.score) {
+            gameOption.finalScore = gameOption.score;
+            gameOption.score = 0;
+        }
         this.scene.start('Menu'); //goes to the Menu
     }
     
     addTime() {
         gameOption.score += 1; 
-        this.scoreLeft.text = gameOption.finalScore;
-        console.log(gameOption.finalScore); 
+        this.scoreLeft.text = gameOption.score; 
     }
 } 
  
