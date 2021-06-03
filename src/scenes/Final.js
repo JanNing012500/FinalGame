@@ -16,6 +16,7 @@ class Final extends Phaser.Scene {
         this.load.image('sign', './assets/WoodenSign.png');
         this.load.image('tent', './assets/Tent.png');
         this.load.image('control', './assets/ControlWindow.png');
+        this.load.image('control1', './assets/creditpicture.png');
         this.load.image('background', './assets/Background.png');
         this.load.image('tower', './assets/Tower.png');
         this.load.image('gate', './assets/Gate.png');
@@ -120,6 +121,8 @@ class Final extends Phaser.Scene {
         this.door = this.physics.add.sprite(baseUI*10, baseUI*16, 'gate');
         this.control = this.add.sprite(baseUI*10, baseUI*10, 'control').setOrigin(0.5, 0.5);
         this.control.alpha = 0;
+        this.control1 = this.add.sprite(baseUI*10, baseUI*10, 'control1').setOrigin(0.5, 0.5);
+        this.control1.alpha = 0;
 
         // Animation config
         // Left Idle
@@ -260,12 +263,12 @@ class Final extends Phaser.Scene {
                     this.selectsfx.play();
                     this.player.setVelocityX(0);
                     pause = false;
-                    this.control.alpha = true;
+                    this.control1.alpha = true;
                     clickF = 1;
                 }
                 else if (clickF == 1) {
                     pause = true;
-                    this.control.alpha = false;
+                    this.control1.alpha = false;
                     clickF = 0;
                 }
                 flop = true;

@@ -32,7 +32,7 @@ class room9 extends Phaser.Scene { //template for adding springs to room
         this.playerJumps = 0;
  
         // Create the player in the scene
-        this.player = this.physics.add.sprite(baseUI*2, baseUI*18, 'p1', 0).setOrigin(0,0);
+        this.player = this.physics.add.sprite(baseUI*2, baseUI*1, 'p1', 0).setOrigin(0,0);
  
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
@@ -63,24 +63,24 @@ class room9 extends Phaser.Scene { //template for adding springs to room
  
         this.level = [
             'axxxxxxxxxxxxxxxxxxb', // 0
-            'a                  b', // 1 
-            'a      xx  xx      b', // 2
-            'a      x    x      b', // 3
-            'a      x    xe     b', // 4
-            'axxx   x !! xx     b', // 5
-            'a      x xx x      b', // 6
-            'a      x    x     eb', // 7
-            'axxx   xe  ex     xb', // 8
-            'a      x    x      b', // 9
-            'a      x    x      b', // 10
-            'axxx   x    xe     b', // 11
-            'a      x    xx     b', // 12
-            'a  xxxxx !! x      b', // 13
-            'a      x dd x      b', // 14
+            'a  xxxxx           b', // 1 
+            'a      x   xx      b', // 2
+            'axxxx  x    x      b', // 3
+            'a     !x    xe     b', // 4
+            'a  xxxxx !! xx!    b', // 5
+            'a!     x xx x      b', // 6
+            'axxxx  x    x     eb', // 7
+            'a     !x    x   !!xb', // 8
+            'a  xxxxxe  ex     xb', // 9
+            'a!     x    x      b', // 10
+            'axxxx  x    xe     b', // 11
+            'a     !x    xx!!   b', // 12
+            'a  xxxxx !! xx     b', // 13
+            'a!     x dd x      b', // 14
             'axxxx  xxxxxx     eb', // 15
-            'a                 xb', // 16
-            'a                  b', // 17
-            'a    ee      ee    b', // 18
+            'a     !x          xb', // 16
+            'a  xxxxx           b', // 17
+            'a!           ee!!!!b', // 18
             'axxxxxxxxxxxxxxxxxxb'  // 19
         ];
  
@@ -219,7 +219,7 @@ class room9 extends Phaser.Scene { //template for adding springs to room
     restart() {
         this.LoseFx.play(); 
         this.player.x = baseUI*2;
-        this.player.y = baseUI*17;
+        this.player.y = baseUI*1;
         this.player.body.velocity.y = 0;
     }
  
