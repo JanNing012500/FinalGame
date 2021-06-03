@@ -14,6 +14,7 @@ class Menu extends Phaser.Scene {
         */
         pause = true;
         this.load.image('sign', './assets/WoodenSign.png');
+        this.load.image('tent', './assets/Tent.png');
         this.load.image('control', './assets/ControlWindow.png');
         this.load.image('background', './assets/Background.png');
         this.load.image('tower', './assets/Tower.png');
@@ -97,6 +98,7 @@ class Menu extends Phaser.Scene {
         }
 
         this.sign = this.physics.add.sprite(baseUI*5, baseUI*18, 'sign');
+        this.tent = this.physics.add.sprite(baseUI*19, baseUI*19, 'tent').setOrigin(1,1);
         this.door = this.physics.add.sprite(baseUI*10, baseUI*16, 'gate');
         this.control = this.add.sprite(baseUI*10, baseUI*10, 'control').setOrigin(0.5, 0.5);
         this.control.alpha = 0;
@@ -132,6 +134,11 @@ class Menu extends Phaser.Scene {
             frameRate: 1
         })
         this.anims.create({
+            key: 'interact1',
+            frames: this.anims.generateFrameNumbers('pressF', { start: 0, end: 1, first: 0 }),
+            frameRate: 1
+        })
+        this.anims.create({
             key: 'space',
             frames: this.anims.generateFrameNumbers('pressSpace', { start: 0, end: 1, first: 0 }),
             frameRate: 1
@@ -157,15 +164,18 @@ class Menu extends Phaser.Scene {
 
         // The two button
         this.press1 = this.add.sprite(baseUI*4.5, baseUI*16.5, 'pressF', 0).setOrigin(0,0);
+        this.press3 = this.add.sprite(baseUI*16.5, baseUI*16.5, 'pressF', 0).setOrigin(0,0);
         this.press2 = this.add.sprite(baseUI*7.5, baseUI*15.5, 'pressSpace', 0).setOrigin(0,0);
     }
         
     update() {
         this.press1.alpha = 0;
         this.press2.alpha = 0;
+        this.press3.alpha = 0;
         this.sky.tilePositionX += 2;
         
         this.physics.overlap(this.player, this.sign, function() { this.signtrigger() }, null, this);
+        this.physics.overlap(this.player, this.tent, function() { this.tenttrigger() }, null, this);
         this.physics.overlap(this.player, this.door, function() { this.doortrigger() }, null, this);
         if (pause) {
             // Left and Right Movement
@@ -201,6 +211,31 @@ class Menu extends Phaser.Scene {
     signtrigger() {
         this.press1.anims.play('interact', true);
         this.press1.alpha = 1;
+        if (keyF.isDown) {
+            if (!flop) {
+                if (clickF == 0) {
+                    this.selectsfx.play();
+                    this.player.setVelocityX(0);
+                    pause = false;
+                    this.control.alpha = true;
+                    clickF = 1;
+                }
+                else if (clickF == 1) {
+                    pause = true;
+                    this.control.alpha = false;
+                    clickF = 0;
+                }
+                flop = true;
+            }
+        }
+        if (keyF.isUp) {
+            flop = false;
+        }
+    }
+
+    tenttrigger() {
+        this.press3.anims.play('interact1', true);
+        this.press3.alpha = 1;
         if (keyF.isDown) {
             if (!flop) {
                 if (clickF == 0) {
