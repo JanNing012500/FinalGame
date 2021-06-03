@@ -10,6 +10,8 @@ class room5 extends Phaser.Scene {
         this.load.audio('Lose','./assets/LoseSfx1.wav');
         this.load.audio('jump', './assets/jump.wav'); 
         this.load.audio('music1','./assets/Music3.mp3');
+        this.load.audio('bounce','./assets/SpringBounceSFX.wav');
+        
     }
 
     create() { 
@@ -19,7 +21,8 @@ class room5 extends Phaser.Scene {
             }
         }
         // Load Audio 
-        this.jumpsfx = this.sound.add('jump', {volume: .15}); 
+        this.springsfx = this.sound.add('bounce',{volume: .25});
+        this.jumpsfx = this.sound.add('jump', {volume: .2}); 
         this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
         this.backgroundMusic = this.sound.add("music1", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
@@ -149,10 +152,14 @@ class room5 extends Phaser.Scene {
                     let JumpUP = this.physics.add.sprite(32*j, 32*i, 'extraJump', 0).setOrigin(0,0);
                     this.physics.add.overlap(this.player, JumpUP, function(){ 
                         JumpUP.anims.play('jumpPU', true);
+                        this.springsfx.play();
+                        
                         gameOption.jumpForce = 400;
                         this.jump();
                         gameOption.jumpForce = 325;}, 
+                        
                     null, this);
+                    
                     this.jumps.add(JumpUP);
                 }
                  // door
