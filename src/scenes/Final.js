@@ -35,7 +35,7 @@ class Final extends Phaser.Scene {
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 9 });
         
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music','./assets/titlemusic3.mp3');
+        this.load.audio('music10','./assets/titlemusic3.mp3');
         this.load.image('door', './assets/Door.png');
         this.load.audio('select','./assets/openF.wav');
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
@@ -57,7 +57,7 @@ class Final extends Phaser.Scene {
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .15}); 
         this.selectsfx = this.sound.add('select', {volume: .25}); 
-        this.backgroundMusic = this.sound.add("music", {volume: .4, loop: true}); 
+        this.backgroundMusic = this.sound.add("music10", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
         // Variable to store the arrow key pressed
 
