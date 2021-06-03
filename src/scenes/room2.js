@@ -7,6 +7,8 @@ class room2 extends Phaser.Scene {
     preload() {
         // Loads all our Images/tiles1
         this.load.audio('music2','./assets/Music2.mp3');
+        this.load.audio('bounce','./assets/SpringBounceSFX.wav');
+
     }
  
     create() { 
@@ -16,6 +18,7 @@ class room2 extends Phaser.Scene {
             }
         }
         // Load Audio 
+        this.springsfx = this.sound.add('bounce',{volume: .25});
         this.jumpsfx = this.sound.add('jump', {volume: .15}); 
         this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
         this.LoseFx = this.sound.add('Lose', {volume : .3});
@@ -149,6 +152,7 @@ class room2 extends Phaser.Scene {
                     let JumpUP = this.physics.add.sprite(32*j, 32*i, 'extraJump', 0).setOrigin(0,0);
                     this.physics.add.overlap(this.player, JumpUP, function(){ 
                         JumpUP.anims.play('jumpPU', true);
+                        this.springsfx.play();
                         gameOption.jumpForce = 400;
                         this.jump();
                         gameOption.jumpForce = 325;}, 
