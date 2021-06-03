@@ -35,7 +35,7 @@ class Menu extends Phaser.Scene {
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 9 });
         
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music','./assets/Music1.mp3');
+        this.load.audio('music10','./assets/titlemusic3.mp3');
         this.load.image('door', './assets/Door.png');
         this.load.audio('select','./assets/openF.wav');
         this.load.audio('nextlvlsfx','./assets/nextlvl.wav');
@@ -57,9 +57,30 @@ class Menu extends Phaser.Scene {
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .15}); 
         this.selectsfx = this.sound.add('select', {volume: .25}); 
-        this.backgroundMusic = this.sound.add("music", {volume: .4, loop: true}); 
+        this.backgroundMusic = this.sound.add("music10", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
         // Variable to store the arrow key pressed
+
+        // Shows the player's High Score
+        let menuConfig = {
+            fontFamily: 'Courier',
+            fontSize: '30px',
+            color: '#843605',
+            align: 'right',
+            padding: {
+              top: 12,
+              bottom: 9,
+            },
+            fixedWidth: 0
+        }
+
+        this.add.text(game.config.width / 2, game.config.height / 3, 'Fastest Time Complete', menuConfig).setOrigin(0.5);
+        if (gameOption.finalScore == 0) {
+            this.add.text(game.config.width /2, game.config.height / 2, "--:--", menuConfig).setOrigin(0.5);
+        } else {
+            this.add.text(game.config.width /2, game.config.height / 2, gameOption.finalScore, menuConfig).setOrigin(0.5);
+        }
+
 
         //-----------------
         // Create the level
@@ -200,10 +221,6 @@ class Menu extends Phaser.Scene {
                     this.player.anims.play('rightIdle', true);
                 this.player.setVelocityX(0);
             }  
-
-            if(this.player.body.touching.down){
-                this.playerJumps = 0;
-            }
             if (keyUP.isDown) {
                 if (!flip) {
                     this.jump();
@@ -270,12 +287,15 @@ class Menu extends Phaser.Scene {
 
     jump() {
         // Make the player jump if only they are touching the ground
-        this.playerJumps += 1;
-        if((this.playerJumps > 0 && this.playerJumps <=gameOption.jumps)){
+
+        if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOption.jumps) || (this.doortrigger1=false)){
+            if(this.player.body.touching.down){
+                this.playerJumps = 0;
+            }
             this.player.setVelocityY(gameOption.jumpForce * -1);
-            return 1;
+            this.jumpsfx.play(); 
+            this.playerJumps += 1;
         }
-        return 0;
     }
 
     doortrigger() {
@@ -286,7 +306,7 @@ class Menu extends Phaser.Scene {
             this.scene.stop();
             console.log("Entering Door");
             pause = false;
-            this.scene.start('room1');
+            this.scene.start('room9');
         }
     }
 }

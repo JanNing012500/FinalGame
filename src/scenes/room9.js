@@ -33,6 +33,7 @@ class room9 extends Phaser.Scene { //template for adding springs to room
  
         // Create the player in the scene
         this.player = this.physics.add.sprite(baseUI*2, baseUI*1, 'p1', 0).setOrigin(0,0);
+        this.player.body.setSize(25, 32);
  
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
@@ -64,7 +65,7 @@ class room9 extends Phaser.Scene { //template for adding springs to room
         this.level = [
             'axxxxxxxxxxxxxxxxxxb', // 0
             'a  xxxxx           b', // 1 
-            'a      x   xx      b', // 2
+            'a   d  x   xx      b', // 2
             'axxxx  x    x      b', // 3
             'a     !x    xe     b', // 4
             'a  xxxxx !! xx!    b', // 5
@@ -226,12 +227,12 @@ class room9 extends Phaser.Scene { //template for adding springs to room
     {      
         this.game.sound.stopAll(); 
         this.doorsfx.play();
-        this.scene.remove('room9');
-        this.scene.start('Final'); //goes to the Menu
+        // this.scene.stop('room9');
+        this.scene.start('Menu'); //goes to the Menu
     }
     
     addTime() {
-        gameOption.finalScore += 1; 
+        gameOption.score += 1; 
         this.scoreLeft.text = gameOption.finalScore;
         console.log(gameOption.finalScore); 
     }
