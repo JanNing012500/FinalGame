@@ -60,6 +60,23 @@ class Final extends Phaser.Scene {
         this.backgroundMusic.play(); 
         // Variable to store the arrow key pressed
 
+        // Shows the player's High Score
+        let menuConfig = {
+            fontFamily: 'Courier',
+            fontSize: '30px',
+            color: '#843605',
+            align: 'right',
+            padding: {
+              top: 12,
+              bottom: 9,
+            },
+            fixedWidth: 0
+        }
+
+        this.add.text(game.config.width / 2, game.config.height / 3, 'Fastest Time Complete', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width /2, game.config.height / 2, gameOption.finalScore, menuConfig).setOrigin(0.5);
+
+
         //-----------------
         // Create the level
         //-----------------
