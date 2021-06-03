@@ -5,7 +5,7 @@ class room6 extends Phaser.Scene {
     }
  
     preload() {
-        this.load.audio('music2','./assets/Music2.mp3');
+        this.load.audio('music6','./assets/Music2.mp3');
         this.load.audio('bounce','./assets/SpringBounceSFX.wav');
     }
  
@@ -20,7 +20,7 @@ class room6 extends Phaser.Scene {
         this.jumpsfx = this.sound.add('jump', {volume: .15}); 
         this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
         this.LoseFx = this.sound.add('Lose', {volume : .3});
-        this.backgroundMusic = this.sound.add("music2", {volume: .4, loop: true}); 
+        this.backgroundMusic = this.sound.add("music6", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
 ;
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);

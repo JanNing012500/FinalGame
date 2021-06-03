@@ -9,7 +9,7 @@ class room5 extends Phaser.Scene {
         
         this.load.audio('Lose','./assets/LoseSfx1.wav');
         this.load.audio('jump', './assets/jump.wav'); 
-        this.load.audio('music1','./assets/Music3.mp3');
+        this.load.audio('music5','./assets/Music3.mp3');
         this.load.audio('bounce','./assets/SpringBounceSFX.wav');
         
     }
@@ -24,7 +24,7 @@ class room5 extends Phaser.Scene {
         this.springsfx = this.sound.add('bounce',{volume: .25});
         this.jumpsfx = this.sound.add('jump', {volume: .2}); 
         this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
-        this.backgroundMusic = this.sound.add("music1", {volume: .4, loop: true}); 
+        this.backgroundMusic = this.sound.add("music5", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
         this.LoseFx = this.sound.add('Lose', {volume : .3});
 

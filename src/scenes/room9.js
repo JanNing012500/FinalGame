@@ -5,7 +5,7 @@ class room9 extends Phaser.Scene { //template for adding springs to room
     }
  
     preload() {
-        this.load.audio('music2','./assets/Music3.mp3');
+        this.load.audio('music9','./assets/Music0.mp3');
         this.load.audio('bounce','./assets/SpringBounceSFX.wav');
     }
  
@@ -20,7 +20,7 @@ class room9 extends Phaser.Scene { //template for adding springs to room
         this.jumpsfx = this.sound.add('jump', {volume: .15}); 
         this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
         this.LoseFx = this.sound.add('Lose', {volume : .3});
-        this.backgroundMusic = this.sound.add("music2", {volume: .4, loop: true}); 
+        this.backgroundMusic = this.sound.add("music9", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
  
         // Variable to store the arrow key pressed
