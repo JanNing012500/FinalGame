@@ -34,7 +34,7 @@ class room5 extends Phaser.Scene {
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
 
         // Create the player in the scene
-        this.player = this.physics.add.sprite(baseUI*2, baseUI*15, 'p1', 0).setOrigin(0,0);
+        this.player = this.physics.add.sprite(baseUI*2, baseUI*18, 'p1', 0).setOrigin(0,0);
 
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
@@ -198,7 +198,9 @@ class room5 extends Phaser.Scene {
         }  
 
         this.physics.overlap(this.player, this.spikes, function(){ this.restart() }, null, this);
-
+        if(this.player.body.touching.down){
+            this.playerJumps = 0;
+        }
         if (keySPACE.isDown) {
             if (!flip) {
                 if (this.jump() == 1)
@@ -212,12 +214,9 @@ class room5 extends Phaser.Scene {
     
     jump() {
         // Make the player jump if only they are touching the ground
-        if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOption.jumps)){
-            if(this.player.body.touching.down){
-                this.playerJumps = 0;
-            }
+        this.playerJumps += 1;
+        if((this.playerJumps > 0 && this.playerJumps <=gameOption.jumps)){
             this.player.setVelocityY(gameOption.jumpForce * -1);
-            this.playerJumps += 1;
             return 1;
         }
         return 0;
@@ -235,7 +234,7 @@ class room5 extends Phaser.Scene {
         this.game.sound.stopAll(); 
         this.doorsfx.play();
         this.scene.remove('room5');
-        this.scene.start('room6');
+        this.scene.start('room7');
     }
     
     addTime() {

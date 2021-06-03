@@ -191,7 +191,9 @@ class room9 extends Phaser.Scene { //template for adding springs to room
         }  
 
         this.physics.overlap(this.player, this.spikes, function(){ this.restart() }, null, this);
-
+        if(this.player.body.touching.down){
+            this.playerJumps = 0;
+        }
         if (keySPACE.isDown) {
             if (!flip) {
                 if (this.jump() == 1)
@@ -205,12 +207,9 @@ class room9 extends Phaser.Scene { //template for adding springs to room
     
     jump() {
         // Make the player jump if only they are touching the ground
-        if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOption.jumps)){
-            if(this.player.body.touching.down){
-                this.playerJumps = 0;
-            }
+        this.playerJumps += 1;
+        if((this.playerJumps > 0 && this.playerJumps <=gameOption.jumps)){
             this.player.setVelocityY(gameOption.jumpForce * -1);
-            this.playerJumps += 1;
             return 1;
         }
         return 0;

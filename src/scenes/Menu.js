@@ -200,6 +200,10 @@ class Menu extends Phaser.Scene {
                     this.player.anims.play('rightIdle', true);
                 this.player.setVelocityX(0);
             }  
+
+            if(this.player.body.touching.down){
+                this.playerJumps = 0;
+            }
             if (keyUP.isDown) {
                 if (!flip) {
                     this.jump();
@@ -266,15 +270,12 @@ class Menu extends Phaser.Scene {
 
     jump() {
         // Make the player jump if only they are touching the ground
-
-        if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOption.jumps) || (this.doortrigger1=false)){
-            if(this.player.body.touching.down){
-                this.playerJumps = 0;
-            }
+        this.playerJumps += 1;
+        if((this.playerJumps > 0 && this.playerJumps <=gameOption.jumps)){
             this.player.setVelocityY(gameOption.jumpForce * -1);
-            this.jumpsfx.play(); 
-            this.playerJumps += 1;
+            return 1;
         }
+        return 0;
     }
 
     doortrigger() {

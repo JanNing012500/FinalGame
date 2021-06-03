@@ -193,7 +193,9 @@ class room1 extends Phaser.Scene {
         }  
 
         this.physics.overlap(this.player, this.spikes, function(){ this.restart() }, null, this);
-
+        if(this.player.body.touching.down){
+            this.playerJumps = 0;
+        }
         if (keySPACE.isDown) {
             if (!flip) {
                 if (this.jump() == 1)
@@ -207,12 +209,9 @@ class room1 extends Phaser.Scene {
     
     jump() {
         // Make the player jump if only they are touching the ground
-        if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < gameOption.jumps)){
-            if(this.player.body.touching.down){
-                this.playerJumps = 0;
-            }
+        this.playerJumps += 1;
+        if((this.playerJumps > 0 && this.playerJumps <=gameOption.jumps)){
             this.player.setVelocityY(gameOption.jumpForce * -1);
-            this.playerJumps += 1;
             return 1;
         }
         return 0;
@@ -229,7 +228,7 @@ class room1 extends Phaser.Scene {
         this.game.sound.stopAll(); 
         this.doorsfx.play();
         this.scene.remove('room1');
-        this.scene.start('room3');
+        this.scene.start('room6');
     }   
 
     addTime() {
