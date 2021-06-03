@@ -49,7 +49,7 @@ class room1 extends Phaser.Scene {
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(game.config.width - 100, game.config.height - 595, this.playerScore, scoreConfig).setOrigin(5.5,0.5);
+        this.scoreLeft = this.add.text(game.config.width - 100, game.config.height - 595, gameOption.finalScore, scoreConfig).setOrigin(5.5,0.5);
 
         // Timer for Game
         this.timer = this.time.addEvent({
@@ -235,6 +235,7 @@ class room1 extends Phaser.Scene {
     addTime() {
         this.playerScore += 1; 
         this.scoreLeft.text = this.playerScore;
-        game.config.finalScore += 1; 
+        gameOption.finalScore += 1; 
+        console.log(gameOption.finalScore); 
     }
 } 
