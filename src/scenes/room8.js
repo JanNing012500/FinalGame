@@ -49,7 +49,9 @@ class room8 extends Phaser.Scene { //template for adding springs to room
              },
              fixedWidth: 100
          }
-         this.scoreLeft = this.add.text(game.config.width - 100, game.config.height - 595, gameOption.score, scoreConfig).setOrigin(5.5,0.5);
+         this.scoreSecs = this.add.text(game.config.width - 80, game.config.height - 595, gameOption.scoreSecs, scoreConfig).setOrigin(5.5,0.5);
+         this.add.text(game.config.width - 110, game.config.height - 595, ":", scoreConfig).setOrigin(5.5,0.5);
+         this.scoreMins = this.add.text(game.config.width - 125, game.config.height - 595, gameOption.scoreMins, scoreConfig).setOrigin(5.5,0.5);
  
          // Timer for Game
          this.timer = this.time.addEvent({
@@ -232,8 +234,14 @@ class room8 extends Phaser.Scene { //template for adding springs to room
     }
     
     addTime() {
-        gameOption.score += 1; 
-        this.scoreLeft.text = gameOption.score; 
+        gameOption.scoreSecs += 1; 
+        console.log("hi");
+        if (gameOption.scoreSecs > 5) {
+            gameOption.scoreSecs -=  6; 
+            gameOption.scoreMins += 1; 
+        }
+        this.scoreSecs.text = gameOption.scoreSecs;
+        this.scoreMins.text = gameOption.scoreMins;
     }
 } 
  

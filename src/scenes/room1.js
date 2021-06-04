@@ -48,16 +48,17 @@ class room1 extends Phaser.Scene {
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(game.config.width - 100, game.config.height - 595, gameOption.score, scoreConfig).setOrigin(5.5,0.5);
+        this.scoreSecs = this.add.text(game.config.width - 80, game.config.height - 595, gameOption.scoreSecs, scoreConfig).setOrigin(5.5,0.5);
+        this.add.text(game.config.width - 110, game.config.height - 595, ":", scoreConfig).setOrigin(5.5,0.5);
+        this.scoreMins = this.add.text(game.config.width - 125, game.config.height - 595, gameOption.scoreMins, scoreConfig).setOrigin(5.5,0.5);
 
-        // Timer for Game
+        // Timer for Game (seconds)
         this.timer = this.time.addEvent({
             delay: 1000,
             callback: this.addTime,
             callbackScope: this,
             loop: true
         })
-
 
         // Level Layout
         this.level = [
@@ -230,7 +231,14 @@ class room1 extends Phaser.Scene {
     }   
 
     addTime() {
-        gameOption.score += 1; 
-        this.scoreLeft.text = gameOption.score;
+        gameOption.scoreSecs += 1; 
+        console.log("hi");
+        if (gameOption.scoreSecs > 5) {
+            gameOption.scoreSecs -=  6; 
+            gameOption.scoreMins += 1; 
+        }
+        this.scoreSecs.text = gameOption.scoreSecs;
+        this.scoreMins.text = gameOption.scoreMins;
     }
+
 } 

@@ -10,7 +10,9 @@ let gameOption = {
     jumpForce: 325,
     jumps: 2,
     finalScore: 0, 
-    score: 0,
+    scoreSecs: 0,
+    score: 0, 
+    scoreMins: 0, 
     speed: 140
 
 }
