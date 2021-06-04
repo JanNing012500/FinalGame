@@ -8,8 +8,7 @@ Creative Tilt:
 let gameOption = {
     playerGravity: 900,
     jumpForce: 325,
-    jumps: 2,
-    finalScore: 0, 
+    jumps: 2, 
     scoreSecs: 0,
     score: 0, 
     scoreMins: 0, 
