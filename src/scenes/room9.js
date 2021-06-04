@@ -22,6 +22,7 @@ class room9 extends Phaser.Scene { //template for adding springs to room
         this.LoseFx = this.sound.add('Lose', {volume : .3});
         this.backgroundMusic = this.sound.add("music9", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
+        gameOption.scoreSecs =  0;
  
         // Variable to store the arrow key pressed
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -229,18 +230,23 @@ class room9 extends Phaser.Scene { //template for adding springs to room
         this.game.sound.stopAll(); 
         this.doorsfx.play();
         if (gameOption.finalScore == 0 && gameOption.score != 0) {
-            gameOption.finalScore = gameOption.score;
-            gameOption.score = 0;
+            gameOption.highSecs = gameOption.scoreSecs;
+            gameOption.highMins = gameOption.scoreMins;
+            gameOption.finalScore = gameOption.score; 
+            gameOption.score = 0; 
         }
         else if (gameOption.finalScore != 0 && gameOption.finalScore > gameOption.score) {
             gameOption.finalScore = gameOption.score;
-            gameOption.score = 0;
+            gameOption.highSecs = gameOption.scoreSecs;
+            gameOption.highMins = gameOption.scoreMins;
+            gameOption.score = 0; 
         }
         this.scene.start('Menu'); //goes to the Menu
     }
     
     addTime() {
         gameOption.scoreSecs += 1; 
+        gameOption.score += 1; 
         if (gameOption.scoreSecs > 59) {
             gameOption.scoreSecs -=  60; 
             gameOption.scoreMins += 1; 

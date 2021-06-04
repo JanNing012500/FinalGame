@@ -9,9 +9,12 @@ let gameOption = {
     playerGravity: 900,
     jumpForce: 325,
     jumps: 2, 
-    scoreSecs: 0,
     score: 0, 
+    finalScore: 0, 
+    scoreSecs: 0,
     scoreMins: 0, 
+    highSecs: 0, 
+    highMins: 0, 
     speed: 140
 
 }

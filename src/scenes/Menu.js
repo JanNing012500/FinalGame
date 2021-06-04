@@ -76,9 +76,11 @@ class Menu extends Phaser.Scene {
 
         // If Final Score is 0 and Score isn't, change
         this.add.text(game.config.width / 2, game.config.height / 3, 'Fastest Time Complete', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width / 2, game.config.height / 2, gameOption.scoreSecs, menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width / 2, game.config.height / 2, gameOption.highSecs, menuConfig).setOrigin(0.5);
         this.add.text(game.config.width / 2 - 33, game.config.height / 2, ":", menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width / 2 - 66, game.config.height / 2, gameOption.scoreMins, menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width / 2 - 66, game.config.height / 2, gameOption.highMins, menuConfig).setOrigin(0.5);
+        console.log(gameOption.finalScore);
+        console.log(gameOption.score);
         
         
 
