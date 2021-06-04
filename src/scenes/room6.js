@@ -26,12 +26,14 @@ class room6 extends Phaser.Scene {
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
  
         // Number of consecutive jumps made
         this.playerJumps = 0;
  
         // Create the player in the scene
         this.player = this.physics.add.sprite(baseUI*2, baseUI*18, 'p1', 0).setOrigin(0,0);
+        this.player.body.setSize(25, 32);
  
         // Add gravity to make it fall
         this.player.setGravityY(gameOption.playerGravity);
@@ -77,7 +79,7 @@ class room6 extends Phaser.Scene {
             'a              xx  b', // 12
             'a    xx            b', // 13
             'a                  b', // 14
-            'a         xx       b', // 15
+            'a        xxx       b', // 15
             'a                  b', // 16
             'a                  b', // 17
             'a   x!!!!!!!!!!!!!!b', // 18
@@ -175,6 +177,13 @@ class room6 extends Phaser.Scene {
     }
  
     update() {
+        if (Phaser.Input.Keyboard.JustDown(keyESC)) {
+            this.game.sound.stopAll(); 
+            this.doorsfx.play();
+            gameOption.scoreSecs = 0;
+            gameOption.scoreMins = 0;
+            this.scene.start('Menu');
+        }
         // Left and Right Movement
         if (keyLEFT.isDown){
             this.player.anims.play('leftWalk', true);

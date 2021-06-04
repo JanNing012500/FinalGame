@@ -28,6 +28,7 @@ class room9 extends Phaser.Scene { //template for adding springs to room
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
  
         // Number of consecutive jumps made
         this.playerJumps = 0;
@@ -174,6 +175,13 @@ class room9 extends Phaser.Scene { //template for adding springs to room
     }
  
     update() {
+        if (Phaser.Input.Keyboard.JustDown(keyESC)) {
+            this.game.sound.stopAll(); 
+            this.doorsfx.play();
+            gameOption.scoreSecs = 0;
+            gameOption.scoreMins = 0;
+            this.scene.start('Menu');
+        }
         // Left and Right Movement
         if (keyLEFT.isDown){
             this.player.anims.play('leftWalk', true);
