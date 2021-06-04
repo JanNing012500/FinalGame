@@ -79,9 +79,6 @@ class Menu extends Phaser.Scene {
         this.add.text(game.config.width / 2, game.config.height / 2, gameOption.highSecs, menuConfig).setOrigin(0.5);
         this.add.text(game.config.width / 2 - 33, game.config.height / 2, ":", menuConfig).setOrigin(0.5);
         this.add.text(game.config.width / 2 - 66, game.config.height / 2, gameOption.highMins, menuConfig).setOrigin(0.5);
-        console.log(gameOption.finalScore);
-        console.log(gameOption.score);
-        
         
 
         //-----------------
@@ -125,6 +122,7 @@ class Menu extends Phaser.Scene {
         this.tent = this.physics.add.sprite(baseUI*19, baseUI*19, 'tent').setOrigin(1,1);
         this.tent.body.setSize(70, 80);
         this.door = this.physics.add.sprite(baseUI*10, baseUI*16, 'gate');
+        this.door.body.setSize(130, 160);
         this.control = this.add.sprite(baseUI*10, baseUI*10, 'control').setOrigin(0.5, 0.5);
         this.control.alpha = 0;
         this.control1 = this.add.sprite(baseUI*10, baseUI*10, 'control1').setOrigin(0.5, 0.5);
@@ -196,6 +194,43 @@ class Menu extends Phaser.Scene {
     }
         
     update() {
+        if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE))) {
+            this.game.sound.stopAll(); 
+            this.scene.start('room1');
+        }
+        if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO))) {
+            this.game.sound.stopAll(); 
+            this.scene.start('room6');
+        }
+        if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE))) {
+            this.game.sound.stopAll(); 
+            this.scene.start('room4');
+        }
+        if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR))) {
+            this.game.sound.stopAll(); 
+            this.scene.start('room3');
+        }
+        if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE))) {
+            this.game.sound.stopAll(); 
+            this.scene.start('room5');
+        }
+        if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SIX))) {
+            this.game.sound.stopAll(); 
+            this.scene.start('room7');
+        }
+        if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SEVEN))) {
+            this.game.sound.stopAll(); 
+            this.scene.start('room8');
+        }
+        if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.EIGHT))) {
+            this.game.sound.stopAll(); 
+            this.scene.start('room2');
+        }
+        if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NINE))) {
+            this.game.sound.stopAll(); 
+            this.scene.start('room9');
+        }
+
         this.press1.alpha = 0;
         this.press2.alpha = 0;
         this.press3.alpha = 0;
