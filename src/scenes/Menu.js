@@ -53,6 +53,7 @@ class Menu extends Phaser.Scene {
         //
         this.sky = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'background').setOrigin(0,0);
         this.tower = this.add.sprite(0, 0, 'tower').setOrigin(0,0);
+        console.log("new");
   
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .15}); 

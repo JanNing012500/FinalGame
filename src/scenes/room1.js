@@ -50,6 +50,8 @@ class room1 extends Phaser.Scene {
             },
             fixedWidth: 100
         }
+        gameOption.scoreSecs = 0; 
+        gameOption.scoreMins = 0; 
         this.scoreSecs = this.add.text(game.config.width - 80, game.config.height - 595, gameOption.scoreSecs, scoreConfig).setOrigin(5.5,0.5);
         this.add.text(game.config.width - 110, game.config.height - 595, ":", scoreConfig).setOrigin(5.5,0.5);
         this.scoreMins = this.add.text(game.config.width - 125, game.config.height - 595, gameOption.scoreMins, scoreConfig).setOrigin(5.5,0.5);

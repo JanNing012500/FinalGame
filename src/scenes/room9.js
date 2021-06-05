@@ -22,7 +22,6 @@ class room9 extends Phaser.Scene { //template for adding springs to room
         this.LoseFx = this.sound.add('Lose', {volume : .3});
         this.backgroundMusic = this.sound.add("music9", {volume: .4, loop: true}); 
         this.backgroundMusic.play(); 
-        gameOption.scoreSecs =  0;
  
         // Variable to store the arrow key pressed
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -68,7 +67,7 @@ class room9 extends Phaser.Scene { //template for adding springs to room
         this.level = [
             'axxxxxxxxxxxxxxxxxxb', // 0
             'a   xxxx           b', // 1 
-            'a      x   xx      b', // 2
+            'a   d  x   xx      b', // 2
             'axxxx  x    x      b', // 3
             'a     !x    xe     b', // 4
             'a  xxxxx !! xx!    b', // 5
