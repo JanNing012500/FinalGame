@@ -20,6 +20,7 @@ class Menu extends Phaser.Scene {
         this.load.image('background', './assets/Background.png');
         this.load.image('tower', './assets/Tower.png');
         this.load.image('gate', './assets/Gate.png');
+        this.load.image('title','./assets/title3.png');
         
         this.load.spritesheet('tiles', './assets/GrassGround-Sheet.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 11});
@@ -53,6 +54,7 @@ class Menu extends Phaser.Scene {
         //
         this.sky = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'background').setOrigin(0,0);
         this.tower = this.add.sprite(0, 0, 'tower').setOrigin(0,0);
+        this.Title = this.add.sprite(86,0, 'title').setOrigin(0,0);;
         console.log("new");
   
         // Load Audio 
