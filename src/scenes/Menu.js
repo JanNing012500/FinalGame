@@ -57,7 +57,7 @@ class Menu extends Phaser.Scene {
         // Load Audio 
         this.jumpsfx = this.sound.add('jump', {volume: .15}); 
         this.selectsfx = this.sound.add('select', {volume: .25}); 
-        this.backgroundMusic = this.sound.add("music10", {volume: .4, loop: true}); 
+        this.backgroundMusic = this.sound.add("music10", {volume: .34, loop: true}); 
         this.backgroundMusic.play(); 
         // Variable to store the arrow key pressed
 

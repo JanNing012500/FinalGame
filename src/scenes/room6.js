@@ -20,7 +20,7 @@ class room6 extends Phaser.Scene {
         this.jumpsfx = this.sound.add('jump', {volume: .15}); 
         this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
         this.LoseFx = this.sound.add('Lose', {volume : .3});
-        this.backgroundMusic = this.sound.add("music6", {volume: .4, loop: true}); 
+        this.backgroundMusic = this.sound.add("music6", {volume: .50, loop: true}); 
         this.backgroundMusic.play(); 
 
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
