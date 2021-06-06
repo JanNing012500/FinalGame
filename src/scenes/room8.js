@@ -245,13 +245,22 @@ class room8 extends Phaser.Scene { //template for adding springs to room
     addTime() {
         gameOption.scoreSecs += 1; 
         gameOption.score += 1; 
-        if (gameOption.scoreSecs > 59) {
+        if (gameOption.scoreSecs < 10) {
+            this.scoreSecs.text = "0" + gameOption.scoreSecs;
+            this.scoreMins.text = gameOption.scoreMins;
+        }
+        else if (gameOption.scoreSecs > 59) {
             gameOption.scoreSecs -=  60; 
             gameOption.scoreMins += 1; 
+            this.scoreSecs.text = gameOption.scoreSecs;
+            this.scoreMins.text = gameOption.scoreMins;
         }
-        this.scoreSecs.text = gameOption.scoreSecs;
-        this.scoreMins.text = gameOption.scoreMins;
+        else {
+            this.scoreSecs.text = gameOption.scoreSecs;
+            this.scoreMins.text = gameOption.scoreMins;
+        }
     }
+
 } 
  
  
