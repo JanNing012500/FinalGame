@@ -21,7 +21,7 @@ class Menu extends Phaser.Scene {
         this.load.image('tower', './assets/Tower.png');
         this.load.image('gate', './assets/Gate.png');
         this.load.image('title','./assets/title3.png');
-        this.load.image('fastesttime','./assets/Fastest.png');
+        this.load.image('fastesttime','./assets/Fastest5.png');
 
         this.load.spritesheet('tiles', './assets/GrassGround-Sheet.png', 
             {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 11});
@@ -82,7 +82,7 @@ class Menu extends Phaser.Scene {
         //this.add.text(game.config.width / 2, game.config.height / 3, 'Fastest Time Complete', menuConfig).setOrigin(0.5);
         
         
-        this.fastest = this.add.sprite(86,200, 'fastesttime').setOrigin(0,0);;
+        this.fastest = this.add.sprite(82,220, 'fastesttime').setOrigin(0,0);;
 
 
         this.add.text(game.config.width / 2, game.config.height / 2, gameOption.highSecs, menuConfig).setOrigin(0.5);
