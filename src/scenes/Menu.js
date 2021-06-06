@@ -15,7 +15,7 @@ class Menu extends Phaser.Scene {
         pause = true;
         this.load.image('sign', './assets/WoodenSign.png');
         this.load.image('tent', './assets/Tent.png');
-        this.load.image('control', './assets/ControlWindow.png');
+        this.load.image('control', './assets/ControlWindowDebug.png');
         this.load.image('control1', './assets/creditpicture.png');
         this.load.image('background', './assets/Background.png');
         this.load.image('tower', './assets/Tower.png');
@@ -138,6 +138,8 @@ class Menu extends Phaser.Scene {
         this.control.alpha = 0;
         this.control1 = this.add.sprite(baseUI*10, baseUI*10, 'control1').setOrigin(0.5, 0.5);
         this.control1.alpha = 0;
+        //tent credits 
+        this.tentTxt = this.add.sprite(313,487, 'tenttext').setOrigin(0,0);
 
         // Animation config
         // Left Idle
@@ -204,8 +206,7 @@ class Menu extends Phaser.Scene {
         this.press2 = this.add.sprite(baseUI*7.5, baseUI*15.5, 'pressSpace', 0).setOrigin(0,0);
 
 
-        //tent credits 
-        this.tentTxt = this.add.sprite(313,487, 'tenttext').setOrigin(0,0);
+        
     }
         
     update() {
