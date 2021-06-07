@@ -1,8 +1,8 @@
 /*
 Team Member: Neo Zhang, Sam Luyen, Jan Ning
-Title: 
-Completion Data: 
-Creative Tilt:
+Title: Tower Ascenscion  
+Completion Date: 6/6/2021
+Creative Tilt: Speedrunning Platformer with levels getting more difficult as time goes on
 
 */
 let gameOption = {
@@ -27,7 +27,7 @@ var config = {
     scene: [ Menu, room1, room2, room3, room4, room5, room6, room7,room8, room9],
     physics: {
         default: 'arcade',
-        arcade: {debug:1} // change false to make the pink lines go away
+        arcade: {debug:0} // change false to make the pink lines go away
     }
 };
 let game = new Phaser.Game(config);
