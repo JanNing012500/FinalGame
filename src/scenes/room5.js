@@ -21,7 +21,7 @@ class room5 extends Phaser.Scene {
             }
         }
         // Load Audio 
-        this.springsfx = this.sound.add('bounce',{volume: .25});
+        this.springsfx = this.sound.add('bounce',{volume: .20});
         this.jumpsfx = this.sound.add('jump', {volume: .2}); 
         this.doorsfx = this.sound.add('nextlvlsfx', {volume : .2});
         this.backgroundMusic = this.sound.add("music5", {volume: .4, loop: true}); 
