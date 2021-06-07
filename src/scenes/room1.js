@@ -244,7 +244,7 @@ class room1 extends Phaser.Scene {
     addTime() {
         gameOption.scoreSecs += 1; 
         gameOption.score += 1; 
-        if (gameOption.scoreSecs < 10) {
+        if (gameOption.scoreSecs < 10 || gameOption.scoreSecs == 0) {
             this.scoreSecs.text = "0" + gameOption.scoreSecs;
             this.scoreMins.text = gameOption.scoreMins;
         }

@@ -86,10 +86,14 @@ class Menu extends Phaser.Scene {
         
         this.fastest = this.add.sprite(82,220, 'fastesttime').setOrigin(0,0);;
 
-
-        this.add.text(game.config.width / 2, game.config.height / 2, gameOption.highSecs, menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width / 2 - 33, game.config.height / 2, ":", menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width / 2 - 66, game.config.height / 2, gameOption.highMins, menuConfig).setOrigin(0.5);
+        if (gameOption.highSecs < 10) {
+            this.add.text(game.config.width / 2, game.config.height / 2, "0" + gameOption.highSecs, menuConfig).setOrigin(0.5);
+        }
+        else {
+            this.add.text(game.config.width / 2, game.config.height / 2, gameOption.highSecs, menuConfig).setOrigin(0.5);
+        }
+        this.add.text(game.config.width / 2 - 30, game.config.height / 2, ":", menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width / 2 - 47, game.config.height / 2, gameOption.highMins, menuConfig).setOrigin(0.5);
         
 
         //-----------------
